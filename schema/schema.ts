@@ -4,6 +4,10 @@ import { Stage } from "./stages";
 import { Template } from "./template";
 
 export interface Schema {
+    /**
+     * Version defines the schema version.
+     */
+    version?: string | number;
 
     /**
      * Pipeline defines the pipeline configuration.
