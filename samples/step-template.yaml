@@ -12,6 +12,20 @@ pipeline:
 
 ---
 
+# step template, with version
+
+pipeline:
+  stages:
+  - steps:
+    - template:
+        uses: account.docker@1.0.0
+        with:
+          push: true
+          tags: latest
+          repo: harness/hello-world
+
+---
+
 # sample github yaml, extended to support
 # harness templates.
 
