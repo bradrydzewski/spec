@@ -1,0 +1,27 @@
+# config route rules
+
+- action:
+    uses: k8s-traffic-shift-route-rules-config
+    with:
+      route: route1Name
+      rules: 
+        - uri: /start
+          match-type: exact
+        - method: GET
+        - headers:
+            - value: sometoken
+              key: X-Request
+              match-type: exact
+            - value: application/json
+              key: Content-Type
+
+# inherit/update route destinations
+- action:
+    uses: k8s-traffic-shift-route-update
+    with:
+      route: route1Name
+      destinations:
+        - host: stable-svc
+          weight: 20
+        - host: stage-svc
+          weight: 80
