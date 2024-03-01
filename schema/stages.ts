@@ -98,7 +98,7 @@ export interface Stage {
      */
     if?: string;
 
-    "failure-strategy"?: FailureStrategy;
+    "on-failure"?: FailureStrategy;
 
     volumes?: Volume[];
 
@@ -114,7 +114,6 @@ export interface Stage {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     "runs-on"?: string;
 
@@ -125,7 +124,6 @@ export interface Stage {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     services?: Record<string, Container>;
 }

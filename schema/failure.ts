@@ -53,22 +53,22 @@ export interface ActionManual {
 }
 
 // Exmaple 1
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action: abort
 
 // Exmaple 2
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action: fail
 
 // Exmaple 3
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action: ignore
 
 // Exmaple 4
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action:
 //       manual-intervention:
@@ -76,7 +76,7 @@ export interface ActionManual {
 //         timeout-action: fail
 
 // Exmaple 5
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action:
 //       manual-intervention:
@@ -87,12 +87,12 @@ export interface ActionManual {
 //             failure-action: ignore
 
 // Exmaple 6
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action: retry
 
 // Exmaple 7
-//   failure-strategy:
+//   on-failure:
 //     errors: [ any ]
 //     action:
 //       retry

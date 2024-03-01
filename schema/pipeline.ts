@@ -83,25 +83,21 @@ export interface Pipeline {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     jobs?: Record<string, Stage>;
     
     /**
      * @github
-     * @deprecated
      */
     default?: any;
 
     /**
      * @github
-     * @deprecated
      */
     concurrency?: any;
 
     /**
      * @github
-     * @deprecated
      */
     permissions?: any;
 }

@@ -7,7 +7,7 @@ pipeline:
     - run:
         script: go test
         container: golang
-    failure-strategy:
+    on-failure:
       errors: all
       action: abort
 
@@ -22,7 +22,7 @@ pipeline:
     - run:
         script: go test
         container: golang
-      failure-strategy:
+      on-failure:
         errors: all
         action: abort
 
@@ -37,6 +37,6 @@ pipeline:
     - run:
         script: go test
         container: golang
-      failure-strategy:
+      on-failure:
         errors: [ unknown, connectivity ]
         action: abort
