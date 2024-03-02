@@ -1,0 +1,85 @@
+# example pipeline that uses the "http" action
+
+pipeline:
+  stages:
+  - steps:
+    - action:
+        uses: http
+        with:
+          method: GET
+          endpoint: https://acme.com
+
+---
+
+# example of "http" action definition where the action
+# is a simple "run" step.
+
+action:
+  inputs:
+    method:
+      type: string
+      enum:
+        - GET
+        - HEAD
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+      default: POST
+  step:
+    run: curl -X ${{ inputs.method }} ${{ inputs.endpoint }}
+
+---
+
+# example of "http" action definition where the action
+# is a container step.
+
+action:
+  inputs:
+    method:
+      type: string
+      enum:
+        - GET
+        - HEAD
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+      default: POST
+  step:
+    run: 
+      container: plugins/http
+      env:
+        PLUGIN_METHOD: ${{ inputs.method }}
+        PLUGIN_ENDPOINT: ${{ inputs.endpoint }}
+
+---
+
+# example of "http" action definition that supports
+# container-based execution as well as host execution (mac, windows)
+
+action:
+  inputs:
+    method:
+      type: string
+      enum:
+        - GET
+        - HEAD
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+      default: POST
+  step:
+    group:
+      steps:
+      - if: runtime.container == true
+        run: 
+          container: plugins/http
+          env:
+            PLUGIN_METHOD: ${{ inputs.method }}
+            PLUGIN_ENDPOINT: ${{ inputs.endpoint }}
+      - if: runtime.container == false
+        group: 
+          steps:
+          - run: curl -X ${{ inputs.method }} ${{ inputs.endpoint }}

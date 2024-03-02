@@ -4,27 +4,26 @@ pipeline:
   stages:
   - steps:
     - action:
-        uses: harness/jira-create
+        uses: jira-create
         with: 
           connector: harness-jira #connector identifier
-          jira-project: cds #Jira project ID
-          issue-type: enhancement # issue type
-          jira-fields:
-            name: "labels" # JIRA Label
+          project: cds #Jira project ID
+          type: enhancement # issue type
+          fields:
+          - name: "labels" # JIRA Label
             value: "adoption_blocker" # Value for label
-
-         
+    
 
 ## JIRA Update
 
   - steps:
     - action:
-        uses: harness/jira-update
+        uses: jira-update
         with: 
           connector: harness-jira #connector identifier
-          issue-type: enhancement # issue type
-          jira-status: "In Progress" # Issue Status
+          type: enhancement # issue type
+          status: "In Progress" # Issue Status
           status-transition: "Invalid" 
-          jira-fields:
-            name: "labels" # JIRA Label
+          fields:
+          - name: "labels" # JIRA Label
             value: "adoption_blocker" # Value for label

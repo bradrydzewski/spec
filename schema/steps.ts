@@ -91,11 +91,10 @@ export interface StepLong {
      */
     strategy?: Strategy;
 
-
     /**
      * FailureStrategy defines error handling.
      */
-    "failure-strategy"?: FailureStrategy;
+    "on-failure"?: FailureStrategy;
 
     //
     // GitHub-Specific
@@ -108,7 +107,6 @@ export interface StepLong {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     env?: Record<string, string>;
 
@@ -119,7 +117,6 @@ export interface StepLong {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     uses?: string;
 
@@ -130,9 +127,19 @@ export interface StepLong {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     with?: Record<string, any>;
+
+    /**
+     * Needs defines steps that must be completed before this
+     * step can run.
+     * 
+     * This property is available solely for the purpose of
+     * backward compatibility with GitHub Actions.
+     * 
+     * @github
+     */
+    needs?: string | string[];
 }
 
 //

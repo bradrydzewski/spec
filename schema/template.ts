@@ -4,6 +4,6 @@ import {Step} from "./steps";
 
 export interface Template {
     inputs?: Record<string, Input>
-    stage: Stage;
-    step: Step;
+    stage?: Stage;
+    step?: Step;
 }

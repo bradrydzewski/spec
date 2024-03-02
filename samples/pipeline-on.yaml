@@ -18,6 +18,7 @@ pipeline:
   - steps:
     - run:
         script: go build
+
 ---
 # sample pipeline for push and pull request,
 # limited by branch

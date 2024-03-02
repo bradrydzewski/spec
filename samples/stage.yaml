@@ -60,7 +60,7 @@ pipeline:
   - steps:
     - run:
         script: go build
-    failure-strategy:
+    on-failure:
       errors: all
       action: ignore
 

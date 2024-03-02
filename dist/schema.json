@@ -262,7 +262,6 @@
         },
         "credentials": {
           "$ref": "#/definitions/Credentials",
-          "deprecated": true,
           "description": "Credentials provides the registry authentication credentials."
         },
         "dns": {
@@ -295,7 +294,6 @@
           "additionalProperties": {
             "type": "string"
           },
-          "deprecated": true,
           "description": "Env provides the container environment variables.",
           "type": "object"
         },
@@ -444,17 +442,6 @@
         }
       },
       "type": "object"
-    },
-    "infrastructure": {
-      "additionalProperties": false,
-      "name": {
-        "description": "Name provided for the infrastructure.",
-        "type": "string"
-      },
-        "dynamic-provisioned": {
-          "description": "Dynamic provisioned infrastrcuture.",
-          "type": "boolean"
-        }
     },
     "EnvironmentLong": {
       "additionalProperties": false,
@@ -697,11 +684,11 @@
           "type": "array"
         },
         "mask": {
+          "deprecated": true,
           "description": "Mask indicates the input should be masked.",
           "type": "boolean"
         },
         "options": {
-          "deprecated": true,
           "description": "Options defines a list of accepted input values. This is an alias for enum.",
           "items": {},
           "type": "array"
@@ -717,8 +704,10 @@
             "number",
             "boolean",
             "array",
+            "duration",
             "choice",
-            "environment"
+            "environment",
+            "secret"
           ],
           "type": "string"
         }
@@ -853,12 +842,8 @@
           "$ref": "#/definitions/Clone",
           "description": "Clone overrides the default clone behavior."
         },
-        "concurrency": {
-          "deprecated": true
-        },
-        "default": {
-          "deprecated": true
-        },
+        "concurrency": {},
+        "default": {},
         "env": {
           "additionalProperties": {
             "type": "string"
@@ -889,7 +874,6 @@
           "additionalProperties": {
             "$ref": "#/definitions/Stage"
           },
-          "deprecated": true,
           "description": "Jobs defines jobs (stages) in the pipeline.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
@@ -902,9 +886,7 @@
           "$ref": "#/definitions/On",
           "description": "On provides condition pipeline execution logic based on trigger event and action mapping. If the conditional logic resolves to folse, the pipeline is skipped."
         },
-        "permissions": {
-          "deprecated": true
-        },
+        "permissions": {},
         "repo": {
           "$ref": "#/definitions/Repository",
           "description": "Repo overrides the default repository."
@@ -1255,15 +1237,19 @@
     "Schema": {
       "additionalProperties": false,
       "properties": {
+        "action": {
+          "$ref": "#/definitions/Template",
+          "description": "Action defines re-usable pipeline steps and stages."
+        },
         "defaults": {
-          "description": "Defaults provides default settings that apply to all jobs in the workflow.",
+          "description": "Defaults provides default settings that apply to all jobs in the workflow.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
         "env": {
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Envs defines environment variables that are available to all steps in the workflow.",
+          "description": "Envs defines environment variables that are available to all steps in the workflow.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
         "inputset": {
@@ -1273,16 +1259,16 @@
           "additionalProperties": {
             "$ref": "#/definitions/Stage"
           },
-          "description": "Jobs defines the parallel workflow jobs.",
+          "description": "Jobs defines the parallel workflow jobs.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
         "name": {
-          "description": "Name defines the pipeline name.",
+          "description": "Name defines the pipeline name.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "string"
         },
         "on": {
           "$ref": "#/definitions/On",
-          "description": "On defines the workflow triggers."
+          "description": "On defines the workflow triggers.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions."
         },
         "pipeline": {
           "$ref": "#/definitions/Pipeline",
@@ -1290,7 +1276,14 @@
         },
         "template": {
           "$ref": "#/definitions/Template",
-          "description": "Template defines re-usable resources."
+          "description": "Template defines re-usable pipeline steps and stages."
+        },
+        "version": {
+          "description": "Version defines the schema version.",
+          "type": [
+            "string",
+            "number"
+          ]
         }
       },
       "type": "object"
@@ -1326,6 +1319,10 @@
     "Stage": {
       "additionalProperties": false,
       "properties": {
+        "approval": {
+          "$ref": "#/definitions/StageApproval",
+          "description": "Approval defines an approval stage."
+        },
         "cache": {
           "$ref": "#/definitions/Cache",
           "description": "Cache defines the cache configuration."
@@ -1342,12 +1339,9 @@
           "$ref": "#/definitions/Environment",
           "description": "Environment defines the deployment environment (production, staging)."
         },
-        "failure-strategy": {
-          "$ref": "#/definitions/FailureStrategy"
-        },
         "group": {
           "$ref": "#/definitions/StageGroup",
-          "description": "Group defines a group of steps."
+          "description": "Group defines a group of stages."
         },
         "id": {
           "description": "Id defines the pipeline id.",
@@ -1361,16 +1355,18 @@
           "description": "Name defines the pipeline name.",
           "type": "string"
         },
+        "on-failure": {
+          "$ref": "#/definitions/FailureStrategy"
+        },
         "parallel": {
           "$ref": "#/definitions/StageGroup",
-          "description": "Parallel defines a parallel of stages."
+          "description": "Parallel defines a set of parallel stages."
         },
         "platform": {
           "$ref": "#/definitions/Platform",
           "description": "Platform defines the target platform."
         },
         "runs-on": {
-          "deprecated": true,
           "description": "RunsOn defines the type of machine to run the job.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "string"
         },
@@ -1386,7 +1382,6 @@
           "additionalProperties": {
             "$ref": "#/definitions/Container"
           },
-          "deprecated": true,
           "description": "Services defines background service containers.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
@@ -1410,6 +1405,22 @@
             "$ref": "#/definitions/Volume"
           },
           "type": "array"
+        },
+        "workspace": {
+          "$ref": "#/definitions/Workspace",
+          "description": "Workspace configures the local workspace directory."
+        }
+      },
+      "type": "object"
+    },
+    "StageApproval": {
+      "additionalProperties": false,
+      "properties": {
+        "uses": {
+          "type": "string"
+        },
+        "with": {
+          "type": "object"
         }
       },
       "type": "object"
@@ -1569,13 +1580,8 @@
           "additionalProperties": {
             "type": "string"
           },
-          "deprecated": true,
           "description": "Env defines the environment of the step.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
-        },
-        "failure-strategy": {
-          "$ref": "#/definitions/FailureStrategy",
-          "description": "FailureStrategy defines error handling."
         },
         "group": {
           "$ref": "#/definitions/StepGroup",
@@ -1592,6 +1598,24 @@
         "name": {
           "description": "Name defines the step name.",
           "type": "string"
+        },
+        "needs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Needs defines steps that must be completed before this step can run.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions."
+        },
+        "on-failure": {
+          "$ref": "#/definitions/FailureStrategy",
+          "description": "FailureStrategy defines error handling."
         },
         "parallel": {
           "$ref": "#/definitions/StepGroup",
@@ -1632,12 +1656,10 @@
           ]
         },
         "uses": {
-          "deprecated": true,
           "description": "Uses defines the github action.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "string"
         },
         "with": {
-          "deprecated": true,
           "description": "Uses defines the github action configuration parameters.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         }
@@ -1860,10 +1882,6 @@
           "$ref": "#/definitions/Step"
         }
       },
-      "required": [
-        "stage",
-        "step"
-      ],
       "type": "object"
     },
     "TestIntelligence": {
@@ -1985,6 +2003,28 @@
         "iterations": {
           "description": "Iterations defines maximum number of interations.",
           "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "Workspace": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/WorkspaceLong"
+        }
+      ]
+    },
+    "WorkspaceLong": {
+      "additionalProperties": false,
+      "properties": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
         }
       },
       "type": "object"

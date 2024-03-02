@@ -1,4 +1,4 @@
-# kubernetes Canary Deployment pipeline
+# kubernetes rolling pipeline
 
 pipeline:
   inputs:
@@ -16,21 +16,14 @@ pipeline:
     # apply manifest templates.
     - action:
         uses: manifest-bake
-    # execute a kubernetes canary deployment
+    # execute a kubernetes apply dry run.
     - action:
-        uses: kubernetes-canary-deploy
+        uses: kubernetes-rolling-deploy
         with:
-          count-type: instances | percentage
-          weight: 5 | 10% 
-          dry-run: false
-   # executes a canary delete 
-    - action:
-        uses: kubernetes-canary-delete
-        with:
-          dry-run: false
+          dry-run: true
     # approve deployment.
     - approval:
-        uses: harness-ui
+        uses: harness
         with:
           timeout: 30m
           message: "this is an approval prompt"

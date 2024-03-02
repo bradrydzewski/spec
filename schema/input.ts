@@ -8,8 +8,10 @@ export interface Input {
       | "number" 
       | "boolean" 
       | "array" 
+      | "duration"
       | "choice"      // GitHub compatibility
       | "environment" // GitHub compatibility
+      | "secret"
 
     /**
      * Description defines the input description.
@@ -40,12 +42,12 @@ export interface Input {
      * Options defines a list of accepted input values.
      * This is an alias for enum.
      * @github
-     * @deprecated
      */
     options?: any[]
 
     /**
      * Mask indicates the input should be masked.
+     * @deprecated
      */
     mask?: boolean
 }

@@ -9,6 +9,7 @@ import { Service } from "./service";
 import { Step } from "./steps";
 import { Strategy } from "./strategy";
 import { Volume } from "./volumes";
+import { Workspace } from "./workspace";
 
 export interface Stage {
     /**
@@ -52,6 +53,11 @@ export interface Stage {
     platform?: Platform;
 
     /**
+     * Workspace configures the local workspace directory.
+     */
+    workspace?: Workspace;
+
+    /**
      * Cache defines the cache configuration.
      */
     cache?: Cache;
@@ -63,12 +69,17 @@ export interface Stage {
     delegate?: string;
 
     /**
-     * Group defines a group of steps.
+     * Approval defines an approval stage.
+     */
+    approval?: StageApproval;
+
+    /**
+     * Group defines a group of stages.
      */
     group?: StageGroup
 
     /**
-     * Parallel defines a parallel of stages.
+     * Parallel defines a set of parallel stages.
      */
     parallel?: StageGroup
 
@@ -87,7 +98,7 @@ export interface Stage {
      */
     if?: string;
 
-    "failure-strategy"?: FailureStrategy;
+    "on-failure"?: FailureStrategy;
 
     volumes?: Volume[];
 
@@ -103,7 +114,6 @@ export interface Stage {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     "runs-on"?: string;
 
@@ -114,7 +124,6 @@ export interface Stage {
      * backward compatibility with GitHub Actions.
      * 
      * @github
-     * @deprecated
      */
     services?: Record<string, Container>;
 }
@@ -132,6 +141,11 @@ export interface StageGroup {
      * Stages defines a list of stages.
      */
     stages?: Stage[];
+}
+
+export interface StageApproval {
+    uses?: string;
+    with?: Record<string, any>;
 }
 
 export interface StageTemplate {

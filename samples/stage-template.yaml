@@ -9,3 +9,16 @@ pipeline:
         goos: linux
         goarch: amd64
         cgo-enabled: true
+
+---
+# stage template, with template version
+
+pipeline:
+  stages:
+  - template:
+      uses: account.golang@1.0.0
+      with:
+        version: "1.19"
+        goos: linux
+        goarch: amd64
+        cgo-enabled: true

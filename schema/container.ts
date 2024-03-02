@@ -22,7 +22,6 @@ export interface ContainerLong {
      * Credentials provides the registry authentication
      * credentials.
      * @github
-     * @deprecated
      */
     credentials?: Credentials;
 
@@ -37,7 +36,6 @@ export interface ContainerLong {
     /**
      * Env provides the container environment variables.
      * @github
-     * @deprecated
      */
     env?: Record<string, string>;
 

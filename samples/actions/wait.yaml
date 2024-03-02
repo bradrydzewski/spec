@@ -1,0 +1,22 @@
+# example pipeline that uses the "wait" action
+
+pipeline:
+  stages:
+  - steps:
+    - action:
+        uses: wait
+        with:
+          duration: 10m
+
+---
+
+# example of "wait" action definition
+# TODO should "wait" be a primitive type?
+
+action:
+  inputs:
+    duration:
+      type: duration
+      default: 30s
+  step:
+    run: sleep ${{ inputs.duration }}

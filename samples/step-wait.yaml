@@ -1,8 +1,0 @@
-pipeline:
-  stages:
-  - steps:
-    - action:
-        uses: harness/wait
-        with:
-          duration: 10m
-          

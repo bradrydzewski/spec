@@ -4,23 +4,23 @@ pipeline:
   stages:
   - steps:
     - action:
-        uses: harness/snow-create
+        uses: snow-create
         with: 
           connector: harness-snow #connector identifier
-          snow-ticket-type: "asset type" # Service Now Ticket Type
+          ticket-type: "asset type" # Service Now Ticket Type
           type: inline | template
           description: enhancement
           short-description: # issue type
-          snow-fields:
-            name: "labels" # service field
+          fields:
+          - name: "labels" # service field
             value: "adoption_blocker" # Value for label
 
          
     - action:
-        uses: harness/snow-create
+        uses: snow-create
         with: 
           connector: harness-snow #connector identifier
-          snow-ticket-type: "asset type" # Service Now Ticket Type
+          ticket-type: "asset type" # Service Now Ticket Type
           description: enhancement
           type: template
           template: "template name" # Create from ServiceNow Template, provide id
@@ -28,26 +28,26 @@ pipeline:
 ## ServiceNow Update
 
     - action:
-        uses: harness/snow-update
+        uses: snow-update
         with: 
           connector: harness-snow #connector identifier
-          snow-ticket-type: enhancement # issue type
+          ticket-type: enhancement # issue type
           snow-ticket-number: 1023
           type: inline | template
           description: "In Progress" # Issue Status
           short-description: "short description field" 
-          snow-fields:
-            name: "labels" # Label
+          fields:
+          - name: "labels" # Label
             value: "adoption_blocker" # Value for label
 
     - action:
-        uses: harness/snow-update
+        uses: snow-update
         with: 
           connector: harness-snow #connector identifier
-          snow-ticket-type: enhancement # issue type
+          ticket-type: enhancement # issue type
           snow-ticket-number: 1023
           type: template
           template: "template name"
-          snow-fields:
-            name: "labels" # Label
+          fields:
+          - name: "labels" # Label
             value: "adoption_blocker" # Value for label
