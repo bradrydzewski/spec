@@ -1,0 +1,55 @@
+## Kubernetes Blue Green Deployment
+
+- action:
+    uses: kubernetes-bluegreen-deploy
+    with:
+      strategy: blue-green
+      skip-versioning: false                    # (optional - default is false)
+      args:                            # (optional)
+        - apply: --output=yaml
+      pruning: true                             # (optional - default is false)
+      use-declarative-rollback: true            # (optional - default is false)
+      unchanged-manifest-skip: true             # (optional - default is false)
+
+
+     
+## Kubernetes Blue Green Deployment with SMI
+
+- action:
+    uses: kubernetes-bluegreen-deploy
+    with:
+      strategy: blue-green
+      skip-versioning: false                    # (optional - default is false)
+      command-flags:                            # (optional)
+        - apply: --output=yaml
+      pruning: true                             # (optional - default is false)
+      use-declarative-rollback: true            # (optional - default is false)
+      unchanged-manifest-skip: true             # (optional - default is false)
+      provider: smi                             # (optional - if not defined other traffic shifint param will not be take into consideration)
+      resource: traffic-split-test
+      root-service: stable-svc
+      route: route1Name
+      route-type: http
+      stable-dest-weight: 80
+      stage-dest-weight: 20
+
+
+## Kubernetes Blue Green Deployment with Istio
+
+- action:
+    uses: kubernetes-bluegreen-deploy
+    with:
+      strategy: blue-green
+      skip-versioning: true                #(optional - default is false)
+      command-flags:                       # (optional)
+        - apply: --output=yaml
+      pruning: false                       # (optional - default is false)
+      use-declarative-rollback: true       # (optional - default is false)
+      unchanged-manifest-skip: true        # (optional - default is false)
+      provider: istio                     #  (optional - if not defined other traffic shifint param will not be take into consideration)
+      resource: virtual-service-test
+      root-service: stable-svc
+      route: route1Name
+      route-type: http
+      stable-dest-weight: 80
+      stage-dest-weight: 20

@@ -3,7 +3,7 @@
         uses: kubernetes-delete
         with:
           release: release-name
-            namespace: true
+          namespace: true
 
 # kubernetes delete / cleanup - resource names
     - action: 

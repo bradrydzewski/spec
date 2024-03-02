@@ -2,7 +2,7 @@
       - action:
           uses: harness-shell-script
           with:
-            shell: bash
+            shell: bash | powershell 
             location: inline 
             script: $HELLO="hello world"
             inputs: 
@@ -10,7 +10,7 @@
               command: "kubecl create"
             outputs:
               hello: $HELLO
-            execute-on-host: false
+
 
 
 ## Inline Script on Target Host
@@ -25,10 +25,9 @@
               command: "kubecl create"
             outputs:
               hello: $HELLO
-            execute-on-host: true
-              target-host-ip: 10.244.221
-              workdir: "/tmp/"
-              ssh-key: <+account.connector.ssh>
+            remote-address: 10.244.221
+            workdir: "/tmp/"
+            ssh-key: <+account.connector.ssh>
             
 
 ## Remote Shell Script on Target Host
@@ -36,17 +35,16 @@
           uses: harness-shell-script
           with:
             shell: bash
-            location: filestore
+            location: filestore | repo 
             script: ./temp/scripts/kubejob.sh
             inputs: 
               namespace: dev
               command: "kubecl create"
             outputs:
               hello: $HELLO
-            execute-on-host: true
-              target-host-ip: 10.244.221
-              workdir: "/tmp/"
-              ssh-key: <+account.connector.ssh>
+            remote-address: 10.244.221
+            workdir: "/tmp/"
+            ssh-key: <+account.connector.ssh>
 
 ## Remote Shell Script on runner
       - action:
@@ -60,4 +58,3 @@
               command: "kubecl create"
             outputs:
               hello: $HELLO
-            execute-on-host: false

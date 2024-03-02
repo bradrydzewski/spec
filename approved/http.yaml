@@ -7,7 +7,7 @@
       proxy: "http://proxy:proxy-port"
       insecure: true
       timeout: 10m
-      headers:
+      headers: 
         x-api-key: <+secret.getValue("api_key")>
         content-type: "application/json"
       assertion: "expression"
@@ -18,13 +18,18 @@
           namespace: "test"
           existingInstallation: true
         type: "MANAGED_ARGO_PROVIDER"
-      client-cert: |
-        ----------BEGIN....
-        ------END------
-      client-key: |
-        -----------BEGIN
-        ------END----
+      cert:
+      ca: |
+            ----------BEGIN....
+            ------END------
+      key: |
+            -----------BEGIN
+            ------END----
+      cert-file: ./temp/somesert.ca 
+      key-file: ./temp/somesert.ca 
+      ca-file: ./temp/somesert.ca 
       inputs:
         namespace: <+input>
       outputs:
         pod: name
+

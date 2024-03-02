@@ -1,0 +1,52 @@
+# execute a kubernetes canary deployment
+- action:
+    uses: kubernetes-canary-deploy
+    with:
+      skip-versioning: false             # (optional - default is false)
+      args:                     # (optional)
+        - apply: --output=yaml
+      instances: 10
+      instances-unit-type: count
+
+# executes a canary delete 
+- action:
+    uses: kubernetes-canary-delete
+    with:
+      dry-run: false
+
+# executes canary deploy with SMI
+- action:
+    uses: kubernetes-canary-deploy
+    with:
+      skip-versioning: true               # (optional - default is false)
+      args:                      # (optional)
+        - apply: --output=yaml
+      instances: 10
+      instances-unit-type: count
+      provider: smi                       #  (optional - if not defined other traffic shifint param will not be take into consideration)
+      resource: traffic-split-test
+      root-service: stable-svc
+      route: route1Name
+      route-type: http
+      stable-dest-weight: 80
+      canary-dest-weight: 20
+
+# executes canary deploy with istio
+- action:
+    uses: kubernetes-canary-deploy
+    with:
+      skip-versioning: true               # (optional - default is false)
+      command-flags:                       # (optional)
+      instances: 10
+      instances-unit-type: count
+      provider: istio                         #  (optional - if not defined other traffic shifint param will not be take into consideration)
+      resource: virtual-service-test
+      hosts:
+        - host.com
+        - host2.com
+      gateways:
+        - gateway1
+      route: route1Name
+      route-type: http
+      stable-dest-weight: 80
+      canary-dest-weight: 20
