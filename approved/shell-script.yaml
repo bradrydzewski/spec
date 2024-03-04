@@ -1,0 +1,60 @@
+## Inline Script on Runner
+      - action:
+          uses: harness-shell-script
+          with:
+            shell: bash | powershell 
+            location: inline 
+            script: $HELLO="hello world"
+            inputs: 
+              namespace: dev
+              command: "kubecl create"
+            outputs:
+              hello: $HELLO
+
+
+
+## Inline Script on Target Host
+      - action:
+          uses: harness-shell-script
+          with:
+            shell: bash
+            location: inline 
+            script: $HELLO="hello world"
+            inputs: 
+              namespace: dev
+              command: "kubecl create"
+            outputs:
+              hello: $HELLO
+            remote-address: 10.244.221
+            workdir: "/tmp/"
+            ssh-key: <+account.connector.ssh>
+            
+
+## Remote Shell Script on Target Host
+      - action:
+          uses: harness-shell-script
+          with:
+            shell: bash
+            location: filestore | repo 
+            script: ./temp/scripts/kubejob.sh
+            inputs: 
+              namespace: dev
+              command: "kubecl create"
+            outputs:
+              hello: $HELLO
+            remote-address: 10.244.221
+            workdir: "/tmp/"
+            ssh-key: <+account.connector.ssh>
+
+## Remote Shell Script on runner
+      - action:
+          uses: harness-shell-script
+          with:
+            shell: bash
+            location: filestore
+            script: ./temp/scripts/kubejob.sh
+            inputs: 
+              namespace: dev
+              command: "kubecl create"
+            outputs:
+              hello: $HELLO

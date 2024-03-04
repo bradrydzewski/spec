@@ -1,0 +1,27 @@
+# kubernetes delete / cleanup - release name
+    - action:
+        uses: kubernetes-delete
+        with:
+          release: release-name
+          namespace: true
+
+# kubernetes delete / cleanup - resource names
+    - action: 
+        uses: kubernetes-delete
+        with:
+          resource: 
+            - <+infra.namespace>/Deployment/tr-canary-app
+            - <+infra.namespace>/Deployment/tr-canary-app-traffic-generator
+            - <+infra.namespace>/Service/tr-canary-app-svc
+            - <+infra.namespace>/Service/tr-canary-app-svc-root
+
+# kubernetes delete / cleanup - manifest path
+    - action: 
+        uses: kubernetes-delete
+        with:
+          manifest: 
+            - <+infra.namespace>/Deployment/tr-canary-app.yaml
+            - <+infra.namespace>/Deployment/tr-canary-app-traffic-generator.yaml
+            - <+infra.namespace>/Service/tr-canary-app-svc.yaml
+            - <+infra.namespace>/Service/tr-canary-app-svc-root.yaml
+  

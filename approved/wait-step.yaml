@@ -1,0 +1,7 @@
+pipeline:
+  stages:
+  - steps:
+    - action:
+        uses: wait
+        with:
+          duration: 10m

@@ -1,0 +1,35 @@
+- action:
+    uses: harness/http-arm
+    with:
+      url: https://webhook.site/2561218a-36d4-4b9c-83b0-bb89fb64ebc8
+      method: POST
+      log-level: debug
+      proxy: "http://proxy:proxy-port"
+      insecure: true
+      timeout: 10m
+      headers: 
+        x-api-key: <+secret.getValue("api_key")>
+        content-type: "application/json"
+      assertion: "expression"
+      body: |
+        identifier: "test"
+        name: "test"
+        metadata:
+          namespace: "test"
+          existingInstallation: true
+        type: "MANAGED_ARGO_PROVIDER"
+      cert:
+      ca: |
+            ----------BEGIN....
+            ------END------
+      key: |
+            -----------BEGIN
+            ------END----
+      cert-file: ./temp/somesert.ca 
+      key-file: ./temp/somesert.ca 
+      ca-file: ./temp/somesert.ca 
+      inputs:
+        namespace: <+input>
+      outputs:
+        pod: name
+
