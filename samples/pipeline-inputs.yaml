@@ -51,8 +51,7 @@ pipeline:
 pipeline:
   inputs:
     version:
-      type: string
-      mask: true
+      type: secret
 
   stages:
   - steps:

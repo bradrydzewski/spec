@@ -102,6 +102,11 @@ export interface Stage {
 
     volumes?: Volume[];
 
+    /**
+     * Needs defines stages that must be completed before this
+     * stage can run.
+     */
+    needs?: string | string[];
 
     //
     // GitHub Specific

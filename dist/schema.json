@@ -1355,6 +1355,20 @@
           "description": "Name defines the pipeline name.",
           "type": "string"
         },
+        "needs": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Needs defines stages that must be completed before this stage can run."
+        },
         "on-failure": {
           "$ref": "#/definitions/FailureStrategy"
         },
@@ -1545,7 +1559,10 @@
         "parallel": {
           "deprecated": true,
           "description": "Parallel defines the maximum number of steps that can run in parallel. If unset or zero, the steps run sequentially.",
-          "type": "number"
+          "type": [
+            "number",
+            "boolean"
+          ]
         },
         "steps": {
           "description": "Steps defines a list of steps.",
@@ -1611,7 +1628,7 @@
               "type": "array"
             }
           ],
-          "description": "Needs defines steps that must be completed before this step can run.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions."
+          "description": "Needs defines steps that must be completed before this step can run."
         },
         "on-failure": {
           "$ref": "#/definitions/FailureStrategy",
