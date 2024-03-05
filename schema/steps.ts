@@ -172,7 +172,7 @@ export interface StepGroup {
      * run sequentially.
      * @deprecated
      */
-    parallel?: number;
+    parallel?: number | boolean;
 
     /**
      * Steps defines a list of steps.
