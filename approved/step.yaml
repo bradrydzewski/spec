@@ -1,0 +1,52 @@
+# simple step.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go build
+
+---
+
+# step with conditions
+
+pipeline:
+  stages:
+  - steps:
+    - if: ${{ branch == "main" }}
+      run:
+        script: go build
+
+---
+
+# step with id
+
+pipeline:
+  stages:
+  - steps:
+    - id: build
+      run:
+        script: go build
+
+---
+
+# step with name
+
+pipeline:
+  stages:
+  - steps:
+    - name: build
+      run:
+        script: go build
+
+---
+
+# step with timeout (10 minutes)
+
+pipeline:
+  stages:
+  - steps:
+    - name: build
+      timeout: 10m
+      run:
+        script: go build
