@@ -1,60 +1,29 @@
-## Inline Script on Runner
-      - action:
-          uses: harness-shell-script
-          with:
-            shell: bash | powershell 
-            location: inline 
-            script: $HELLO="hello world"
-            inputs: 
-              namespace: dev
-              command: "kubecl create"
-            outputs:
-              hello: $HELLO
-
-
-
-## Inline Script on Target Host
-      - action:
-          uses: harness-shell-script
-          with:
-            shell: bash
-            location: inline 
-            script: $HELLO="hello world"
-            inputs: 
-              namespace: dev
-              command: "kubecl create"
-            outputs:
-              hello: $HELLO
-            remote-address: 10.244.221
-            workdir: "/tmp/"
-            ssh-key: <+account.connector.ssh>
-            
-
-## Remote Shell Script on Target Host
-      - action:
-          uses: harness-shell-script
-          with:
-            shell: bash
-            location: filestore | repo 
-            script: ./temp/scripts/kubejob.sh
-            inputs: 
-              namespace: dev
-              command: "kubecl create"
-            outputs:
-              hello: $HELLO
-            remote-address: 10.244.221
-            workdir: "/tmp/"
-            ssh-key: <+account.connector.ssh>
-
-## Remote Shell Script on runner
-      - action:
-          uses: harness-shell-script
-          with:
-            shell: bash
-            location: filestore
-            script: ./temp/scripts/kubejob.sh
-            inputs: 
-              namespace: dev
-              command: "kubecl create"
-            outputs:
-              hello: $HELLO
+- steps:
+  - action:
+      uses: winrm-run | ssh-run 
+      with:
+        shell: powershell | bash 
+        location: inline | filestore
+        script: 
+               $env:OUTPUT_STRING="hello world"
+               $env:OUTPUT_SECRET="secrets.getValue('secret_identifier')"
+        inputs: 
+          env_var1: "hello"
+          env_var2: 10
+        outputs:
+          output_var1: $OUTPUT_STRING
+        remote:
+          protocol: NTLM
+          address: 1.2.3.4
+          port: 5986
+          workdir: /tmp/
+          domain: WINRM.INTERNAL
+          username: Administrator
+          password: <+secrets.getValue('secret_identifier')>
+          ssl: true
+          insecure: true
+          no-profile: false
+          invoke-with: #Ivan to brainstorm
+            param_name_1: param_value_1 
+            param_name_2: param_value_2
+ 
