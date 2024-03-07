@@ -3,7 +3,6 @@
 - action:
     uses: kubernetes-bluegreen-deploy
     with:
-      strategy: blue-green
       skip-versioning: false                    # (optional - default is false)
       args:                            # (optional)
         - apply: --output=yaml
@@ -18,7 +17,6 @@
 - action:
     uses: kubernetes-bluegreen-deploy
     with:
-      strategy: blue-green
       skip-versioning: false                    # (optional - default is false)
       command-flags:                            # (optional)
         - apply: --output=yaml
@@ -39,7 +37,6 @@
 - action:
     uses: kubernetes-bluegreen-deploy
     with:
-      strategy: blue-green
       skip-versioning: true                #(optional - default is false)
       command-flags:                       # (optional)
         - apply: --output=yaml

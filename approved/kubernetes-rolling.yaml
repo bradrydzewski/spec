@@ -3,7 +3,6 @@
 - action:
     uses: kubernetes-rolling-deploy
     with:
-      strategy: rolling
       skip-versioning: true             #(optional - default is false)
       command-flags:                    #(optional)
         - apply: --output=yaml
