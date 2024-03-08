@@ -1,0 +1,168 @@
+# step with failure strategy
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+      on-failure:
+        errors: all
+        action: ignore
+---
+# sample pipeline with a retry failure strategy
+# that fails if all retry attempts fail.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: [ unknown ]
+        action:
+          retry:
+            attempts: 5
+            interval: 10s
+            failure-action: fail
+
+---
+
+# sample pipeline with a retry failure strategy
+# that demonstrates multiple, staggered intervals.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: [ unknown ]
+        action:
+          retry:
+            attempts: 5
+            interval: [ 10s, 30s, 1m, 5m, 10m ]
+            failure-action: fail
+
+---
+
+# sample pipeline with retry failure strategy with a
+# complex failure action.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: [ unknown ]
+        action:
+          retry:
+            attempts: 5
+            interval: 10s
+            failure-action:
+              manual-intervention:
+                timeout: 60m
+                timeout-action: fail
+
+---
+
+# sample pipeline with simplified retry strategy
+# syntax that should apply sane defaults.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: all
+        action: retry
+
+---
+
+# sample pipeline with manual-intervention
+# failure strategy that fails on timeout.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: [ all ]
+        action:
+          manual-intervention:
+            timeout: 30m
+            timeout-action: fail
+
+---
+
+# sample pipeline with manual-intervention
+# failure strategy with a complex timeout
+# action.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: [ all ]
+        action:
+          manual-intervention:
+            timeout: 30m
+            timeout-action:
+              retry:
+                attempts: 10
+                interval: 30s
+                failure-action: success
+---
+
+# sample pipeline with a basic failure strategy at the stage
+# level that aborts on all errors.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+    on-failure:
+      errors: all
+      action: abort
+
+---
+
+# sample pipeline with a basic failure strategy at the step
+# level that aborts on all errors.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: all
+        action: abort
+
+---
+
+# sample pipeline with a retry failure strategy
+# that aborts for enumerated error types.
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go test
+        container: golang
+      on-failure:
+        errors: [ unknown, connectivity ]
+        action: abort
