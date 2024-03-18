@@ -37,6 +37,17 @@ pipeline:
 
 ---
 
+# run-test step, with test globbing
+
+pipeline:
+  stages:
+  - steps:
+    - run-test:
+        script: mvn test
+        match:
+        - tests/**/*.java
+---
+
 # run-test step, with user-define splitting
 
 pipeline:
