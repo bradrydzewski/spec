@@ -208,6 +208,7 @@ export interface StepTemplate {
 
 export interface StepTest {
     script?: string;
+    match?: string | string[];
     container?: Container;
     env?: Record<string, string>;
     splitting?: TestSplitting;
