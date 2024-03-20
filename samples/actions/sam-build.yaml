@@ -5,7 +5,7 @@
   uses: git-clone
   with:
     branch: main
-    repo-name: Product-Management
+    repo: Product-Management
     connector: cd-demo
 ---
 
@@ -19,7 +19,6 @@
 - action:
   uses: sam-build
   with:
-    version: 2.0 ## Optional
     command: "--use-container" ## Optional
     build-container-registry: "ecr" ## Optional
     image-pull-policy: always
@@ -35,7 +34,6 @@
 - action:
   uses: sam-deploy
   with:
-    version: 2.0 ## Optional
     command: "--use-container" ## Optional
     build-container-registry: "ecr" ## Optional
     image-pull-policy: always
