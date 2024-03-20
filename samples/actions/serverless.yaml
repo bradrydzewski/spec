@@ -3,7 +3,7 @@
   uses: git-clone
   with:
     branch: main
-    repo-name: Product-Management
+    repo: Product-Management
     connector: cd-demo
 
 ---
@@ -17,7 +17,6 @@
 - action:
   uses: serverless-package
   with:
-    version: 2.0 ## Optional
     command: "" ## Optional
     image-pull-policy: always
     user: 1000
@@ -31,7 +30,6 @@
 - action:
   uses: serverless-deploy
   with:
-    version: 2.0 ## Optional
     command: "" ## Optional
     image-pull-policy: always
     user: 1000
@@ -46,7 +44,6 @@
 - action:
   uses: serverless-prepare-rollback
   with:
-    version: 2.0 ## Optional
     image-pull-policy: always
     user: 1000
     memory: 10mb
@@ -60,7 +57,6 @@
 - action:
   uses: serverless-rollback
   with:
-    version: 2.0 ## Optional
     image-pull-policy: always
     user: 1000
     memory: 10mb
