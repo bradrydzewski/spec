@@ -1,0 +1,101 @@
+## Cloning the Repository
+- action: 
+  uses: git-clone
+  with:
+    branch: main
+    repo: Product-Management
+    connector: cd-demo
+
+
+## Terraform Plan 
+- action:
+    uses: terraform-plan
+    with:
+      command: apply | destroy
+      aws-provider: account.aws_connector
+      workspace: dev
+      backend-config: |-
+              terraform {
+                backend "gcs" {
+                  bucket  = "tf-state-prod"
+                  prefix  = "terraform/state"
+                }
+              }
+      secrets-manager: Harness Secrets Manager
+      env:
+        - TF_LOG_PATH: ./terraform.log
+      args:
+        - refresh: --args
+      export-plan: true
+      human-readable-plan: true
+      state-storage: false
+      skip-refresh: false
+
+
+
+
+
+     
+### Curent NG Step Design
+# - step:
+#     type: TerraformPlan
+#     name: TerraformPlan_1
+#     identifier: TerraformPlan_1
+#     spec:
+#       provisionerIdentifier: dev
+#       configuration:
+#         command: Apply
+#         configFiles:
+#           store:
+#             spec:
+#               connectorRef: account.CDNGAuto_GithubRepoPipelinesNgAutomationiDYaC0PbFx
+#               folderPath: dev
+#               gitFetchType: Branch
+#               branch: prod
+#             type: Github
+#         providerCredential:
+#           type: Aws
+#           spec:
+#             connectorRef: <+input>
+#             region: <+input>
+#             roleArn: <+input>
+#         backendConfig:
+#           type: Inline
+#           spec:
+#             content: |-
+#               terraform {
+#                 backend "gcs" {
+#                   bucket  = "tf-state-prod"
+#                   prefix  = "terraform/state"
+#                 }
+#               }
+#         environmentVariables:
+#           - name: TF_LOG_PATH
+#             value: ./terraform.log
+#             type: String
+#         targets:
+#           - module.s3_bucket
+#         commandFlags:
+#           - commandType: WORKSPACE
+#             flag: <+input>
+#         varFiles:
+#           - varFile:
+#               type: Remote
+#               identifier: dev
+#               spec:
+#                 store:
+#                   type: Bitbucket
+#                   spec:
+#                     gitFetchType: Branch
+#                     repoName: prod
+#                     branch: proad
+#                     paths:
+#                       - /prod/tf.vars
+#                     connectorRef: <+input>
+#         secretManagerRef: org.pl_hashicorp_withsecret_jSlq
+#         workspace: <+input>
+#         exportTerraformPlanJson: <+input>
+#         skipStateStorage: <+input>
+#         exportTerraformHumanReadablePlan: <+input>
+#         skipRefreshCommand: <+input>
+#     timeout: 10m

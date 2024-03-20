@@ -1,0 +1,91 @@
+service:
+  name: s11
+  identifier: s11
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: aaa
+            type: Values
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: org.adi_org_github
+                  gitFetchType: Branch
+                  paths:
+                    - aa
+                  repoName: aa
+                  branch: aa
+        - manifest:
+            identifier: aaaaa
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: <+input>
+                  gitFetchType: Commit
+                  paths:
+                    - aaaa
+                  repoName: aaaa
+                  commitId: aaaaa
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+      artifacts:
+        primary:
+          primaryArtifactRef: <+input>
+          sources:
+            - spec:
+                connectorRef: account.asdsads
+                imagePath: aa
+                tag: <+input>
+                digest: aa
+              identifier: aa
+              type: DockerRegistry
+            - name: aaa
+              identifier: aaa
+              template:
+                templateRef: org.wxcartifactsource
+                versionLabel: v8
+                templateInputs:
+                  type: CustomArtifact
+                  spec:
+                    type: CustomArtifact
+                    inputs:
+                      - name: GITHUB_ORG
+                        type: String
+                        value: <+input>.default(CloudCalling)
+                      - name: REPO_NAME
+                        type: String
+                        value: <+input>
+                      - name: DEFAULT_BRANCH
+                        type: String
+                        value: <+input>.default(master)
+                    version: <+input>
+        sidecars:
+          - sidecar:
+              spec:
+                connectorRef: account.asdsads
+                imagePath: aa
+                tag: <+input>
+                digest: aa
+              identifier: aa
+              type: DockerRegistry
+      configFiles:
+        - configFile:
+            identifier: aa
+            spec:
+              store:
+                type: Harness
+                spec:
+                  files:
+                    - /fileA
+      variables:
+        - name: aa
+          type: String
+          description: aaa
+          required: true
+          value: aa
+  gitOpsEnabled: false

@@ -1,0 +1,45 @@
+## Sam Build & Deploy
+
+## Cloning the Repository
+- action: 
+  uses: git-clone
+  with:
+    branch: main
+    repo: Product-Management
+    connector: cd-demo
+---
+
+## Download Manifest
+- action: 
+  uses: harness-download
+
+--- 
+
+## SAM Build 
+- action:
+  uses: sam-build
+  with:
+    command: "--use-container" ## Optional
+    build-container-registry: "ecr" ## Optional
+    image-pull-policy: always
+    user: 1000
+    memory: 10mb
+    cpu: 0.25
+    args:
+      - SAM_LOG: "true"
+
+---
+
+## SAM Deploy
+- action:
+  uses: sam-deploy
+  with:
+    command: "--use-container" ## Optional
+    build-container-registry: "ecr" ## Optional
+    image-pull-policy: always
+    user: 1000
+    memory: 10mb
+    cpu: 0.25
+    args:
+      - SAM_LOG: "true"
+

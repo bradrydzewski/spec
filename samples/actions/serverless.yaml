@@ -1,0 +1,65 @@
+## Cloning the Repository
+- action: 
+  uses: git-clone
+  with:
+    branch: main
+    repo: Product-Management
+    connector: cd-demo
+
+---
+## Download Manifest
+- action: 
+  uses: harness-download
+
+---
+
+## Serverless Package
+- action:
+  uses: serverless-package
+  with:
+    command: "" ## Optional
+    image-pull-policy: always
+    user: 1000
+    memory: 10mb
+    cpu: 0.25
+    args:
+      - SERVERLESS_LOG: "true"
+
+---
+## Serverless Deploy
+- action:
+  uses: serverless-deploy
+  with:
+    command: "" ## Optional
+    image-pull-policy: always
+    user: 1000
+    memory: 10mb
+    cpu: 0.25
+    args:
+      - SERVERLESS_LOG: "true"
+
+---
+
+## Serverless Prepare Rollback
+- action:
+  uses: serverless-prepare-rollback
+  with:
+    image-pull-policy: always
+    user: 1000
+    memory: 10mb
+    cpu: 0.25
+    args:
+      - SERVERLESS_LOG: "true"
+
+---
+
+## Serverless  Rollback
+- action:
+  uses: serverless-rollback
+  with:
+    image-pull-policy: always
+    user: 1000
+    memory: 10mb
+    cpu: 0.25
+    args:
+      - SERVERLESS_LOG: "true"

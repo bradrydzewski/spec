@@ -1,0 +1,75 @@
+# sample pipeline with run step
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go build
+
+---
+
+# sample pipeline with run step, short syntax
+
+pipeline:
+  stages:
+  - steps:
+    - run: go build
+
+---
+
+# sample pipeline with run step, shortest syntax
+
+pipeline:
+  stages:
+  - steps:
+    - go build
+
+---
+
+# sample pipeline with conditional execution
+
+pipeline:
+  if: ${{ branch == "main" }}
+  stages:
+  - steps:
+    - run:
+        script: go build
+
+---
+
+# sample pipeline with global envs
+
+pipeline:
+  env:
+    GOOS: linux
+    GOARCH: amd64
+  stages:
+  - steps:
+    - go build
+
+---
+
+# sample pipeline with optional repository override
+
+pipeline:
+  # repository should be optional. If undefined,
+  # the repository and conector are the same as
+  # where the yaml was stored.
+  repo:
+    name: drone/drone
+    connector: account.github
+  stages:
+  - steps:
+    - go build
+
+---
+
+# sample pipeline, github compatible
+
+jobs:
+  test:
+    runs-on: ubuntu
+    steps:
+      - run: go build
+
+---

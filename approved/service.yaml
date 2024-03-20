@@ -1,0 +1,50 @@
+version: 1
+kind: service
+spec:
+  type: native-helm
+  spec:
+    manifests:
+        primary: <+input>
+        sources:
+          - type: HelmChart
+            id: manifest1 (id is mandatory)
+            spec:
+              type: Github | S3 | GCS
+              spec:
+                connector: liquibaselabrepoconn
+                repo:  helm-charts          ##### optional
+                location: refs/heads/main:/charts       ##### following git notation
+              values:                       ##### optional
+                - /abc/xyz.yaml 
+              skip_versioning: false        ##### optional
+              declarative_rollback: false   ##### optional
+    artifacts:
+        primary:  <+inputs.abc>
+        sources:
+          - id: artifact1         
+            type: DockerRegistry
+            spec:
+              connector: curl
+              location: /abc/wsz:<+ variables.tag>  ##### imagePath + tag field combined
+          - id: artifact1         
+            type: DockerRegistry
+            spec:
+              connector: curl
+              location: /abc/wsz:<+ variables.tag>
+          - id: artifact1    
+            sidecar: true    ##### adding this sidecar tag instead of separate section     
+            type: DockerRegistry
+            spec:
+              connector: curl
+            location: /abc/wsz:<+ variables.tag>
+    config_files:
+      - id: config-file1   ##### alternate we can have similar sources field here
+        type: Harness
+        id: config-file1
+        spec:
+          files:
+            - /abc.yaml 
+    variables:
+      tag (variable_name):
+        type: String
+        value: 1.9.0  
