@@ -3,7 +3,7 @@
   uses: git-clone
   with:
     branch: main
-    repo-name: Product-Management
+    repo: Product-Management
     connector: cd-demo
 
 
@@ -14,7 +14,7 @@
       command: apply | destroy
       aws-provider: account.aws_connector
       workspace: dev
-      backendConfig: |-
+      backend-config: |-
               terraform {
                 backend "gcs" {
                   bucket  = "tf-state-prod"
