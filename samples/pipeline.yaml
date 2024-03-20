@@ -74,3 +74,18 @@ jobs:
 
 ---
 
+# sample github pipeline, with the extended
+# harness sytnax. This pipeline includes a
+# Harness template step, even though GitHub
+# has zero concept of templates.
+
+jobs:
+  test:
+    runs-on: ubuntu
+    steps:
+      - run: go build
+      - template:
+          uses: account.docker
+          with:
+            repo: harness/hello-world
+            tags: latest
