@@ -458,6 +458,33 @@
       },
       "type": "object"
     },
+    "EnvironmentSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "Event": {
       "anyOf": [
         {
@@ -1237,8 +1264,13 @@
     "Schema": {
       "additionalProperties": false,
       "properties": {
+        "Service": {
+          "$ref": "#/definitions/ServiceSchema",
+          "description": "Service defines a service."
+        },
         "action": {
           "$ref": "#/definitions/Template",
+          "deprecated": "use \"template\" instead",
           "description": "Action defines re-usable pipeline steps and stages."
         },
         "defaults": {
@@ -1251,6 +1283,10 @@
           },
           "description": "Envs defines environment variables that are available to all steps in the workflow.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
+        },
+        "environment": {
+          "$ref": "#/definitions/EnvironmentSchema",
+          "description": "Environment defines a deployment environment."
         },
         "inputset": {
           "description": "Inputset defines re-usable inputs."
@@ -1314,6 +1350,30 @@
       "required": [
         "items"
       ],
+      "type": "object"
+    },
+    "ServiceSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
       "type": "object"
     },
     "Stage": {

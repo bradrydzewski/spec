@@ -11,10 +11,10 @@ pipeline:
 
 ---
 
-# example of "http" action definition where the action
+# example of "http" action template where the action
 # is a simple "run" step.
 
-action:
+template:
   inputs:
     method:
       type: string
@@ -31,10 +31,10 @@ action:
 
 ---
 
-# example of "http" action definition where the action
+# example of "http" action template where the action
 # is a container step.
 
-action:
+template:
   inputs:
     method:
       type: string
@@ -55,10 +55,10 @@ action:
 
 ---
 
-# example of "http" action definition that supports
+# example of "http" action template that supports
 # container-based execution as well as host execution (mac, windows)
 
-action:
+template:
   inputs:
     method:
       type: string

@@ -15,6 +15,18 @@ export interface Schema {
     pipeline?: Pipeline;
 
     /**
+     * Environment defines a deployment environment.
+     * @todo
+     */
+    environment?: EnvironmentSchema
+
+    /**
+     * Service defines a service.
+     * @todo
+     */
+    Service?: ServiceSchema
+
+    /**
      * Template defines re-usable pipeline steps and
      * stages.
      */
@@ -22,6 +34,7 @@ export interface Schema {
 
     /**
      * Action defines re-usable pipeline steps and stages.
+     * @deprecated use "template" instead
      */
     action?: Template;
 
@@ -87,4 +100,23 @@ export interface Schema {
 
     // TODO permissions - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
     // TODO concurrency - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+}
+
+// TODO
+export interface EnvironmentSchema {
+    id?: string;
+    name?: string;
+    tags?: Record<string, string>;
+    type?: string;
+    org?: string;
+    project?: string;
+}
+
+// TODO
+export interface ServiceSchema {
+    id?: string;
+    name?: string;
+    tags?: Record<string, string>;
+    org?: string;
+    project?: string;
 }
