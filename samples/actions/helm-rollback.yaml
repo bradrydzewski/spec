@@ -1,0 +1,5 @@
+- action:
+    uses: helm-rollback
+    with:
+      steady-state: false
+      timeout: 10m 
