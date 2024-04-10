@@ -1,3 +1,5 @@
+import { Concurrency } from "./concurrency";
+import { Permissions } from "./permissions";
 import { On } from "./on";
 import { Pipeline } from "./pipeline";
 import { Stage } from "./stages";
@@ -97,9 +99,21 @@ export interface Schema {
      */
     env?: Record<string, string>
 
+    /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     * 
+     * @github
+     */
+    concurrency?: Concurrency;
 
-    // TODO permissions - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
-    // TODO concurrency - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+    /**
+     * Permissions defines the permission granted to the token
+     * injected into the pipeline environment.
+     * 
+     * @github
+     */
+    permissions?: Permissions;
 }
 
 // TODO
@@ -108,7 +122,15 @@ export interface EnvironmentSchema {
     name?: string;
     tags?: Record<string, string>;
     type?: string;
+
+    /**
+     * @deprecated
+     */
     org?: string;
+
+    /**
+     * @deprecated
+     */
     project?: string;
 }
 
@@ -117,6 +139,14 @@ export interface ServiceSchema {
     id?: string;
     name?: string;
     tags?: Record<string, string>;
+
+    /**
+     * @deprecated
+     */
     org?: string;
+
+    /**
+     * @deprecated
+     */
     project?: string;
 }

@@ -493,9 +493,11 @@
           "type": "string"
         },
         "org": {
+          "deprecated": true,
           "type": "string"
         },
         "project": {
+          "deprecated": true,
           "type": "string"
         },
         "tags": {
@@ -874,6 +876,132 @@
           "enum": [
             "pipeline",
             "stage"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Permissions": {
+      "anyOf": [
+        {
+          "const": "write-all",
+          "type": "string"
+        },
+        {
+          "const": "read-all",
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/PermissionsLong"
+        }
+      ],
+      "description": "Permissions defines the permission granted to the token injected into the pipeline environment."
+    },
+    "PermissionsLong": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "checks": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "contents": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "deployments": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "discussions": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "id-token": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "issues": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "packages": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "pages": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "pull-requests": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "repository-projects": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "security-events": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "statuses": {
+          "enum": [
+            "read",
+            "write",
+            "none"
           ],
           "type": "string"
         }
@@ -1301,6 +1429,10 @@
           "deprecated": "use \"template\" instead",
           "description": "Action defines re-usable pipeline steps and stages."
         },
+        "concurrency": {
+          "$ref": "#/definitions/Concurrency",
+          "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
+        },
         "defaults": {
           "description": "Defaults provides default settings that apply to all jobs in the workflow.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
@@ -1333,6 +1465,10 @@
         "on": {
           "$ref": "#/definitions/On",
           "description": "On defines the workflow triggers.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions."
+        },
+        "permissions": {
+          "$ref": "#/definitions/Permissions",
+          "description": "Permissions defines the permission granted to the token injected into the pipeline environment."
         },
         "pipeline": {
           "$ref": "#/definitions/Pipeline",
@@ -1390,9 +1526,11 @@
           "type": "string"
         },
         "org": {
+          "deprecated": true,
           "type": "string"
         },
         "project": {
+          "deprecated": true,
           "type": "string"
         },
         "tags": {

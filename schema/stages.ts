@@ -144,6 +144,14 @@ export interface Stage {
      * @github
      */
     services?: Record<string, Container>;
+
+    /**
+     * Permissions defines the permission granted to the token
+     * injected into the stage environment.
+     * 
+     * @github
+     */
+    permissions?: Permissions;
 }
 
 export interface StageGroup {
