@@ -1,6 +1,7 @@
 import { Cache } from "./cache";
 import { Clone } from "./clone";
 import { Container } from "./container";
+import { Concurrency } from "./concurrency";
 import { Environment } from "./environment";
 import { FailureStrategy } from "./failure";
 import { Platform } from "./platform";
@@ -21,6 +22,12 @@ export interface Stage {
      * Name defines the pipeline name.
      */
     name?: string;
+
+    /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     */
+    concurrency?: Concurrency;
 
     /**
      * Clone overrides the default clone settings.

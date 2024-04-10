@@ -224,12 +224,25 @@
       "type": "object"
     },
     "Concurrency": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/ConcurrencyLong"
+        }
+      ],
+      "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
+    },
+    "ConcurrencyLong": {
       "additionalProperties": false,
       "properties": {
         "cancel-in-progress": {
+          "description": "Cancel any in-progress pipelines or stages that are in-progress when a new pipeline or stage is received.",
           "type": "boolean"
         },
         "group": {
+          "description": "Group provides the key used to group pipelines or stages together into a concurrency group.",
           "type": "string"
         }
       },
@@ -882,7 +895,8 @@
           "description": "Clone overrides the default clone behavior."
         },
         "concurrency": {
-          "$ref": "#/definitions/Concurrency"
+          "$ref": "#/definitions/Concurrency",
+          "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
         },
         "default": {},
         "env": {
@@ -1404,6 +1418,10 @@
         "clone": {
           "$ref": "#/definitions/Clone",
           "description": "Clone overrides the default clone settings."
+        },
+        "concurrency": {
+          "$ref": "#/definitions/Concurrency",
+          "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
         },
         "delegate": {
           "description": "Delegage defines the delegate that should handle stage execution. This is optional.",

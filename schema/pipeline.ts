@@ -1,4 +1,5 @@
 import { Clone } from "./clone";
+import { Concurrency } from "./concurrency";
 import { Environment } from "./environment";
 import { Input } from "./input";
 import { On } from "./on";
@@ -72,6 +73,12 @@ export interface Pipeline {
      */
     on?: On;
 
+    /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     */
+    concurrency?: Concurrency;
+
     //
     // GitHub-Specific
     //
@@ -94,15 +101,5 @@ export interface Pipeline {
     /**
      * @github
      */
-    concurrency?: Concurrency;
-
-    /**
-     * @github
-     */
     permissions?: any;
-}
-
-export interface Concurrency {
-    group?: string;
-    "cancel-in-progress"?: boolean;
 }
