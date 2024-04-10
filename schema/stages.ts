@@ -108,6 +108,12 @@ export interface Stage {
      */
     needs?: string | string[];
 
+    /**
+     * Outputs configures the stage to export variables for
+     * use by other stages.
+     */
+    outputs?: Record<string, any>;
+
     //
     // GitHub Specific
     //

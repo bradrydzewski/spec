@@ -223,6 +223,18 @@
       },
       "type": "object"
     },
+    "Concurrency": {
+      "additionalProperties": false,
+      "properties": {
+        "cancel-in-progress": {
+          "type": "boolean"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "Container": {
       "anyOf": [
         {
@@ -869,7 +881,9 @@
           "$ref": "#/definitions/Clone",
           "description": "Clone overrides the default clone behavior."
         },
-        "concurrency": {},
+        "concurrency": {
+          "$ref": "#/definitions/Concurrency"
+        },
         "default": {},
         "env": {
           "additionalProperties": {
@@ -1432,6 +1446,10 @@
         "on-failure": {
           "$ref": "#/definitions/FailureStrategy"
         },
+        "outputs": {
+          "description": "Outputs configures the stage to export variables for use by other stages.",
+          "type": "object"
+        },
         "parallel": {
           "$ref": "#/definitions/StageGroup",
           "description": "Parallel defines a set of parallel stages."
@@ -1881,6 +1899,19 @@
         },
         "intelligence": {
           "$ref": "#/definitions/TestIntelligence"
+        },
+        "match": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
         },
         "output": {
           "anyOf": [

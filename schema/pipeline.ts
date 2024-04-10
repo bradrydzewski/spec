@@ -94,10 +94,15 @@ export interface Pipeline {
     /**
      * @github
      */
-    concurrency?: any;
+    concurrency?: Concurrency;
 
     /**
      * @github
      */
     permissions?: any;
+}
+
+export interface Concurrency {
+    group?: string;
+    "cancel-in-progress"?: boolean;
 }

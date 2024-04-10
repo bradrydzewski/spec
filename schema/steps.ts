@@ -75,6 +75,10 @@ export interface StepLong {
      */
     template?: StepTemplate;
 
+    //
+    // Step Types : End
+    //
+
     /**
      * Timeout defines the step timeout duration.
      */
@@ -85,10 +89,6 @@ export interface StepLong {
      * step can run.
      */
     needs?: string | string[];
-
-    //
-    // Step Types : End
-    //
 
     /**
      * Strategy defines the matrix or looping strategy.
@@ -101,7 +101,7 @@ export interface StepLong {
     "on-failure"?: FailureStrategy;
 
     //
-    // GitHub-Specific
+    // GitHub-Specific : Start
     //
 
     /**
@@ -133,6 +133,11 @@ export interface StepLong {
      * @github
      */
     with?: Record<string, any>;
+
+    //
+    // GitHub-Specific : End
+    //
+
 }
 
 //
