@@ -1610,6 +1610,11 @@
           "$ref": "#/definitions/StageGroup",
           "description": "Parallel defines a set of parallel stages."
         },
+        "permissions": {
+          "additionalProperties": false,
+          "description": "Permissions defines the permission granted to the token injected into the stage environment.",
+          "type": "object"
+        },
         "platform": {
           "$ref": "#/definitions/Platform",
           "description": "Platform defines the target platform."
@@ -1720,6 +1725,7 @@
           "additionalProperties": {
             "type": "string"
           },
+          "description": "Env defines the environment of the step.",
           "type": "object"
         },
         "output": {
@@ -1733,7 +1739,9 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "deprecated": true,
+          "description": "Output defines the output variables."
         },
         "report": {
           "anyOf": [
@@ -1746,12 +1754,15 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "Report uploads reports at the the provided path(s)"
         },
         "uses": {
+          "description": "Uses defines the action.",
           "type": "string"
         },
         "with": {
+          "description": "With defines the action configuration parameters.",
           "type": "object"
         }
       },
@@ -1911,7 +1922,7 @@
           "type": "string"
         },
         "with": {
-          "description": "Uses defines the github action configuration parameters.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
+          "description": "With defines the github action configuration parameters.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         }
       },
@@ -1940,7 +1951,8 @@
       "additionalProperties": false,
       "properties": {
         "container": {
-          "$ref": "#/definitions/Container"
+          "$ref": "#/definitions/Container",
+          "description": "Container runs the step inside a container. If you do not set a container, the step will run directly on the host unless the target runtime in kubernetes, in which case the container is required."
         },
         "delegate": {
           "anyOf": [
@@ -1957,12 +1969,14 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "This property is available solely for the purpose of backward compatibility with Harness Currrent Gen."
         },
         "env": {
           "additionalProperties": {
             "type": "string"
           },
+          "description": "Env defines the environment of the step.",
           "type": "object"
         },
         "output": {
@@ -1976,7 +1990,9 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "deprecated": true,
+          "description": "Output defines the step output variables."
         },
         "report": {
           "anyOf": [
@@ -1989,7 +2005,8 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "Report uploads reports at the the provided path(s)"
         },
         "script": {
           "anyOf": [
@@ -2002,9 +2019,11 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "Script runs command line scripts using the operating system's shell. Each script represents a new process and shell in the runner environment. Note that when you provide multi-line commands, each line runs in the same shell."
         },
         "shell": {
+          "description": "Shell defines the shell of the step.",
           "enum": [
             "sh",
             "bash",
@@ -2013,12 +2032,6 @@
             "python"
           ],
           "type": "string"
-        },
-        "uses": {
-          "type": "string"
-        },
-        "with": {
-          "type": "object"
         }
       },
       "type": "object"
@@ -2030,12 +2043,15 @@
           "additionalProperties": {
             "type": "string"
           },
+          "description": "Env defines the environment of the step.",
           "type": "object"
         },
         "uses": {
+          "description": "Uses defines the template.",
           "type": "string"
         },
         "with": {
+          "description": "With defines the template configuration parameters.",
           "type": "object"
         }
       },
@@ -2045,16 +2061,19 @@
       "additionalProperties": false,
       "properties": {
         "container": {
-          "$ref": "#/definitions/Container"
+          "$ref": "#/definitions/Container",
+          "description": "Container runs the step inside a container. If you do not set a container, the step will run directly on the host unless the target runtime in kubernetes, in which case the container is required."
         },
         "env": {
           "additionalProperties": {
             "type": "string"
           },
+          "description": "Env defines the environment of the step.",
           "type": "object"
         },
         "intelligence": {
-          "$ref": "#/definitions/TestIntelligence"
+          "$ref": "#/definitions/TestIntelligence",
+          "description": "Intelligence configures the test intelligence behavior."
         },
         "match": {
           "anyOf": [
@@ -2067,7 +2086,8 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "Match provides unit test matching logic in glob format."
         },
         "output": {
           "anyOf": [
@@ -2080,7 +2100,9 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "deprecated": true,
+          "description": "Output defines the output variables."
         },
         "report": {
           "anyOf": [
@@ -2093,13 +2115,37 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "Report uploads reports at the the provided path(s)"
         },
         "script": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Script runs command line scripts using the operating system's shell. Each script represents a new process and shell in the runner environment. Note that when you provide multi-line commands, each line runs in the same shell."
+        },
+        "shell": {
+          "description": "Shell defines the shell of the step.",
+          "enum": [
+            "sh",
+            "bash",
+            "powershell",
+            "pwsh",
+            "python"
+          ],
           "type": "string"
         },
         "splitting": {
-          "$ref": "#/definitions/TestSplitting"
+          "$ref": "#/definitions/TestSplitting",
+          "description": "Splitting configures the test splitting behavior."
         }
       },
       "type": "object"

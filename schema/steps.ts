@@ -1,6 +1,6 @@
 import {Container} from "./container";
-import {Output} from "./output";
 import {FailureStrategy} from "./failure";
+import {Output} from "./output";
 import {Strategy} from "./strategy";
 
 export type Step = string | StepLong;
@@ -125,7 +125,7 @@ export interface StepLong {
     uses?: string;
 
     /**
-     * Uses defines the github action configuration parameters.
+     * With defines the github action configuration parameters.
      * 
      * This property is available solely for the purpose of
      * backward compatibility with GitHub Actions.
@@ -137,7 +137,6 @@ export interface StepLong {
     //
     // GitHub-Specific : End
     //
-
 }
 
 //
@@ -145,12 +144,31 @@ export interface StepLong {
 //
 
 export interface StepAction {
+    /**
+     * Uses defines the action.
+     */
     uses?: string;
+
+    /**
+     * With defines the action configuration parameters.
+     */
     with?: Record<string, any>;
+
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
 
-    output?: Output | Output[];
+    /**
+     * Report uploads reports at the the provided path(s)
+     */
     report?: Report | Report[];
+
+    /**
+     * Output defines the output variables.
+     * @deprecated
+     */
+    output?: Output | Output[];
 }
 
 export interface StepApproval {
@@ -179,24 +197,47 @@ export interface StepGroup {
 }
 
 export interface StepRun {
+    /**
+     * Shell defines the shell of the step.
+     */
     shell?: "sh" | "bash" | "powershell" | "pwsh" | "python";
+
+    /**
+     * Script runs command line scripts using the operating
+     * system's shell. Each script represents a new process and
+     * shell in the runner environment. Note that when you provide
+     * multi-line commands, each line runs in the same shell.
+     */
     script?: string | string[];
+
+    /**
+     * Container runs the step inside a container. If you do
+     * not set a container, the step will run directly on the
+     * host unless the target runtime in kubernetes, in which
+     * case the container is required.
+     */
     container?: Container;
-    output?: Output | Output[];
-    report?: Report | Report[];
 
-    //
-    // GitHub-Specific
-    //
-
-    uses?: string;
-    with?: Record<string, any>;
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
 
-    //
-    // CD-CG Backward Compatibility
-    //
+    /**
+     * Output defines the step output variables.
+     * @deprecated
+     */
+    output?: Output | Output[];
 
+    /**
+     * Report uploads reports at the the provided path(s)
+     */
+    report?: Report | Report[];
+
+    /**
+     * This property is available solely for the purpose of
+     * backward compatibility with Harness Currrent Gen.
+     */
     delegate?: "inherit-from-infrastrcuture" | string | string[];
 }
 
@@ -206,21 +247,80 @@ export interface StepQueue {
 }
 
 export interface StepTemplate {
+    /**
+     * Uses defines the template.
+     */
     uses?: string;
+
+    /**
+     * With defines the template configuration parameters.
+     */
     with?: Record<string, any>;
+
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
 }
 
 export interface StepTest {
-    script?: string;
+    /**
+     * Shell defines the shell of the step.
+     */
+    shell?: "sh" | "bash" | "powershell" | "pwsh" | "python";
+
+    /**
+     * Script runs command line scripts using the operating
+     * system's shell. Each script represents a new process and
+     * shell in the runner environment. Note that when you provide
+     * multi-line commands, each line runs in the same shell.
+     */
+    script?: string | string[];
+
+    /**
+     * Match provides unit test matching logic in glob format.
+     */
     match?: string | string[];
+
+    /**
+     * Container runs the step inside a container. If you do
+     * not set a container, the step will run directly on the
+     * host unless the target runtime in kubernetes, in which
+     * case the container is required.
+     */
     container?: Container;
+
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
+    
+    /**
+     * Splitting configures the test splitting behavior.
+     */
     splitting?: TestSplitting;
+
+    /**
+     * Intelligence configures the test intelligence
+     * behavior.
+     */
     intelligence?: TestIntelligence;
-    output?: Output | Output[];
+
+    /**
+     * Report uploads reports at the the provided path(s)
+     */
     report?: Report | Report[];
+
+    /**
+     * Output defines the output variables.
+     * @deprecated
+     */
+    output?: Output | Output[];
 }
+
+//
+// Testing
+//
 
 export interface TestSplitting {
     disabled?: boolean;
