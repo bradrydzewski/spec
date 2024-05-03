@@ -4,9 +4,9 @@ export type RuntimeShort = "cloud" | "instance" | "kubernetes" | "shell";
 
 export interface RuntimeLong {
     cloud?: RuntimeCloud;
-    instance?: string | RuntimeInstance;
+    instance?: string | RuntimeInstance; // "instance" vs "vm" as the name?
     kubernetes?: RuntimeKubernetes;
-    shell?: boolean;
+    shell?: boolean; // "shell" vs "custom" as the name? github uses "custom" but gitlab uses "shell"
 }
 
 export type MachineSize = 
@@ -32,6 +32,7 @@ export interface RuntimeInstance {
 }
 
 export interface RuntimeKubernetes {
-   namespace?: string; 
+  namespace?: string; 
+  // TODO(bradrydzewski) add missing kubernetes settings
 }
 
