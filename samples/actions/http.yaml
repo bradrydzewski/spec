@@ -4,7 +4,7 @@ pipeline:
   stages:
   - steps:
     - action:
-        uses: http
+        uses: http # SELECT * FROM templates WHERE template_id = 'http'
         with:
           method: GET
           endpoint: https://acme.com

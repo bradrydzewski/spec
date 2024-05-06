@@ -110,6 +110,13 @@ export interface Stage {
     volumes?: Volume[];
 
     /**
+     * Env defines the environment of the stage. These
+     * environment variables are shared by all steps in
+     * the stage.
+     */
+    env?: Record<string, string>;
+
+    /**
      * Needs defines stages that must be completed before this
      * stage can run.
      */

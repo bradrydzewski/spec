@@ -31,9 +31,15 @@ export interface Pipeline {
      */
     env?: Record<string, string>;
 
-
+    /**
+     * Environment defines the target deployment
+     * environment (e.g. development, prod).
+     */
     environment?: Environment;
     
+    /**
+     * Service defines the service being deployed.
+     */
     service?: Service;
 
     /**

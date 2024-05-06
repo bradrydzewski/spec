@@ -1,9 +1,14 @@
 /**
  * Permissions defines the permission granted to the token
  * injected into the pipeline environment.
+ * 
+ * @github
  */
 export type Permissions = "write-all" | "read-all" | PermissionsLong;
 
+/**
+ * @github
+ */
 export interface PermissionsLong {
     "actions"?:             Perm;
     "checks"?:              Perm;
@@ -20,4 +25,7 @@ export interface PermissionsLong {
     "statuses"?:            Perm
 }
 
+/**
+ * @github
+ */
 type Perm = "read" | "write" | "none";
