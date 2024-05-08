@@ -507,6 +507,10 @@
           "type": "object"
         },
         "type": {
+          "enum": [
+            "production",
+            "non-production"
+          ],
           "type": "string"
         }
       },
@@ -1035,7 +1039,8 @@
           "type": "object"
         },
         "environment": {
-          "$ref": "#/definitions/Environment"
+          "$ref": "#/definitions/Environment",
+          "description": "Environment defines the target deployment environment (e.g. development, prod)."
         },
         "id": {
           "deprecated": true,
@@ -1075,7 +1080,8 @@
           "description": "Repo overrides the default repository."
         },
         "service": {
-          "$ref": "#/definitions/Service"
+          "$ref": "#/definitions/Service",
+          "description": "Service defines the service being deployed."
         },
         "stages": {
           "description": "Stages provides a list of stages. Each pipeline is made up of one or more stages that executes sequentially.",
@@ -1420,10 +1426,6 @@
     "Schema": {
       "additionalProperties": false,
       "properties": {
-        "Service": {
-          "$ref": "#/definitions/ServiceSchema",
-          "description": "Service defines a service."
-        },
         "action": {
           "$ref": "#/definitions/Template",
           "deprecated": "use \"template\" instead",
@@ -1447,6 +1449,9 @@
         "environment": {
           "$ref": "#/definitions/EnvironmentSchema",
           "description": "Environment defines a deployment environment."
+        },
+        "infrastructure": {
+          "description": "Infrastructure defines the service infrastructure."
         },
         "inputset": {
           "description": "Inputset defines re-usable inputs."
@@ -1473,6 +1478,10 @@
         "pipeline": {
           "$ref": "#/definitions/Pipeline",
           "description": "Pipeline defines the pipeline configuration."
+        },
+        "service": {
+          "$ref": "#/definitions/ServiceSchema",
+          "description": "Service defines a service."
         },
         "template": {
           "$ref": "#/definitions/Template",
@@ -1564,6 +1573,13 @@
         "delegate": {
           "description": "Delegage defines the delegate that should handle stage execution. This is optional.",
           "type": "string"
+        },
+        "env": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Env defines the environment of the stage. These environment variables are shared by all steps in the stage.",
+          "type": "object"
         },
         "environment": {
           "$ref": "#/definitions/Environment",

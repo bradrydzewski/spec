@@ -26,7 +26,14 @@ export interface Schema {
      * Service defines a service.
      * @todo
      */
-    Service?: ServiceSchema
+    service?: ServiceSchema
+
+    /**
+     * Infrastructure defines the service infrastructure.
+     * 
+     * @todo
+     */
+    infrastructure?: any;
 
     /**
      * Template defines re-usable pipeline steps and
@@ -121,7 +128,7 @@ export interface EnvironmentSchema {
     id?: string;
     name?: string;
     tags?: Record<string, string>;
-    type?: string;
+    type?: "production" | "non-production" // should this be "production?: boolean" instead?
 
     /**
      * @deprecated
