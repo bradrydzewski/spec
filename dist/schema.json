@@ -1635,6 +1635,10 @@
           "$ref": "#/definitions/Platform",
           "description": "Platform defines the target platform."
         },
+        "rollback": {
+          "$ref": "#/definitions/Step",
+          "description": "Rollback defines the rollback steps."
+        },
         "runs-on": {
           "description": "RunsOn defines the type of machine to run the job.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "string"
@@ -2200,6 +2204,9 @@
             "$ref": "#/definitions/Input"
           },
           "type": "object"
+        },
+        "rollback": {
+          "$ref": "#/definitions/Step"
         },
         "stage": {
           "$ref": "#/definitions/Stage"

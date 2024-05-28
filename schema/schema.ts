@@ -18,7 +18,6 @@ export interface Schema {
 
     /**
      * Environment defines a deployment environment.
-     * @todo
      */
     environment?: EnvironmentSchema
 
@@ -49,7 +48,6 @@ export interface Schema {
 
     /**
      * Inputset defines re-usable inputs.
-     * 
      * @todo
      */
     inputset?: any;
@@ -128,7 +126,7 @@ export interface EnvironmentSchema {
     id?: string;
     name?: string;
     tags?: Record<string, string>;
-    type?: "production" | "non-production" // should this be "production?: boolean" instead?
+    type?: "production" | "non-production" // TODO: should this be "production?: boolean" instead?
 
     /**
      * @deprecated

@@ -7,7 +7,7 @@ import { FailureStrategy } from "./failure";
 import { Platform } from "./platform";
 import { Runtime } from "./runtime";
 import { Service } from "./service";
-import { Step } from "./steps";
+import { Step, StepGroup } from "./steps";
 import { Strategy } from "./strategy";
 import { Volume } from "./volumes";
 import { Workspace } from "./workspace";
@@ -99,6 +99,11 @@ export interface Stage {
      * Steps defines a list of steps.
      */
     steps?: Step[];
+
+    /**
+     * Rollback defines the rollback steps.
+     */
+    rollback?: Step;
 
     /**
      * If defines conditional execution logic.
