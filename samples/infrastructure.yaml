@@ -1,0 +1,55 @@
+## Kubernetes
+
+infrastructure:
+  name: prod-platformdemo-k8scluster
+  id: prodplatformdemok8scluster
+  description: ""
+  tags: {}
+  org: default
+  project: Platform_Demo
+  uses: k8s-gke| k8s-eks | k8s-aks | k8s-direct
+  with:
+    connector: platformdemok8s
+    namespace: e2e-prod
+    release: release-<+INFRA_KEY>
+    simultaneous-deployment: false
+    
+## ECS
+
+infrastructure:
+  name: ECS
+  id: ECS
+  description: "ECS Deployment Infrastructure"
+  tags:
+    account:dev
+  org: default
+  project: Platform_Demo
+  uses: ecs
+  with:
+    connector: AWSSalesDanF
+    region: us-west-2
+    cluster: lg-fargate
+    simultaneous-deployment: false
+
+
+## SSH
+
+infrastructure:
+  name: dev-ssh-aws
+  id: devsshaws
+  org: default
+  project: CD_Demo
+  uses: ssh-aws | ssh-azure | ssh-pdc | winrm-azure | winrm-aws | winrm-pdc
+  with:
+    credentials: sshawsdemo
+    connector: account.AWS_Sales_Account
+    region: us-west-2
+    # instance-filter: Remove Instance Filter
+    tags:
+      name: sshdemo-instance
+    vpcs: []
+    host-connection-type: PublicIP
+    instance-type: Aws
+    simultaneous-deployment: false
+
+
