@@ -7,6 +7,7 @@ import { FailureStrategy } from "./failure";
 import { Platform } from "./platform";
 import { Runtime } from "./runtime";
 import { Service } from "./service";
+import { Status } from "./status";
 import { Step, StepGroup } from "./steps";
 import { Strategy } from "./strategy";
 import { Volume } from "./volumes";
@@ -33,6 +34,11 @@ export interface Stage {
      * Clone overrides the default clone settings.
      */
     clone?: Clone;
+
+    /**
+     * Status overrides the default status settings.
+     */
+    status?: Status;
 
     /**
      * Strategy defines the matrix or looping strategy.

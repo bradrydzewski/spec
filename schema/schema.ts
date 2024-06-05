@@ -32,7 +32,7 @@ export interface Schema {
      * 
      * @todo
      */
-    infrastructure?: any;
+    infrastructure?: InfraSchema;
 
     /**
      * Template defines re-usable pipeline steps and
@@ -141,6 +141,24 @@ export interface EnvironmentSchema {
 
 // TODO
 export interface ServiceSchema {
+    id?: string;
+    name?: string;
+    tags?: Record<string, string>;
+
+    /**
+     * @deprecated
+     */
+    org?: string;
+
+    /**
+     * @deprecated
+     */
+    project?: string;
+}
+
+
+// TODO
+export interface InfraSchema {
     id?: string;
     name?: string;
     tags?: Record<string, string>;

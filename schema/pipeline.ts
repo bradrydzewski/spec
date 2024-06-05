@@ -6,6 +6,7 @@ import { On } from "./on";
 import { Repository } from "./repository";
 import { Service } from "./service";
 import { Stage } from "./stages";
+import { Status } from "./status";
 
 export interface Pipeline {
     /**
@@ -60,6 +61,11 @@ export interface Pipeline {
     clone?: Clone;
 
     /**
+     * Status overrides the default status behavior.
+     */
+    status?: Status;
+
+    /**
      * Barriers provides optional pipeline barriers.
      */
     barriers?: string[];
@@ -79,15 +85,17 @@ export interface Pipeline {
      */
     on?: On;
 
-    /**
-     * Concurrency groups provide a way to limit concurrency
-     * execution of pipelines that share the same concurrency key.
-     */
-    concurrency?: Concurrency;
-
     //
     // GitHub-Specific
     //
+
+    /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     * 
+     * @github
+     */
+    concurrency?: Concurrency;
 
     /**
      * Jobs defines jobs (stages) in the pipeline.

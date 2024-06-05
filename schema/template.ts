@@ -6,5 +6,4 @@ export interface Template {
     inputs?: Record<string, Input>
     stage?: Stage;
     step?: Step;
-    rollback?: Step;
 }

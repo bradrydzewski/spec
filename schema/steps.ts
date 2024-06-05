@@ -1,6 +1,7 @@
 import {Container} from "./container";
 import {FailureStrategy} from "./failure";
 import {Output} from "./output";
+import {Status} from "./status";
 import {Strategy} from "./strategy";
 
 export type Step = string | StepLong;
@@ -94,6 +95,11 @@ export interface StepLong {
      * Strategy defines the matrix or looping strategy.
      */
     strategy?: Strategy;
+
+    /**
+     * Status overrides the default status settings.
+     */
+    status?: Status;
 
     /**
      * FailureStrategy defines error handling.

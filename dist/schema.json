@@ -723,6 +723,32 @@
       },
       "type": "object"
     },
+    "InfraSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "project": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "Input": {
       "additionalProperties": false,
       "properties": {
@@ -1089,6 +1115,10 @@
             "$ref": "#/definitions/Stage"
           },
           "type": "array"
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "Status overrides the default status behavior."
         }
       },
       "type": "object"
@@ -1451,6 +1481,7 @@
           "description": "Environment defines a deployment environment."
         },
         "infrastructure": {
+          "$ref": "#/definitions/InfraSchema",
           "description": "Infrastructure defines the service infrastructure."
         },
         "inputset": {
@@ -1658,6 +1689,10 @@
           "description": "Services defines background service containers.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "Status overrides the default status settings."
+        },
         "steps": {
           "description": "Steps defines a list of steps.",
           "items": {
@@ -1724,6 +1759,42 @@
         },
         "with": {
           "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "Status": {
+      "additionalProperties": false,
+      "properties": {
+        "disabled": {
+          "description": "Disabled disables the status check.",
+          "type": "boolean"
+        },
+        "level": {
+          "description": "Level stes the status level.",
+          "enum": [
+            "pipeline",
+            "stage",
+            "step"
+          ],
+          "type": "string"
+        },
+        "matrix": {
+          "description": "Matrix defines how matrix statuses are handled.",
+          "enum": [
+            "itemize",
+            "aggregate"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "description": "Name sets the default status name.",
+          "enum": [
+            "pipeline",
+            "stage",
+            "step"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -1921,6 +1992,10 @@
         "run-test": {
           "$ref": "#/definitions/StepTest",
           "description": "Test defines a run test step"
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "Status overrides the default status settings."
         },
         "strategy": {
           "$ref": "#/definitions/Strategy",
@@ -2204,9 +2279,6 @@
             "$ref": "#/definitions/Input"
           },
           "type": "object"
-        },
-        "rollback": {
-          "$ref": "#/definitions/Step"
         },
         "stage": {
           "$ref": "#/definitions/Stage"
