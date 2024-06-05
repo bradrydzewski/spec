@@ -7,7 +7,7 @@ infrastructure:
   tags: {}
   org: default
   project: Platform_Demo
-  uses: k8s-gke| k8s-eks | k8s-aks | k8s-direct
+  uses: kubernetes-gke| kubernetes-eks | kubernetes-aks | kubernetes-direct
   with:
     connector: platformdemok8s
     namespace: e2e-prod
@@ -48,8 +48,8 @@ infrastructure:
     tags:
       name: sshdemo-instance
     vpcs: []
-    host-connection-type: PublicIP
-    instance-type: Aws
+    host-connection-type: public-ip
+    instance-type: aws
     simultaneous-deployment: false
 
 
