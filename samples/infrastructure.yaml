@@ -12,7 +12,7 @@ infrastructure:
     connector: platformdemok8s
     namespace: e2e-prod
     release: release-<+INFRA_KEY>
-    simultaneous-deployment: false
+    parallel-deployment: false
     
 ## ECS
 
