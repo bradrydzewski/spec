@@ -29,7 +29,7 @@ infrastructure:
     connector: AWSSalesDanF
     region: us-west-2
     cluster: lg-fargate
-    simultaneous-deployment: false
+    parallel-deployment: false
 
 
 ## SSH
@@ -50,6 +50,6 @@ infrastructure:
     vpcs: []
     host-connection-type: public-ip
     instance-type: aws
-    simultaneous-deployment: false
+    parallel-deployment: false
 
 
