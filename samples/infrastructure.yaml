@@ -7,7 +7,7 @@ infrastructure:
   tags: {}
   org: default
   project: Platform_Demo
-  uses: kubernetes-gke| kubernetes-eks | kubernetes-aks | kubernetes-direct
+  uses: gke | eks | aks | kubernetes
   with:
     connector: platformdemok8s
     namespace: e2e-prod
