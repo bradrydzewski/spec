@@ -7,7 +7,7 @@ export interface Status {
     /**
      * Name sets the default status name.
      */
-    name?: "pipeline" | "stage" | "step";
+    name?: string;
 
     /**
      * Level stes the status level.
