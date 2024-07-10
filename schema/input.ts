@@ -1,3 +1,6 @@
+/**
+ * @x-go-file input.go
+ */
 export interface Input {
 
     /**

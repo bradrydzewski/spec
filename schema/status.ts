@@ -1,3 +1,6 @@
+/**
+ * @x-go-file status.go
+ */
 export interface Status {
     /**
      * Disabled disables the status check.

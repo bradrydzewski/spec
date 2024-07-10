@@ -1,5 +1,6 @@
 /**
  * Platform defines the target execution environment.
+ * @x-go-file platform.go
  */
 export interface Platform {
     /**

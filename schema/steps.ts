@@ -341,7 +341,10 @@ export interface TestIntelligence {
 // Reports
 //
 
+/**
+ * @x-go-file report.go
+ */
 export interface Report {
-    type?: "junit" | "xunit" | "numit";
+    type?: "junit" | "xunit" | "nunit";
     path?: string;
 }

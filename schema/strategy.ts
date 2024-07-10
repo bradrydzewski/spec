@@ -1,3 +1,6 @@
+/**
+ * @x-go-file strategy.go
+ */
 export interface Strategy {
     /**
      * For defines a for loop execution strategy.
@@ -41,6 +44,7 @@ export interface Strategy {
 
 /**
  * For defines a for loop execution strategy.
+ * @x-go-file strategy_for.go
  */
 export interface For {
     /**
@@ -51,6 +55,7 @@ export interface For {
 
 /**
  * While defines a while loop execution strategy.
+ * @x-go-file strategy_while.go
  */
 export interface While {
     /**
@@ -66,6 +71,7 @@ export interface While {
 
 /**
  * Matrix defines a matrix execution strategy.
+ * @x-go-file strategy_matrix.go
  * @additionalProperties
  */
 export interface Matrix {
