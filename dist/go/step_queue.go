@@ -16,7 +16,7 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type StepQueue struct {
+	Key   string `json:"key,omitempty"`
+	Scope string `json:"scope,omitempty"`
 }

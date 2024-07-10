@@ -16,7 +16,6 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type TestIntelligence struct {
+	Disabled bool `json:"disabled,omitempty"`
 }

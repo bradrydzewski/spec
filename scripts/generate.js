@@ -23,7 +23,7 @@ Object.entries(schema.definitions).forEach(([k, v]) => {
     }
 
     if (!v["x-go-file"]) {
-        console.log("SKIP", k);
+        console.log("skip definition", v.title || v.name)
         return;
     }
 

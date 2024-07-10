@@ -149,6 +149,9 @@ export interface StepLong {
 // Step Types
 //
 
+/**
+ * @x-go-file step_action.go
+ */
 export interface StepAction {
     /**
      * Uses defines the action.
@@ -177,16 +180,25 @@ export interface StepAction {
     output?: Output | Output[];
 }
 
+/**
+ * @x-go-file step_approval.go
+ */
 export interface StepApproval {
     uses?: string;
     with?: Record<string, any>;
     env?: Record<string, string>;
 }
 
+/**
+ * @x-go-file step_barrier.go
+ */
 export interface StepBarrier {
     name: string;
 }
 
+/**
+ * @x-go-file step_group.go
+ */
 export interface StepGroup {
     /**
      * Parallel defines the maximum number of steps that
@@ -202,6 +214,9 @@ export interface StepGroup {
     steps?: Step[];  
 }
 
+/**
+ * @x-go-file step_run.go
+ */
 export interface StepRun {
     /**
      * Shell defines the shell of the step.
@@ -247,11 +262,17 @@ export interface StepRun {
     delegate?: "inherit-from-infrastrcuture" | string | string[];
 }
 
+/**
+ * @x-go-file step_queue.go
+ */
 export interface StepQueue {
     key: string;
     scope?: "pipeline" | "stage";
 }
 
+/**
+ * @x-go-file step_template.go
+ */
 export interface StepTemplate {
     /**
      * Uses defines the template.
@@ -269,6 +290,9 @@ export interface StepTemplate {
     env?: Record<string, string>;
 }
 
+/**
+ * @x-go-file step_tester.go
+ */
 export interface StepTest {
     /**
      * Shell defines the shell of the step.
@@ -328,11 +352,17 @@ export interface StepTest {
 // Testing
 //
 
+/**
+ * @x-go-file test_splitting.go
+ */
 export interface TestSplitting {
     disabled?: boolean;
     concurrency?: number;
 }
 
+/**
+ * @x-go-file test_intelligence.go
+ */
 export interface TestIntelligence {
     disabled?: boolean;
 } 

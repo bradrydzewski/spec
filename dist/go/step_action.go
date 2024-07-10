@@ -16,7 +16,10 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type StepAction struct {
+	Env    map[string]string      `json:"env,omitempty"`
+	Output interface{}            `json:"output,omitempty"`
+	Report interface{}            `json:"report,omitempty"`
+	Uses   string                 `json:"uses,omitempty"`
+	With   map[string]interface{} `json:"with,omitempty"`
 }

@@ -1085,7 +1085,9 @@
           "$ref": "#/definitions/On",
           "description": "On provides condition pipeline execution logic based on trigger event and action mapping. If the conditional logic resolves to folse, the pipeline is skipped."
         },
-        "permissions": {},
+        "permissions": {
+          "$ref": "#/definitions/Permissions"
+        },
         "repo": {
           "$ref": "#/definitions/Repository",
           "description": "Repo overrides the default repository."
@@ -1642,8 +1644,8 @@
           "description": "Parallel defines a set of parallel stages."
         },
         "permissions": {
-          "description": "Permissions defines the permission granted to the token injected into the stage environment.",
-          "type": "object"
+          "$ref": "#/definitions/Permissions",
+          "description": "Permissions defines the permission granted to the token injected into the stage environment."
         },
         "platform": {
           "$ref": "#/definitions/Platform",
@@ -1702,7 +1704,8 @@
           "description": "Workspace configures the local workspace directory."
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage.go"
     },
     "StageApproval": {
       "properties": {
@@ -1713,7 +1716,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage_approval.go"
     },
     "StageGroup": {
       "properties": {
@@ -1730,7 +1734,8 @@
           "type": "array"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage_group.go"
     },
     "StageTemplate": {
       "properties": {
@@ -1741,7 +1746,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage_template.go"
     },
     "Status": {
       "properties": {
@@ -1831,7 +1837,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_action.go"
     },
     "StepApproval": {
       "properties": {
@@ -1848,7 +1855,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_approval.go"
     },
     "StepBarrier": {
       "properties": {
@@ -1859,7 +1867,8 @@
       "required": [
         "name"
       ],
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_barrier.go"
     },
     "StepGroup": {
       "properties": {
@@ -1879,7 +1888,8 @@
           "type": "array"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_group.go"
     },
     "StepLong": {
       "properties": {
@@ -1991,7 +2001,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step.go"
     },
     "StepQueue": {
       "properties": {
@@ -2009,7 +2020,8 @@
       "required": [
         "key"
       ],
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_queue.go"
     },
     "StepRun": {
       "properties": {
@@ -2097,7 +2109,8 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_run.go"
     },
     "StepTemplate": {
       "properties": {
@@ -2117,7 +2130,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_template.go"
     },
     "StepTest": {
       "properties": {
@@ -2209,7 +2223,8 @@
           "description": "Splitting configures the test splitting behavior."
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_test.go"
     },
     "Strategy": {
       "properties": {
@@ -2262,7 +2277,8 @@
           "type": "boolean"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "test_intelligence.go"
     },
     "TestSplitting": {
       "properties": {
@@ -2273,7 +2289,8 @@
           "type": "boolean"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "test_splitting.go"
     },
     "Volume": {
       "properties": {

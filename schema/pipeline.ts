@@ -3,6 +3,7 @@ import { Concurrency } from "./concurrency";
 import { Environment } from "./environment";
 import { Input } from "./input";
 import { On } from "./on";
+import { Permissions } from "./permissions";
 import { Repository } from "./repository";
 import { Service } from "./service";
 import { Stage } from "./stages";
@@ -118,5 +119,5 @@ export interface Pipeline {
     /**
      * @github
      */
-    permissions?: any;
+    permissions?: Permissions;
 }

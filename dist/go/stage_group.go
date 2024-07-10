@@ -16,7 +16,7 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type StageGroup struct {
+	Parallel int64    `json:"parallel,omitempty"`
+	Stages   []*Stage `json:"stages,omitempty"`
 }

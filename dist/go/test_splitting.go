@@ -16,7 +16,7 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type TestSplitting struct {
+	Concurrency int64 `json:"concurrency,omitempty"`
+	Disabled    bool  `json:"disabled,omitempty"`
 }

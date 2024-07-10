@@ -16,7 +16,14 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type StepTest struct {
+	Container    *Container        `json:"container,omitempty"`
+	Env          map[string]string `json:"env,omitempty"`
+	Intelligence *TestIntelligence `json:"intelligence,omitempty"`
+	Match        Stringorslice     `json:"match,omitempty"`
+	Output       interface{}       `json:"output,omitempty"`
+	Report       interface{}       `json:"report,omitempty"`
+	Script       Stringorslice     `json:"script,omitempty"`
+	Shell        string            `json:"shell,omitempty"`
+	Splitting    *TestSplitting    `json:"splitting,omitempty"`
 }

@@ -16,7 +16,7 @@
 
 package yaml
 
-type FailureStrategy struct {
-	Action *Action       `json:"action,omitempty"`
-	Errors Stringorslice `json:"errors,omitempty"`
+type StageTemplate struct {
+	Uses string                 `json:"uses,omitempty"`
+	With map[string]interface{} `json:"with,omitempty"`
 }

@@ -4,6 +4,7 @@ import { Container } from "./container";
 import { Concurrency } from "./concurrency";
 import { Environment } from "./environment";
 import { FailureStrategy } from "./failure";
+import { Permissions } from "./permissions";
 import { Platform } from "./platform";
 import { Runtime } from "./runtime";
 import { Service } from "./service";
@@ -13,6 +14,9 @@ import { Strategy } from "./strategy";
 import { Volume } from "./volumes";
 import { Workspace } from "./workspace";
 
+/**
+ * @x-go-file stage.go
+ */
 export interface Stage {
     /**
      * Id defines the pipeline id.
@@ -172,6 +176,9 @@ export interface Stage {
     permissions?: Permissions;
 }
 
+/**
+ * @x-go-file stage_group.go
+ */
 export interface StageGroup {
     /**
      * Parallel defines the maximum number of stages that
@@ -187,11 +194,17 @@ export interface StageGroup {
     stages?: Stage[];
 }
 
+/**
+ * @x-go-file stage_approval.go
+ */
 export interface StageApproval {
     uses?: string;
     with?: Record<string, any>;
 }
 
+/**
+ * @x-go-file stage_template.go
+ */
 export interface StageTemplate {
     uses?: string;
     with?: Record<string, any>;
