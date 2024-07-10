@@ -8,6 +8,9 @@ import { Service } from "./service";
 import { Stage } from "./stages";
 import { Status } from "./status";
 
+/**
+ * @x-go-file pipeline.go
+ */
 export interface Pipeline {
     /**
      * Id provides a unique pipeline identifer.

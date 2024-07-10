@@ -14,40 +14,32 @@
 
 package yaml
 
-import (
-	"encoding/json"
-	"strings"
-)
+import "encoding/json"
 
-type Mount struct {
-	Source string `json:"source,omitempty"`
-	Target string `json:"target,omitempty"`
+type CloneRef struct {
+	Name string `json:"name,omitempty"`
+	Sha  string `json:"sha,omitempty"`
+	Type string `json:"type,omitempty"`
 }
 
 // UnmarshalJSON implement the json.Unmarshaler interface.
-func (v *Mount) UnmarshalJSON(data []byte) error {
+func (v *CloneRef) UnmarshalJSON(data []byte) error {
 	var out1 string
 	var out2 = struct {
-		Source string `json:"source,omitempty"`
-		Target string `json:"target,omitempty"`
+		Name string `json:"name,omitempty"`
+		Sha  string `json:"sha,omitempty"`
+		Type string `json:"type,omitempty"`
 	}{}
 
 	if err := json.Unmarshal(data, &out1); err != nil {
-		parts := strings.SplitN(out1, ":", 2)
-		switch len(parts) {
-		case 1:
-			v.Source = parts[0]
-			v.Target = parts[0]
-		case 2:
-			v.Source = parts[0]
-			v.Target = parts[1]
-		}
+		v.Name = out1
 		return nil
 	}
 
 	if err := json.Unmarshal(data, &out2); err != nil {
-		v.Source = out2.Source
-		v.Target = out2.Target
+		v.Name = out2.Name
+		v.Type = out2.Type
+		v.Sha = out2.Sha
 		return nil
 	} else {
 		return err

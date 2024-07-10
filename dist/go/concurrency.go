@@ -14,40 +14,29 @@
 
 package yaml
 
-import (
-	"encoding/json"
-	"strings"
-)
+import "encoding/json"
 
-type Mount struct {
-	Source string `json:"source,omitempty"`
-	Target string `json:"target,omitempty"`
+type Concurrency struct {
+	CancelInProgress bool   `json:"cancel-in-progress,omitempty"`
+	Group            string `json:"group,omitempty"`
 }
 
 // UnmarshalJSON implement the json.Unmarshaler interface.
-func (v *Mount) UnmarshalJSON(data []byte) error {
+func (v *Concurrency) UnmarshalJSON(data []byte) error {
 	var out1 string
 	var out2 = struct {
-		Source string `json:"source,omitempty"`
-		Target string `json:"target,omitempty"`
+		CancelInProgress bool   `json:"cancel-in-progress,omitempty"`
+		Group            string `json:"group,omitempty"`
 	}{}
 
 	if err := json.Unmarshal(data, &out1); err != nil {
-		parts := strings.SplitN(out1, ":", 2)
-		switch len(parts) {
-		case 1:
-			v.Source = parts[0]
-			v.Target = parts[0]
-		case 2:
-			v.Source = parts[0]
-			v.Target = parts[1]
-		}
+		v.Group = out1
 		return nil
 	}
 
 	if err := json.Unmarshal(data, &out2); err != nil {
-		v.Source = out2.Source
-		v.Target = out2.Target
+		v.CancelInProgress = out2.CancelInProgress
+		v.Group = out2.Group
 		return nil
 	} else {
 		return err

@@ -53,7 +53,8 @@
           "$ref": "#/definitions/Action"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "action_manual.go"
     },
     "ActionRetry": {
       "properties": {
@@ -77,7 +78,8 @@
           ]
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "action_retry.go"
     },
     "ActionType": {
       "enum": [
@@ -406,7 +408,8 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "credentials.go"
     },
     "CredentialsAWS": {
       "properties": {
@@ -419,7 +422,8 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "credentials_aws.go"
     },
     "Environment": {
       "anyOf": [
@@ -1102,7 +1106,8 @@
           "description": "Status overrides the default status behavior."
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "pipeline.go"
     },
     "Platform": {
       "description": "Platform defines the target execution environment.",
@@ -1378,18 +1383,26 @@
           "$ref": "#/definitions/MachineSize"
         }
       },
-      "type": "object",
-      "x-go-file": "runtime_cloud.go"
+      "type": "object"
     },
     "RuntimeInstance": {
-      "description": "RuntimeInstance configures the vm runtime environment.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/RuntimeInstanceLong"
+        }
+      ]
+    },
+    "RuntimeInstanceLong": {
+      "description": "RuntimeInstanceLong configures the vm runtime environment.",
       "properties": {
         "image": {
           "type": "string"
         }
       },
-      "type": "object",
-      "x-go-file": "runtime_vm.go"
+      "type": "object"
     },
     "RuntimeKubernetes": {
       "description": "RuntimeKubernetes configures the kubernetes runtime environment.",
@@ -1414,23 +1427,15 @@
           "type": "boolean"
         },
         "vm": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/RuntimeInstance"
-            }
-          ]
+          "$ref": "#/definitions/RuntimeInstance"
         }
       },
-      "type": "object",
-      "x-go-file": "runtime.go"
+      "type": "object"
     },
     "RuntimeShort": {
       "enum": [
         "cloud",
-        "instance",
+        "vm",
         "kubernetes",
         "shell"
       ],
@@ -1763,11 +1768,6 @@
         },
         "name": {
           "description": "Name sets the default status name.",
-          "enum": [
-            "pipeline",
-            "stage",
-            "step"
-          ],
           "type": "string"
         }
       },

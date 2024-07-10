@@ -14,40 +14,35 @@
 
 package yaml
 
-import (
-	"encoding/json"
-	"strings"
-)
+import "encoding/json"
 
-type Mount struct {
-	Source string `json:"source,omitempty"`
-	Target string `json:"target,omitempty"`
+type Output struct {
+	Alias string `json:"alias,omitempty"`
+	Mask  bool   `json:"mask,omitempty"`
+	Name  string `json:"name,omitempty"`
+	Scope string `json:"scope,omitempty"`
 }
 
 // UnmarshalJSON implement the json.Unmarshaler interface.
-func (v *Mount) UnmarshalJSON(data []byte) error {
+func (v *Output) UnmarshalJSON(data []byte) error {
 	var out1 string
 	var out2 = struct {
-		Source string `json:"source,omitempty"`
-		Target string `json:"target,omitempty"`
+		Alias string `json:"alias,omitempty"`
+		Mask  bool   `json:"mask,omitempty"`
+		Name  string `json:"name,omitempty"`
+		Scope string `json:"scope,omitempty"`
 	}{}
 
 	if err := json.Unmarshal(data, &out1); err != nil {
-		parts := strings.SplitN(out1, ":", 2)
-		switch len(parts) {
-		case 1:
-			v.Source = parts[0]
-			v.Target = parts[0]
-		case 2:
-			v.Source = parts[0]
-			v.Target = parts[1]
-		}
+		v.Name = out1
 		return nil
 	}
 
 	if err := json.Unmarshal(data, &out2); err != nil {
-		v.Source = out2.Source
-		v.Target = out2.Target
+		v.Alias = out2.Alias
+		v.Mask = out2.Mask
+		v.Name = out2.Name
+		v.Scope = out2.Scope
 		return nil
 	} else {
 		return err
