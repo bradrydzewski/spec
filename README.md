@@ -7,13 +7,11 @@ npm install
 Generate the schema at `dist/schema.json`
 
 ```
-npm run generate-schema
+npm run schema
 ```
 
-<!--
 Generate the parser code at `dist/go`
 
 ```
-npm run generate-go
+npm run golang
 ```
--->

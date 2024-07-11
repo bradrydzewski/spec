@@ -506,7 +506,8 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "schema_environment.go"
     },
     "Event": {
       "anyOf": [
@@ -735,7 +736,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "schema_infra.go"
     },
     "Input": {
       "properties": {
@@ -1515,7 +1517,8 @@
           ]
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "schema.go"
     },
     "Service": {
       "anyOf": [
@@ -1567,7 +1570,8 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "schema_service.go"
     },
     "Stage": {
       "properties": {
@@ -2001,8 +2005,7 @@
           "type": "object"
         }
       },
-      "type": "object",
-      "x-go-file": "step.go"
+      "type": "object"
     },
     "StepQueue": {
       "properties": {
@@ -2224,7 +2227,7 @@
         }
       },
       "type": "object",
-      "x-go-file": "step_test.go"
+      "x-go-file": "step_tester.go"
     },
     "Strategy": {
       "properties": {

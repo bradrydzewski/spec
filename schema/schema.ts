@@ -5,6 +5,9 @@ import { Pipeline } from "./pipeline";
 import { Stage } from "./stages";
 import { Template } from "./template";
 
+/**
+ * @x-go-file schema.go
+ */
 export interface Schema {
     /**
      * Version defines the schema version.
@@ -121,7 +124,9 @@ export interface Schema {
     permissions?: Permissions;
 }
 
-// TODO
+/**
+ * @x-go-file schema_environment.go
+ */
 export interface EnvironmentSchema {
     id?: string;
     name?: string;
@@ -139,7 +144,9 @@ export interface EnvironmentSchema {
     project?: string;
 }
 
-// TODO
+/**
+ * @x-go-file schema_service.go
+ */
 export interface ServiceSchema {
     id?: string;
     name?: string;
@@ -157,7 +164,9 @@ export interface ServiceSchema {
 }
 
 
-// TODO
+/**
+ * @x-go-file schema_infra.go
+ */
 export interface InfraSchema {
     id?: string;
     name?: string;

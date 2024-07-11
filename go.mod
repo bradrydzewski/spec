@@ -1,4 +1,4 @@
-module github.com/drone/spec
+module github.com/harness/spec
 
 go 1.19
 
