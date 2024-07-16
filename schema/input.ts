@@ -42,6 +42,11 @@ export interface Input {
     enum?: any[]
 
     /**
+     * Pattern defines a regular expression input constraint.
+     */
+    pattern?: string;
+
+    /**
      * Options defines a list of accepted input values.
      * This is an alias for enum.
      * @github
