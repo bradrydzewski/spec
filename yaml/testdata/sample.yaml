@@ -1,4 +1,19 @@
 pipeline:
+  inputs:
+    username:
+      type: string
+      default: ubuntu
+    password:
+      type: string
+
+  clone:
+    depth: 50
+
+  env:
+    GOOS: linux
+
+  environment: prod
+
   stages:
   - steps:
     - go build
