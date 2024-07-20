@@ -1,6 +1,5 @@
 import {Container} from "./container";
 import {FailureStrategy} from "./failure";
-import {Output} from "./output";
 import {Status} from "./status";
 import {Strategy} from "./strategy";
 
@@ -173,11 +172,11 @@ export interface StepAction {
      */
     report?: Report | Report[];
 
-    /**
-     * Output defines the output variables.
-     * @deprecated
-     */
-    output?: Output | Output[];
+    // /**
+    //  * Output defines the output variables.
+    //  * @deprecated
+    //  */
+    // output?: Output | Output[];
 }
 
 /**
@@ -244,11 +243,11 @@ export interface StepRun {
      */
     env?: Record<string, string>;
 
-    /**
-     * Output defines the step output variables.
-     * @deprecated
-     */
-    output?: Output | Output[];
+    // /**
+    //  * Output defines the step output variables.
+    //  * @deprecated
+    //  */
+    // output?: Output | Output[];
 
     /**
      * Report uploads reports at the the provided path(s)
@@ -341,11 +340,11 @@ export interface StepTest {
      */
     report?: Report | Report[];
 
-    /**
-     * Output defines the output variables.
-     * @deprecated
-     */
-    output?: Output | Output[];
+    // /**
+    //  * Output defines the output variables.
+    //  * @deprecated
+    //  */
+    // output?: Output | Output[];
 }
 
 //

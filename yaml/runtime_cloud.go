@@ -18,6 +18,6 @@ package yaml
 
 // RuntimeClone configures the cloud runtime environment.
 type RuntimeCloud struct {
-	Image interface{} `json:"image,omitempty"`
-	Size  MachineSize `json:"size,omitempty"`
+	Image MachineImage `json:"image,omitempty"`
+	Size  MachineSize  `json:"size,omitempty"`
 }

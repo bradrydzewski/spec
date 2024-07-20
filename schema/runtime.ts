@@ -35,7 +35,7 @@ export type MachineImage =
  * RuntimeClone configures the cloud runtime environment.
  */
 export interface RuntimeCloud {
-    image?: MachineImage | string;
+    image?: MachineImage;
     size?: MachineSize;
 }
 

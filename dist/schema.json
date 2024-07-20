@@ -877,37 +877,6 @@
         }
       ]
     },
-    "Output": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/definitions/OutputLong"
-        }
-      ]
-    },
-    "OutputLong": {
-      "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "mask": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "scope": {
-          "enum": [
-            "pipeline",
-            "stage"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "Permissions": {
       "anyOf": [
         {
@@ -1381,14 +1350,7 @@
       "description": "RuntimeClone configures the cloud runtime environment.",
       "properties": {
         "image": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/MachineImage"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/MachineImage"
         },
         "size": {
           "$ref": "#/definitions/MachineSize"
@@ -1815,21 +1777,6 @@
           "description": "Env defines the environment of the step.",
           "type": "object"
         },
-        "output": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Output"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Output"
-              },
-              "type": "array"
-            }
-          ],
-          "deprecated": true,
-          "description": "Output defines the output variables."
-        },
         "report": {
           "anyOf": [
             {
@@ -2069,21 +2016,6 @@
           "description": "Env defines the environment of the step.",
           "type": "object"
         },
-        "output": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Output"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Output"
-              },
-              "type": "array"
-            }
-          ],
-          "deprecated": true,
-          "description": "Output defines the step output variables."
-        },
         "report": {
           "anyOf": [
             {
@@ -2178,21 +2110,6 @@
             }
           ],
           "description": "Match provides unit test matching logic in glob format."
-        },
-        "output": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Output"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Output"
-              },
-              "type": "array"
-            }
-          ],
-          "deprecated": true,
-          "description": "Output defines the output variables."
         },
         "report": {
           "anyOf": [
