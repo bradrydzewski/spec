@@ -37,7 +37,7 @@ type Stage struct {
 	Rollback    *Step                  `json:"rollback,omitempty"`
 	RunsOn      string                 `json:"runs-on,omitempty"`
 	Runtime     *Runtime               `json:"runtime,omitempty"`
-	Service     *Service               `json:"service,omitempty"`
+	Service     *ServiceRef            `json:"service,omitempty"`
 	Services    map[string]*Container  `json:"services,omitempty"`
 	Status      *Status                `json:"status,omitempty"`
 	Steps       []*Step                `json:"steps,omitempty"`

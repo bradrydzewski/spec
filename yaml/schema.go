@@ -21,7 +21,7 @@ type Schema struct {
 	Concurrency    *Concurrency           `json:"concurrency,omitempty"`
 	Defaults       map[string]interface{} `json:"defaults,omitempty"`
 	Env            map[string]string      `json:"env,omitempty"`
-	Environment    *EnvironmentSchema     `json:"environment,omitempty"`
+	Environment    *Environment           `json:"environment,omitempty"`
 	Infrastructure *InfraSchema           `json:"infrastructure,omitempty"`
 	Inputset       interface{}            `json:"inputset,omitempty"`
 	Jobs           map[string]*Stage      `json:"jobs,omitempty"`
@@ -29,7 +29,7 @@ type Schema struct {
 	On             *On                    `json:"on,omitempty"`
 	Permissions    *Permissions           `json:"permissions,omitempty"`
 	Pipeline       *Pipeline              `json:"pipeline,omitempty"`
-	Service        *ServiceSchema         `json:"service,omitempty"`
+	Service        *Service               `json:"service,omitempty"`
 	Template       *Template              `json:"template,omitempty"`
 	Version        StringorInt            `json:"version,omitempty"`
 }

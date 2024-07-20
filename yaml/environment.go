@@ -16,11 +16,11 @@
 
 package yaml
 
-type EnvironmentSchema struct {
+type Environment struct {
 	Id      string            `json:"id,omitempty"`
 	Name    string            `json:"name,omitempty"`
 	Org     string            `json:"org,omitempty"`
 	Project string            `json:"project,omitempty"`
 	Tags    map[string]string `json:"tags,omitempty"`
-	Type    string            `json:"type,omitempty"`
+	Type    EnvironmentType   `json:"type,omitempty"`
 }

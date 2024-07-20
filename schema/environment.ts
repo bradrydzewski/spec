@@ -1,3 +1,22 @@
+export type EnvironmentType = "production" | "non-production";
+
+export interface Environment {
+    id?: string;
+    name?: string;
+    tags?: Record<string, string>;
+    type?: EnvironmentType; // TODO: should this be "production?: boolean" instead?
+
+    /**
+     * @deprecated
+     */
+    org?: string;
+
+    /**
+     * @deprecated
+     */
+    project?: string;
+}
+
 export type EnvironmentRef = string | EnvironmentRefLong;
 
 export interface EnvironmentRefLong {

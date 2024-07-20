@@ -424,6 +424,34 @@
       "type": "object",
       "x-go-file": "credentials_aws.go"
     },
+    "Environment": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "project": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "type": {
+          "$ref": "#/definitions/EnvironmentType"
+        }
+      },
+      "type": "object"
+    },
     "EnvironmentItem": {
       "properties": {
         "deploy-to": {
@@ -475,38 +503,12 @@
       },
       "type": "object"
     },
-    "EnvironmentSchema": {
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "org": {
-          "deprecated": true,
-          "type": "string"
-        },
-        "project": {
-          "deprecated": true,
-          "type": "string"
-        },
-        "tags": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "type": {
-          "enum": [
-            "production",
-            "non-production"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object",
-      "x-go-file": "schema_environment.go"
+    "EnvironmentType": {
+      "enum": [
+        "production",
+        "non-production"
+      ],
+      "type": "string"
     },
     "Event": {
       "anyOf": [
@@ -1100,7 +1102,7 @@
           "description": "Repo overrides the default repository."
         },
         "service": {
-          "$ref": "#/definitions/Service",
+          "$ref": "#/definitions/ServiceRef",
           "description": "Service defines the service being deployed."
         },
         "stages": {
@@ -1473,7 +1475,7 @@
           "type": "object"
         },
         "environment": {
-          "$ref": "#/definitions/EnvironmentSchema",
+          "$ref": "#/definitions/Environment",
           "description": "Environment defines a deployment environment."
         },
         "infrastructure": {
@@ -1507,7 +1509,7 @@
           "description": "Pipeline defines the pipeline configuration."
         },
         "service": {
-          "$ref": "#/definitions/ServiceSchema",
+          "$ref": "#/definitions/Service",
           "description": "Service defines a service."
         },
         "template": {
@@ -1526,33 +1528,6 @@
       "x-go-file": "schema.go"
     },
     "Service": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/definitions/ServiceLong"
-        }
-      ]
-    },
-    "ServiceLong": {
-      "properties": {
-        "items": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "parallel": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "items"
-      ],
-      "type": "object"
-    },
-    "ServiceSchema": {
       "properties": {
         "id": {
           "type": "string"
@@ -1575,8 +1550,40 @@
           "type": "object"
         }
       },
-      "type": "object",
-      "x-go-file": "schema_service.go"
+      "type": "object"
+    },
+    "ServiceRef": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "$ref": "#/definitions/ServiceRefLong"
+        }
+      ]
+    },
+    "ServiceRefLong": {
+      "properties": {
+        "items": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "parallel": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
     },
     "Stage": {
       "properties": {
@@ -1673,7 +1680,7 @@
           "description": "Runtime defines the execution runtime."
         },
         "service": {
-          "$ref": "#/definitions/Service",
+          "$ref": "#/definitions/ServiceRef",
           "description": "Service defines the deployment target."
         },
         "services": {

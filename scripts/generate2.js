@@ -19,7 +19,11 @@ const generateStruct = (key, template, output, options) => {
   let obj = schema.definitions[key];
 
   if (template === "struct_or_string" && key !== "StepRun") {
+    try{
     obj.properties = schema.definitions[key+"Long"].properties;
+    }catch(e) {
+      console.log(key, e)
+    }
   }
 
   if (!obj) {
@@ -113,6 +117,8 @@ generateStruct("Concurrency",     "struct_or_string",  "concurrency.go", { prope
 generateStruct("Container",       "struct_or_string",  "container.go",   { property: "Image", type: "string" });
 generateStruct("Credentials",     "struct",            "credentials.go");
 generateStruct("CredentialsAWS",  "struct",            "credentials_aws.go");
+generateStruct("Environment",  "struct",          "environment.go");
+generateEnum("EnvironmentType", "enum", "environment_type.go")
 generateStruct("EnvironmentRef",     "custom_environment","environment_ref.go");
 generateStruct("EnvironmentItem", "struct",            "environment_ref_item.go");
 generateStruct("FailureStrategy", "struct",            "failure.go");
@@ -125,6 +131,7 @@ generateStruct("Mount",           "custom_mount",      "mount.go");
 generateStruct("On",              "custom_on",          "on.go");
 generateStruct("Output",          "struct_or_string",   "output.go", { property: "Name", type: "string" });
 template("parse", {}, "parse.go")
+template("parse_test", {}, "parse_test.go")
 generateStruct("Permissions",        "custom_perms",    "perms.go");
 generateStruct("Pipeline",           "struct",          "pipeline.go");
 generateStruct("Platform",           "struct",          "platform.go");
@@ -135,10 +142,9 @@ generateStruct("RuntimeCloud",       "struct",          "runtime_cloud.go");
 generateStruct("RuntimeKubernetes",  "struct",          "runtime_kubernetes.go");
 generateStruct("RuntimeInstance",    "struct",          "runtime_vm.go");
 generateStruct("Schema",             "struct",          "schema.go");
-generateStruct("ServiceSchema",      "struct",          "schema_service.go");
 generateStruct("InfraSchema",        "struct",          "schema_infra.go");
-generateStruct("EnvironmentSchema",  "struct",          "schema_environment.go");
-generateStruct("Service",            "custom_service",  "service.go");
+generateStruct("Service",            "struct",          "service.go");
+generateStruct("ServiceRef",         "struct_or_string",  "service_ref.go",   { property: "Items", type: "Stringorslice" });
 generateStruct("Stage",              "struct",          "stage.go");
 generateStruct("StageApproval",      "struct",          "stage_approval.go");
 generateStruct("StageGroup",         "struct",          "stage_group.go");
@@ -149,7 +155,7 @@ generateStruct("StepApproval",       "struct",          "step_approval.go");
 generateStruct("StepBarrier",        "struct",          "step_barrier.go");
 generateStruct("StepGroup",          "struct",          "step_group.go");
 generateStruct("StepQueue",          "struct",          "step_queue.go");
-generateStruct("StepRun",                    "struct_or_string",  "step_run.go",   { property: "Script", type: "Stringorslice" });
+generateStruct("StepRun",            "struct_or_string",  "step_run.go",   { property: "Script", type: "Stringorslice" });
 generateStruct("StepTemplate",       "struct",          "step_template.go");
 generateStruct("StepTester",         "struct",          "step_tester.go");
 generateStruct("Step",               "struct",          "step.go");

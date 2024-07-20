@@ -1,8 +1,10 @@
 import { Concurrency } from "./concurrency";
+import { Environment } from "./environment";
 import { Permissions } from "./permissions";
 import { On } from "./on";
 import { Pipeline } from "./pipeline";
 import { Stage } from "./stages";
+import { Service } from "./service";
 import { Template } from "./template";
 
 /**
@@ -22,13 +24,13 @@ export interface Schema {
     /**
      * Environment defines a deployment environment.
      */
-    environment?: EnvironmentSchema
+    environment?: Environment
 
     /**
      * Service defines a service.
      * @todo
      */
-    service?: ServiceSchema
+    service?: Service
 
     /**
      * Infrastructure defines the service infrastructure.
@@ -124,44 +126,10 @@ export interface Schema {
     permissions?: Permissions;
 }
 
-/**
- * @x-go-file schema_environment.go
- */
-export interface EnvironmentSchema {
-    id?: string;
-    name?: string;
-    tags?: Record<string, string>;
-    type?: "production" | "non-production" // TODO: should this be "production?: boolean" instead?
 
-    /**
-     * @deprecated
-     */
-    org?: string;
 
-    /**
-     * @deprecated
-     */
-    project?: string;
-}
 
-/**
- * @x-go-file schema_service.go
- */
-export interface ServiceSchema {
-    id?: string;
-    name?: string;
-    tags?: Record<string, string>;
 
-    /**
-     * @deprecated
-     */
-    org?: string;
-
-    /**
-     * @deprecated
-     */
-    project?: string;
-}
 
 
 /**

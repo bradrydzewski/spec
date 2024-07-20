@@ -31,7 +31,7 @@ type Pipeline struct {
 	On          *On               `json:"on,omitempty"`
 	Permissions *Permissions      `json:"permissions,omitempty"`
 	Repo        *Repository       `json:"repo,omitempty"`
-	Service     *Service          `json:"service,omitempty"`
+	Service     *ServiceRef       `json:"service,omitempty"`
 	Stages      []*Stage          `json:"stages,omitempty"`
 	Status      *Status           `json:"status,omitempty"`
 }

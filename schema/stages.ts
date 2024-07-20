@@ -7,7 +7,7 @@ import { FailureStrategy } from "./failure";
 import { Permissions } from "./permissions";
 import { Platform } from "./platform";
 import { Runtime } from "./runtime";
-import { Service } from "./service";
+import { ServiceRef } from "./service";
 import { Status } from "./status";
 import { Step, StepGroup } from "./steps";
 import { Strategy } from "./strategy";
@@ -52,7 +52,7 @@ export interface Stage {
     /**
      * Service defines the deployment target.
      */
-    service?: Service;
+    service?: ServiceRef;
 
     /**
      * Environment defines the deployment environment (production, staging).

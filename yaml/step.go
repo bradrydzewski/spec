@@ -17,4 +17,25 @@
 package yaml
 
 type Step struct {
+	Action     *StepAction            `json:"action,omitempty"`
+	Approval   *StepApproval          `json:"approval,omitempty"`
+	Background *StepRun               `json:"background,omitempty"`
+	Barrier    *StepBarrier           `json:"barrier,omitempty"`
+	Env        map[string]string      `json:"env,omitempty"`
+	Group      *StepGroup             `json:"group,omitempty"`
+	Id         string                 `json:"id,omitempty"`
+	If         string                 `json:"if,omitempty"`
+	Name       string                 `json:"name,omitempty"`
+	Needs      Stringorslice          `json:"needs,omitempty"`
+	OnFailure  *FailureStrategy       `json:"on-failure,omitempty"`
+	Parallel   *StepGroup             `json:"parallel,omitempty"`
+	Queue      *StepQueue             `json:"queue,omitempty"`
+	Run        *StepRun               `json:"run,omitempty"`
+	// RunTest    *StepTest              `json:"run-test,omitempty"`
+	Status     *Status                `json:"status,omitempty"`
+	Strategy   *Strategy              `json:"strategy,omitempty"`
+	Template   *StepTemplate          `json:"template,omitempty"`
+	Timeout    StringorInt            `json:"timeout,omitempty"`
+	Uses       string                 `json:"uses,omitempty"`
+	With       map[string]interface{} `json:"with,omitempty"`
 }

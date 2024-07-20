@@ -5,7 +5,7 @@ import { Input } from "./input";
 import { On } from "./on";
 import { Permissions } from "./permissions";
 import { Repository } from "./repository";
-import { Service } from "./service";
+import { ServiceRef } from "./service";
 import { Stage } from "./stages";
 import { Status } from "./status";
 
@@ -45,7 +45,7 @@ export interface Pipeline {
     /**
      * Service defines the service being deployed.
      */
-    service?: Service;
+    service?: ServiceRef;
 
     /**
      * Stages provides a list of stages. Each pipeline

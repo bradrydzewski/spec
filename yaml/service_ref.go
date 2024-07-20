@@ -18,33 +18,26 @@ package yaml
 
 import "encoding/json"
 
-type Service struct {
+type ServiceRef struct {
 	Items    []string `json:"items,omitempty"`
 	Parallel bool     `json:"parallel,omitempty"`
 }
 
 // UnmarshalJSON implement the json.Unmarshaler interface.
-func (v *Service) UnmarshalJSON(data []byte) error {
-	var out1 string
-	var out2 []string
-	var out3 = struct {
+func (v *ServiceRef) UnmarshalJSON(data []byte) error {
+	var out1 Stringorslice
+	var out2 = struct {
 		Items    []string `json:"items,omitempty"`
 		Parallel bool     `json:"parallel,omitempty"`
 	}{}
 
-	if err := json.Unmarshal(data, &out1); err != nil {
-		v.Items = []string{out1}
+	if err := json.Unmarshal(data, &out1); err == nil {
+		v.Items = out1
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &out2); err != nil {
-		v.Items = out2
-		return nil
-	}
-
-	if err := json.Unmarshal(data, &out3); err != nil {
-		v.Items = out3.Items
-		v.Parallel = out3.Parallel
+	if err := json.Unmarshal(data, &out2); err == nil {
+		*v = out2
 		return nil
 	} else {
 		return err

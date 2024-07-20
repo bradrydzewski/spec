@@ -102,6 +102,17 @@ func (s *Stringorslice) UnmarshalJSON(data []byte) error {
 	return errors.New("failed to unmarshal string or string array")
 }
 
+func (s Stringorslice) MarshalJSON() ([]byte, error) {
+	switch len(s) {
+	case 1:
+		return json.Marshal(string(s[0]))
+	case 2:
+		return json.Marshal([]string(s))
+	default:
+		return nil, nil
+	}
+}
+
 // Durationorslice represents a duration string or an array
 // of duration strings.
 type Durationorslice []time.Duration
