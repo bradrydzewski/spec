@@ -130,8 +130,7 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "x-go-file": "cache.go"
+      "type": "object"
     },
     "Clone": {
       "anyOf": [
@@ -425,16 +424,6 @@
       "type": "object",
       "x-go-file": "credentials_aws.go"
     },
-    "Environment": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/definitions/EnvironmentLong"
-        }
-      ]
-    },
     "EnvironmentItem": {
       "properties": {
         "deploy-to": {
@@ -462,7 +451,17 @@
       },
       "type": "object"
     },
-    "EnvironmentLong": {
+    "EnvironmentRef": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/EnvironmentRefLong"
+        }
+      ]
+    },
+    "EnvironmentRefLong": {
       "properties": {
         "items": {
           "items": {
@@ -766,6 +765,10 @@
           "items": {},
           "type": "array"
         },
+        "pattern": {
+          "description": "Pattern defines a regular expression input constraint.",
+          "type": "string"
+        },
         "required": {
           "description": "Required indicates the input is required.",
           "type": "boolean"
@@ -792,6 +795,7 @@
       "x-go-file": "input.go"
     },
     "MachineImage": {
+      "description": "MachineImage defines possible machine image values.",
       "enum": [
         "ubuntu-latest",
         "macos-latest",
@@ -800,6 +804,7 @@
       "type": "string"
     },
     "MachineSize": {
+      "description": "MachineImage defines machine size values.",
       "enum": [
         "flex",
         "small",
@@ -1052,7 +1057,7 @@
           "type": "object"
         },
         "environment": {
-          "$ref": "#/definitions/Environment",
+          "$ref": "#/definitions/EnvironmentRef",
           "description": "Environment defines the target deployment environment (e.g. development, prod)."
         },
         "id": {
@@ -1603,7 +1608,7 @@
           "type": "object"
         },
         "environment": {
-          "$ref": "#/definitions/Environment",
+          "$ref": "#/definitions/EnvironmentRef",
           "description": "Environment defines the deployment environment (production, staging)."
         },
         "group": {

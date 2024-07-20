@@ -2,7 +2,7 @@ import { Cache } from "./cache";
 import { Clone } from "./clone";
 import { Container } from "./container";
 import { Concurrency } from "./concurrency";
-import { Environment } from "./environment";
+import { EnvironmentRef } from "./environment";
 import { FailureStrategy } from "./failure";
 import { Permissions } from "./permissions";
 import { Platform } from "./platform";
@@ -57,7 +57,7 @@ export interface Stage {
     /**
      * Environment defines the deployment environment (production, staging).
      */
-    environment?: Environment;
+    environment?: EnvironmentRef;
 
     /**
      * Runtime defines the execution runtime.

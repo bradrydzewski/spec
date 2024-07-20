@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "golang": "node scripts/generate.js",
-    "schema": "ts-json-schema-generator --additional-properties true --validation-keywords 'x-go-file' --path 'schema/Schema.ts' --type 'Schema' --out dist/schema.json"
+    "golang2": "node scripts/generate2.js",
+    "schema":  "ts-json-schema-generator --additional-properties true --validation-keywords 'x-go-file' --path 'schema/Schema.ts' --type 'Schema' --out dist/schema.json",
+    "schema2": "ts-json-schema-generator --additional-properties true --validation-keywords 'x-go-file' --path 'schema/Schema.ts' --type 'Schema' --out dist/schema.json"
   },
   "author": "",
   "license": "ISC",

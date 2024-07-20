@@ -1,6 +1,6 @@
 import { Clone } from "./clone";
 import { Concurrency } from "./concurrency";
-import { Environment } from "./environment";
+import { EnvironmentRef } from "./environment";
 import { Input } from "./input";
 import { On } from "./on";
 import { Permissions } from "./permissions";
@@ -40,7 +40,7 @@ export interface Pipeline {
      * Environment defines the target deployment
      * environment (e.g. development, prod).
      */
-    environment?: Environment;
+    environment?: EnvironmentRef;
     
     /**
      * Service defines the service being deployed.

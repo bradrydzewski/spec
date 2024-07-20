@@ -16,35 +16,40 @@
 
 package yaml
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
-// {{desc}}
-type {{name}} string
+// MachineImage defines possible machine image values.
+type MachineImage string
 
-// {{name}} enumeration.
+// MachineImage enumeration.
 const (
-	{{name}}None {{name}} = ""
-	{{#each enum}}
-	{{name}} {{../name}} = "{{text}}"
-	{{/each}}
+	MachineImageNone         MachineImage = ""
+	MachineImageUbuntuLatest MachineImage = "ubuntu-latest"
+	MachineImageMacosLatest  MachineImage = "macos-latest"
+	MachineImageWndowsLatest MachineImage = "wndows-latest"
 )
 
 // UnmarshalJSON unmashals a quoted json string to the enum value.
-func (e *{{name}}) UnmarshalJSON(b []byte) error {
+func (e *MachineImage) UnmarshalJSON(b []byte) error {
 	var v string
 	json.Unmarshal(b, &v)
 	switch v {
 	case "":
-		*e = {{name}}None
-	{{#each enum}}
-	case "{{text}}":
-		*e = {{name}}
-	{{/each}}
+		*e = MachineImageNone
+	case "ubuntu-latest":
+		*e = MachineImageUbuntuLatest
+	case "macos-latest":
+		*e = MachineImageMacosLatest
+	case "wndows-latest":
+		*e = MachineImageWndowsLatest
 	default:
 		if IsExpression(v) {
-			*e = {{name}}(v)
+			*e = MachineImage(v)
 		} else {
-			return fmt.Errorf("invalid {{name}}: %s", v)
+			return fmt.Errorf("invalid MachineImage: %s", v)
 		}
 	}
 	return nil

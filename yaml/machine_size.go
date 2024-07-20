@@ -16,35 +16,49 @@
 
 package yaml
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
-// {{desc}}
-type {{name}} string
+// MachineImage defines machine size values.
+type MachineSize string
 
-// {{name}} enumeration.
+// MachineSize enumeration.
 const (
-	{{name}}None {{name}} = ""
-	{{#each enum}}
-	{{name}} {{../name}} = "{{text}}"
-	{{/each}}
+	MachineSizeNone    MachineSize = ""
+	MachineSizeFlex    MachineSize = "flex"
+	MachineSizeSmall   MachineSize = "small"
+	MachineSizeMedium  MachineSize = "medium"
+	MachineSizeLarge   MachineSize = "large"
+	MachineSizeXlarge  MachineSize = "xlarge"
+	MachineSizeXxlarge MachineSize = "xxlarge"
 )
 
 // UnmarshalJSON unmashals a quoted json string to the enum value.
-func (e *{{name}}) UnmarshalJSON(b []byte) error {
+func (e *MachineSize) UnmarshalJSON(b []byte) error {
 	var v string
 	json.Unmarshal(b, &v)
 	switch v {
 	case "":
-		*e = {{name}}None
-	{{#each enum}}
-	case "{{text}}":
-		*e = {{name}}
-	{{/each}}
+		*e = MachineSizeNone
+	case "flex":
+		*e = MachineSizeFlex
+	case "small":
+		*e = MachineSizeSmall
+	case "medium":
+		*e = MachineSizeMedium
+	case "large":
+		*e = MachineSizeLarge
+	case "xlarge":
+		*e = MachineSizeXlarge
+	case "xxlarge":
+		*e = MachineSizeXxlarge
 	default:
 		if IsExpression(v) {
-			*e = {{name}}(v)
+			*e = MachineSize(v)
 		} else {
-			return fmt.Errorf("invalid {{name}}: %s", v)
+			return fmt.Errorf("invalid MachineSize: %s", v)
 		}
 	}
 	return nil

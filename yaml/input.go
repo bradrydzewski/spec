@@ -16,36 +16,14 @@
 
 package yaml
 
-import "encoding/json"
-
-// {{desc}}
-type {{name}} string
-
-// {{name}} enumeration.
-const (
-	{{name}}None {{name}} = ""
-	{{#each enum}}
-	{{name}} {{../name}} = "{{text}}"
-	{{/each}}
-)
-
-// UnmarshalJSON unmashals a quoted json string to the enum value.
-func (e *{{name}}) UnmarshalJSON(b []byte) error {
-	var v string
-	json.Unmarshal(b, &v)
-	switch v {
-	case "":
-		*e = {{name}}None
-	{{#each enum}}
-	case "{{text}}":
-		*e = {{name}}
-	{{/each}}
-	default:
-		if IsExpression(v) {
-			*e = {{name}}(v)
-		} else {
-			return fmt.Errorf("invalid {{name}}: %s", v)
-		}
-	}
-	return nil
+type Input struct {
+	Default     interface{} `json:"default,omitempty"`
+	Description string      `json:"description,omitempty"`
+	Enum        interface{} `json:"enum,omitempty"`
+	Items       interface{} `json:"items,omitempty"`
+	Mask        bool        `json:"mask,omitempty"`
+	Options     interface{} `json:"options,omitempty"`
+	Pattern     string      `json:"pattern,omitempty"`
+	Required    bool        `json:"required,omitempty"`
+	Type        string      `json:"type,omitempty"`
 }

@@ -16,36 +16,32 @@
 
 package yaml
 
-import "encoding/json"
-
-// {{desc}}
-type {{name}} string
-
-// {{name}} enumeration.
-const (
-	{{name}}None {{name}} = ""
-	{{#each enum}}
-	{{name}} {{../name}} = "{{text}}"
-	{{/each}}
+import (
+	"encoding/json"
+	"errors"
 )
 
-// UnmarshalJSON unmashals a quoted json string to the enum value.
-func (e *{{name}}) UnmarshalJSON(b []byte) error {
-	var v string
-	json.Unmarshal(b, &v)
-	switch v {
-	case "":
-		*e = {{name}}None
-	{{#each enum}}
-	case "{{text}}":
-		*e = {{name}}
-	{{/each}}
-	default:
-		if IsExpression(v) {
-			*e = {{name}}(v)
-		} else {
-			return fmt.Errorf("invalid {{name}}: %s", v)
-		}
+type Schedule struct {
+	Items []*ScheduleItem
+}
+
+type ScheduleItem struct {
+	Cron string `yaml:"cron,omitempty"`
+}
+
+// UnmarshalJSON implement the json.Unmarshaler interface.
+func (v *Schedule) UnmarshalJSON(data []byte) error {
+	out1 := new(ScheduleItem)
+	out2 := []*ScheduleItem{}
+
+	if err := json.Unmarshal(data, &out1); err == nil {
+		v.Items = append(v.Items, out1)
+		return nil
 	}
-	return nil
+	if err := json.Unmarshal(data, &out2); err == nil {
+		v.Items = append(v.Items, out2...)
+		return nil
+	}
+
+	return errors.New("failed to unmarshal on.schedule")
 }

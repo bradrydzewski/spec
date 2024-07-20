@@ -1,6 +1,5 @@
 /**
  * Cache defines pipeline caching behavior.
- * @x-go-file cache.go
  */
 export interface Cache {
     /**

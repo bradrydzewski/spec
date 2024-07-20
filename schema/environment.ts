@@ -1,6 +1,6 @@
-export type Environment = string | EnvironmentLong;
+export type EnvironmentRef = string | EnvironmentRefLong;
 
-export interface EnvironmentLong {
+export interface EnvironmentRefLong {
     parallel?: boolean;
     items?: EnvironmentItem[];
 }

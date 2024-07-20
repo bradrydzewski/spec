@@ -12,6 +12,9 @@ export interface RuntimeLong {
     shell?: boolean; // "shell" vs "custom" as the name? github uses "custom" but gitlab uses "shell"
 }
 
+/**
+ * MachineImage defines machine size values.
+ */
 export type MachineSize = 
     "flex"
   | "small"
@@ -20,6 +23,9 @@ export type MachineSize =
   | "xlarge"
   | "xxlarge"
 
+/**
+ * MachineImage defines possible machine image values.
+ */
 export type MachineImage = 
     "ubuntu-latest"
   | "macos-latest"

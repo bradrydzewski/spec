@@ -16,36 +16,39 @@
 
 package yaml
 
-import "encoding/json"
-
 // {{desc}}
-type {{name}} string
-
-// {{name}} enumeration.
-const (
-	{{name}}None {{name}} = ""
-	{{#each enum}}
-	{{name}} {{../name}} = "{{text}}"
+type {{name}} struct {
+	{{#each props}}
+	{{name}} {{type}} `json:"{{json}},omitempty"`
 	{{/each}}
-)
+	{{#if types}}
+	Spec interface{} `json:"spec,omitempty"`
+	{{/if}}
+}
 
-// UnmarshalJSON unmashals a quoted json string to the enum value.
-func (e *{{name}}) UnmarshalJSON(b []byte) error {
-	var v string
-	json.Unmarshal(b, &v)
-	switch v {
-	case "":
-		*e = {{name}}None
-	{{#each enum}}
-	case "{{text}}":
-		*e = {{name}}
+{{#if types}}
+// UnmarshalJSON implement the json.Unmarshaler interface.
+func (v *{{name}}) UnmarshalJSON(data []byte) error {
+	type S {{name}}
+	type T struct {
+		*S
+		Spec json.RawMessage `json:"spec"`
+	}
+
+	obj := &T{S: (*S)(v)}
+	if err := json.Unmarshal(data, obj); err != nil {
+		return err
+	}
+
+	switch v.Type {
+	{{#each types}}
+	case "{{name}}":
+		v.Spec = new({{type}})
 	{{/each}}
 	default:
-		if IsExpression(v) {
-			*e = {{name}}(v)
-		} else {
-			return fmt.Errorf("invalid {{name}}: %s", v)
-		}
+		return fmt.Errorf("unknown type %s", v.Type)
 	}
-	return nil
+
+	return json.Unmarshal(obj.Spec, v.Spec)
 }
+{{/if}}

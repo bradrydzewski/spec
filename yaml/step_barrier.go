@@ -16,36 +16,6 @@
 
 package yaml
 
-import "encoding/json"
-
-// {{desc}}
-type {{name}} string
-
-// {{name}} enumeration.
-const (
-	{{name}}None {{name}} = ""
-	{{#each enum}}
-	{{name}} {{../name}} = "{{text}}"
-	{{/each}}
-)
-
-// UnmarshalJSON unmashals a quoted json string to the enum value.
-func (e *{{name}}) UnmarshalJSON(b []byte) error {
-	var v string
-	json.Unmarshal(b, &v)
-	switch v {
-	case "":
-		*e = {{name}}None
-	{{#each enum}}
-	case "{{text}}":
-		*e = {{name}}
-	{{/each}}
-	default:
-		if IsExpression(v) {
-			*e = {{name}}(v)
-		} else {
-			return fmt.Errorf("invalid {{name}}: %s", v)
-		}
-	}
-	return nil
+type StepBarrier struct {
+	Name string `json:"name,omitempty"`
 }

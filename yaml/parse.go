@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/ghodss/yaml"
 )
@@ -66,6 +67,6 @@ func ParseFile(p string) (*Pipeline, error) {
 
 // IsExpression returns true if the string s is an expression.
 func IsExpression(s string) bool {
-	return strings.Contains(s, {{{{raw-helper}}}}"<+"{{{{/raw-helper}}}}) ||
-			strings.Contains(s, {{{{raw-helper}}}}"${{"{{{{/raw-helper}}}})
+	return strings.Contains(s, "<+") ||
+		strings.Contains(s, "${{")
 }
