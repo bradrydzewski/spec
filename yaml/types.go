@@ -104,12 +104,12 @@ func (s *Stringorslice) UnmarshalJSON(data []byte) error {
 
 func (s Stringorslice) MarshalJSON() ([]byte, error) {
 	switch len(s) {
+	case 0:
+		return nil, nil
 	case 1:
 		return json.Marshal(string(s[0]))
-	case 2:
-		return json.Marshal([]string(s))
 	default:
-		return nil, nil
+		return json.Marshal([]string(s))
 	}
 }
 

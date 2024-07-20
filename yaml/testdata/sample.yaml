@@ -1,7 +1,16 @@
 pipeline:
   stages:
   - steps:
+    - go build
+    - run: go build
     - run:
+        container: golang
+        script: go build
+    - run:
+        container:
+          image: golang
+          pull: if-not-exists
         script:
         - go build
         - go test
+

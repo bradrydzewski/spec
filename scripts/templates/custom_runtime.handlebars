@@ -39,7 +39,7 @@ func (v *Runtime) UnmarshalJSON(data []byte) error {
 		Shell      bool               `json:"shell,omitempty"`
 	}{}
 
-	if err := json.Unmarshal(data, &out1); err != nil {
+	if err := json.Unmarshal(data, &out1); err == nil {
 		switch out1 {
 		case "cloud":
 			v.Cloud = new(RuntimeCloud)
@@ -55,7 +55,7 @@ func (v *Runtime) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &out2); err != nil {
+	if err := json.Unmarshal(data, &out2); err == nil {
 		v.Cloud = out2.Cloud
 		v.Kubernetes = out2.Kubernetes
 		v.VM = out2.VM

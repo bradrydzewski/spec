@@ -56,7 +56,7 @@ func (v *Permissions) UnmarshalJSON(data []byte) error {
 		Statuses           string `json:"statuses,omitempty"`
 	}{}
 
-	if err := json.Unmarshal(data, &out1); err != nil {
+	if err := json.Unmarshal(data, &out1); err == nil {
 		switch out1 {
 		case "read-all":
 			out1 = "read"
@@ -81,7 +81,7 @@ func (v *Permissions) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &out2); err != nil {
+	if err := json.Unmarshal(data, &out2); err == nil {
 		v.Actions = out2.Actions
 		v.Checks = out2.Checks
 		v.Contents = out2.Contents

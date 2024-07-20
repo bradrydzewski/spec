@@ -48,7 +48,7 @@ func (v *Action) UnmarshalJSON(data []byte) error {
 		Success            bool          `json:"success,omitempty"`
 	}{}
 
-	if err := json.Unmarshal(data, &out1); err != nil {
+	if err := json.Unmarshal(data, &out1); err == nil {
 		switch out1 {
 		case "abort":
 			v.Abort = true
@@ -74,7 +74,7 @@ func (v *Action) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &out2); err != nil {
+	if err := json.Unmarshal(data, &out2); err == nil {
 		v.Abort = out2.Abort
 		v.Fail = out2.Fail
 		v.Ignore = out2.Ignore

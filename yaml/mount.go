@@ -34,7 +34,7 @@ func (v *Mount) UnmarshalJSON(data []byte) error {
 		Target string `json:"target,omitempty"`
 	}{}
 
-	if err := json.Unmarshal(data, &out1); err != nil {
+	if err := json.Unmarshal(data, &out1); err == nil {
 		parts := strings.SplitN(out1, ":", 2)
 		switch len(parts) {
 		case 1:
@@ -47,7 +47,7 @@ func (v *Mount) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &out2); err != nil {
+	if err := json.Unmarshal(data, &out2); err == nil {
 		v.Source = out2.Source
 		v.Target = out2.Target
 		return nil

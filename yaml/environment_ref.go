@@ -33,14 +33,14 @@ func (v *EnvironmentRef) UnmarshalJSON(data []byte) error {
 		Parallel bool               `json:"parallel,omitempty"`
 	}{}
 
-	if err := json.Unmarshal(data, &out1); err != nil {
+	if err := json.Unmarshal(data, &out1); err == nil {
 		v.Items = []*EnvironmentItem{
 			{Name: out1},
 		}
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &out2); err != nil {
+	if err := json.Unmarshal(data, &out2); err == nil {
 		v.Parallel = out2.Parallel
 		v.Items = out2.Items
 		return nil
