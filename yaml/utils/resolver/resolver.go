@@ -52,6 +52,11 @@ func ResolveStage(stage *yaml.Stage, fn LookupFunc) error {
 		return err
 	}
 
+	// template must have a child step
+	if template.Stage == nil {
+		return errors.New("template does not contain a stage")
+	}
+
 	// create the context if not exists
 	if stage.Context == nil {
 		stage.Context = new(yaml.Context)
@@ -161,7 +166,7 @@ func ResolveStep(step *yaml.Step, fn LookupFunc) error {
 		return nil
 	}
 
-	// lookup the template
+	// lookup the yaml
 	template, err := fn(step.Template.Uses)
 	if err != nil {
 		return err
