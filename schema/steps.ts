@@ -106,6 +106,12 @@ export interface StepLong {
      */
     "on-failure"?: FailureStrategy;
 
+    /**
+     * This property is available solely for the purpose of
+     * backward compatibility with Harness Currrent Gen.
+     */
+    delegate?: Delegate;
+
     //
     // GitHub-Specific : Start
     //
@@ -254,12 +260,6 @@ export interface StepRun {
      * Report uploads reports at the the provided path(s)
      */
     report?: ReportList;
-
-    /**
-     * This property is available solely for the purpose of
-     * backward compatibility with Harness Currrent Gen.
-     */
-    delegate?: "inherit-from-infrastrcuture" | string | string[];
 }
 
 /**
@@ -360,3 +360,9 @@ export interface TestSplitting {
 export interface TestIntelligence {
     disabled?: boolean;
 } 
+
+//
+// Delegate
+//
+
+export type Delegate = "inherit-from-infrastrcuture" | string | string[];

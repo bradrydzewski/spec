@@ -424,6 +424,23 @@
       "type": "object",
       "x-go-file": "credentials_aws.go"
     },
+    "Delegate": {
+      "anyOf": [
+        {
+          "const": "inherit-from-infrastrcuture",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      ]
+    },
     "Environment": {
       "properties": {
         "id": {
@@ -1875,6 +1892,10 @@
           "$ref": "#/definitions/StepBarrier",
           "description": "Barrier defines a step barrier."
         },
+        "delegate": {
+          "$ref": "#/definitions/Delegate",
+          "description": "This property is available solely for the purpose of backward compatibility with Harness Currrent Gen."
+        },
         "env": {
           "additionalProperties": {
             "type": "string"
@@ -1993,24 +2014,6 @@
         "container": {
           "$ref": "#/definitions/Container",
           "description": "Container runs the step inside a container. If you do not set a container, the step will run directly on the host unless the target runtime in kubernetes, in which case the container is required."
-        },
-        "delegate": {
-          "anyOf": [
-            {
-              "const": "inherit-from-infrastrcuture",
-              "type": "string"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          ],
-          "description": "This property is available solely for the purpose of backward compatibility with Harness Currrent Gen."
         },
         "env": {
           "additionalProperties": {

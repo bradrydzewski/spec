@@ -107,7 +107,7 @@ let schema = JSON.parse(fs.readFileSync("dist/schema.json"));
 
 // generate code
 generateStruct("Action",          "custom_action",     "action.go");
-generateEnum("ActionType", "enum", "action_type.go")
+generateEnum("ActionType", "enum","action_type.go")
 generateStruct("ActionManual",    "struct",            "action_manual.go");
 generateStruct("ActionRetry",     "struct",            "action_retry.go");
 generateStruct("Cache",           "struct",            "cache.go");
@@ -117,15 +117,16 @@ generateStruct("Concurrency",     "struct_or_string",  "concurrency.go", { prope
 generateStruct("Container",       "struct_or_string",  "container.go",   { property: "Image", type: "string" });
 generateStruct("Credentials",     "struct",            "credentials.go");
 generateStruct("CredentialsAWS",  "struct",            "credentials_aws.go");
-generateStruct("Environment",  "struct",          "environment.go");
-generateEnum("EnvironmentType", "enum", "environment_type.go")
-generateStruct("EnvironmentRef",     "custom_environment","environment_ref.go");
+template("custom_delegate",       {},                  "delegate.go");
+generateStruct("Environment",     "struct",            "environment.go");
+generateEnum("EnvironmentType",   "enum",              "environment_type.go")
+generateStruct("EnvironmentRef",  "custom_environment","environment_ref.go");
 generateStruct("EnvironmentItem", "struct",            "environment_ref_item.go");
 generateStruct("FailureStrategy", "struct",            "failure.go");
-generateEnum("FailureType", "enum", "failure_type.go")
+generateEnum("FailureType",       "enum",              "failure_type.go")
 generateStruct("Input",           "struct",            "input.go");
-generateEnum("MachineSize", "enum", "machine_size.go")
-generateEnum("MachineImage", "enum", "machine_image.go")
+generateEnum("MachineSize",       "enum",              "machine_size.go")
+generateEnum("MachineImage",      "enum",              "machine_image.go")
 generateStruct("Mount",           "custom_mount",      "mount.go");
 // generateStruct("Schedule",     "custom_on_schedule","on_schedule.go");
 generateStruct("On",              "custom_on",          "on.go");
@@ -145,7 +146,7 @@ generateStruct("RuntimeInstance",    "struct",          "runtime_vm.go");
 generateStruct("Schema",             "struct",          "schema.go");
 generateStruct("InfraSchema",        "struct",          "schema_infra.go");
 generateStruct("Service",            "struct",          "service.go");
-generateStruct("ServiceRef",         "struct_or_string",  "service_ref.go",   { property: "Items", type: "Stringorslice" });
+generateStruct("ServiceRef",         "struct_or_string","service_ref.go",   { property: "Items", type: "Stringorslice" });
 generateStruct("Stage",              "struct",          "stage.go");
 generateStruct("StageApproval",      "struct",          "stage_approval.go");
 generateStruct("StageGroup",         "struct",          "stage_group.go");
@@ -156,7 +157,7 @@ generateStruct("StepApproval",       "struct",          "step_approval.go");
 generateStruct("StepBarrier",        "struct",          "step_barrier.go");
 generateStruct("StepGroup",          "struct",          "step_group.go");
 generateStruct("StepQueue",          "struct",          "step_queue.go");
-generateStruct("StepRun",            "struct_or_string",  "step_run.go",   { property: "Script", type: "Stringorslice" });
+generateStruct("StepRun",            "struct_or_string","step_run.go",   { property: "Script", type: "Stringorslice" });
 generateStruct("StepTemplate",       "struct",          "step_template.go");
 generateStruct("StepTest",           "struct",          "step_tester.go");
 generateStruct("Step",               "custom_step",     "step.go");

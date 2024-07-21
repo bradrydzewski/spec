@@ -20,7 +20,6 @@ import "encoding/json"
 
 type StepRun struct {
 	Container *Container        `json:"container,omitempty"`
-	Delegate  interface{}       `json:"delegate,omitempty"`
 	Env       map[string]string `json:"env,omitempty"`
 	Report    *ReportList       `json:"report,omitempty"`
 	Script    Stringorslice     `json:"script,omitempty"`
@@ -32,7 +31,6 @@ func (v *StepRun) UnmarshalJSON(data []byte) error {
 	var out1 Stringorslice
 	var out2 = struct {
 		Container *Container        `json:"container,omitempty"`
-		Delegate  interface{}       `json:"delegate,omitempty"`
 		Env       map[string]string `json:"env,omitempty"`
 		Report    *ReportList       `json:"report,omitempty"`
 		Script    Stringorslice     `json:"script,omitempty"`
