@@ -1,4 +1,4 @@
-module github.com/harness/spec
+module github.com/bradrydzewski/spec
 
 go 1.19
 
