@@ -50,7 +50,7 @@ type Step struct {
 
 type Context struct {
 	Matrix map[string]string `json:"matrix,omitempty"`
-	Inputs map[string]string `json:"inputs,omitempty"`
+	Inputs map[string]any    `json:"inputs,omitempty"`
 }
 
 // UnmarshalJSON implement the json.Unmarshaler interface.

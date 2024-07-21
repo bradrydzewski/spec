@@ -45,6 +45,12 @@ func ExpandStage(v *yaml.Stage) {
 		return
 	}
 
+	// exit if there are no axis or includes
+	if len(v.Strategy.Matrix.Axis) == 0 ||
+		len(v.Strategy.Matrix.Include) == 0 {
+		return
+	}
+
 	// calculate the matrix permutations.
 	perms := matrix.Calc(v.Strategy.Matrix.Axis)
 
@@ -99,6 +105,12 @@ func ExpandStep(v *yaml.Step) {
 	// exit if there is not strategy
 	// or matrix defined.
 	if v.Strategy == nil || v.Strategy.Matrix == nil {
+		return
+	}
+
+	// exit if there are no axis or includes
+	if len(v.Strategy.Matrix.Axis) == 0 ||
+		len(v.Strategy.Matrix.Include) == 0 {
 		return
 	}
 
