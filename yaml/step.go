@@ -41,6 +41,16 @@ type Step struct {
 	Timeout    StringorInt            `json:"timeout,omitempty"`
 	Uses       string                 `json:"uses,omitempty"`
 	With       map[string]interface{} `json:"with,omitempty"`
+
+	// Context temporarily stores information from the
+	// matrix and template expansion. Context is not part of
+	// the yaml schema.
+	Context *Context `json:"context,omitempty"`
+}
+
+type Context struct {
+	Matrix map[string]string `json:"matrix,omitempty"`
+	Inputs map[string]string `json:"inputs,omitempty"`
 }
 
 // UnmarshalJSON implement the json.Unmarshaler interface.
@@ -69,6 +79,7 @@ func (v *Step) UnmarshalJSON(data []byte) error {
 		Timeout    StringorInt            `json:"timeout,omitempty"`
 		Uses       string                 `json:"uses,omitempty"`
 		With       map[string]interface{} `json:"with,omitempty"`
+		Context    *Context               `json:"context,omitempty"`
 	}{}
 
 	if err := json.Unmarshal(data, &out1); err == nil {

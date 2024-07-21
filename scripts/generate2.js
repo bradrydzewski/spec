@@ -162,7 +162,7 @@ generateStruct("StepTemplate",       "struct",          "step_template.go");
 generateStruct("StepTest",           "struct",          "step_tester.go");
 generateStruct("Step",               "custom_step",     "step.go");
 generateStruct("For",                "struct",          "strategy_for.go");
-generateStruct("Matrix",             "struct",          "strategy_matrix.go");
+generateStruct("Matrix",             "custom_matrix",   "strategy_matrix.go");
 generateStruct("While",              "struct",          "strategy_while.go");
 generateStruct("Strategy",           "struct",          "strategy.go");
 generateStruct("Template",           "struct",          "template.go");
