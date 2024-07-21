@@ -1,5 +1,6 @@
 import {Container} from "./container";
 import {FailureStrategy} from "./failure";
+import {ReportList} from "./report";
 import {Status} from "./status";
 import {Strategy} from "./strategy";
 
@@ -170,7 +171,7 @@ export interface StepAction {
     /**
      * Report uploads reports at the the provided path(s)
      */
-    report?: Report | Report[];
+    report?: ReportList;
 
     // /**
     //  * Output defines the output variables.
@@ -252,7 +253,7 @@ export interface StepRun {
     /**
      * Report uploads reports at the the provided path(s)
      */
-    report?: Report | Report[];
+    report?: ReportList;
 
     /**
      * This property is available solely for the purpose of
@@ -338,7 +339,7 @@ export interface StepTest {
     /**
      * Report uploads reports at the the provided path(s)
      */
-    report?: Report | Report[];
+    report?: ReportList;
 
     // /**
     //  * Output defines the output variables.
@@ -351,29 +352,11 @@ export interface StepTest {
 // Testing
 //
 
-/**
- * @x-go-file test_splitting.go
- */
 export interface TestSplitting {
     disabled?: boolean;
     concurrency?: number;
 }
 
-/**
- * @x-go-file test_intelligence.go
- */
 export interface TestIntelligence {
     disabled?: boolean;
 } 
-
-//
-// Reports
-//
-
-/**
- * @x-go-file report.go
- */
-export interface Report {
-    type?: "junit" | "xunit" | "nunit";
-    path?: string;
-}

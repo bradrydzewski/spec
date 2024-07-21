@@ -55,7 +55,7 @@ export interface Schema {
      * Inputset defines re-usable inputs.
      * @todo
      */
-    inputset?: any;
+    inputset?: Record<string, any>;
 
     /**
      * Name defines the pipeline name.

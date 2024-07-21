@@ -16,13 +16,35 @@
 
 package yaml
 
-type StepTest struct {
-	Container    *Container        `json:"container,omitempty"`
-	Env          map[string]string `json:"env,omitempty"`
-	Intelligence *TestIntelligence `json:"intelligence,omitempty"`
-	Match        Stringorslice     `json:"match,omitempty"`
-	Report       *ReportList       `json:"report,omitempty"`
-	Script       Stringorslice     `json:"script,omitempty"`
-	Shell        string            `json:"shell,omitempty"`
-	Splitting    *TestSplitting    `json:"splitting,omitempty"`
+import "encoding/json"
+
+type ReportList []*Report
+
+// UnmarshalJSON implement the json.Unmarshaler interface.
+func (v *ReportList) UnmarshalJSON(data []byte) error {
+	var out1 *Report
+	var out2 []*Report
+
+	if err := json.Unmarshal(data, &out1); err == nil {
+		*v = []*Report{out1}
+		return nil
+	}
+	if err := json.Unmarshal(data, &out2); err == nil {
+		*v = out2
+		return nil
+	} else {
+		return err
+	}
+}
+
+// MarshalJSON implement the json.Marshaler interface.
+func (v ReportList) MarshalJSON() ([]byte, error) {
+	switch len(v) {
+	case 0:
+		return nil, nil
+	case 1:
+		return json.Marshal(v[0])
+	default:
+		return json.Marshal(v[:])
+	}
 }

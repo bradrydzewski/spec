@@ -22,7 +22,7 @@ type StepRun struct {
 	Container *Container        `json:"container,omitempty"`
 	Delegate  interface{}       `json:"delegate,omitempty"`
 	Env       map[string]string `json:"env,omitempty"`
-	Report    interface{}       `json:"report,omitempty"`
+	Report    *ReportList       `json:"report,omitempty"`
 	Script    Stringorslice     `json:"script,omitempty"`
 	Shell     string            `json:"shell,omitempty"`
 }
@@ -34,7 +34,7 @@ func (v *StepRun) UnmarshalJSON(data []byte) error {
 		Container *Container        `json:"container,omitempty"`
 		Delegate  interface{}       `json:"delegate,omitempty"`
 		Env       map[string]string `json:"env,omitempty"`
-		Report    interface{}       `json:"report,omitempty"`
+		Report    *ReportList       `json:"report,omitempty"`
 		Script    Stringorslice     `json:"script,omitempty"`
 		Shell     string            `json:"shell,omitempty"`
 	}{}

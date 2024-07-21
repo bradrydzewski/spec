@@ -23,7 +23,7 @@ type Schema struct {
 	Env            map[string]string      `json:"env,omitempty"`
 	Environment    *Environment           `json:"environment,omitempty"`
 	Infrastructure *InfraSchema           `json:"infrastructure,omitempty"`
-	Inputset       interface{}            `json:"inputset,omitempty"`
+	Inputset       map[string]interface{} `json:"inputset,omitempty"`
 	Jobs           map[string]*Stage      `json:"jobs,omitempty"`
 	Name           string                 `json:"name,omitempty"`
 	On             *On                    `json:"on,omitempty"`

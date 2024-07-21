@@ -18,32 +18,34 @@ package yaml
 
 import "encoding/json"
 
-type Output struct {
-	Alias string `json:"alias,omitempty"`
-	Mask  bool   `json:"mask,omitempty"`
-	Name  string `json:"name,omitempty"`
-	Scope string `json:"scope,omitempty"`
-}
+// {{desc}}
+type {{name}} []*{{options.type}}
 
 // UnmarshalJSON implement the json.Unmarshaler interface.
-func (v *Output) UnmarshalJSON(data []byte) error {
-	var out1 string
-	var out2 = struct {
-		Alias string `json:"alias,omitempty"`
-		Mask  bool   `json:"mask,omitempty"`
-		Name  string `json:"name,omitempty"`
-		Scope string `json:"scope,omitempty"`
-	}{}
+func (v *{{name}}) UnmarshalJSON(data []byte) error {
+	var out1 *{{options.type}}
+	var out2 []*{{options.type}}
 
 	if err := json.Unmarshal(data, &out1); err == nil {
-		v.Name = out1
+		*v = []*{{options.type}}{out1}
 		return nil
 	}
-
 	if err := json.Unmarshal(data, &out2); err == nil {
 		*v = out2
 		return nil
 	} else {
 		return err
+	}
+}
+
+// MarshalJSON implement the json.Marshaler interface.
+func (v {{name}}) MarshalJSON() ([]byte, error) {
+	switch len(v) {
+	case 0:
+		return nil, nil
+	case 1:
+		return json.Marshal(v[0])
+	default:
+		return json.Marshal(v[:])
 	}
 }

@@ -129,13 +129,14 @@ generateEnum("MachineImage", "enum", "machine_image.go")
 generateStruct("Mount",           "custom_mount",      "mount.go");
 // generateStruct("Schedule",     "custom_on_schedule","on_schedule.go");
 generateStruct("On",              "custom_on",          "on.go");
-generateStruct("Output",          "struct_or_string",   "output.go", { property: "Name", type: "string" });
+// generateStruct("Output",          "struct_or_string",   "output.go", { property: "Name", type: "string" });
 template("parse", {}, "parse.go")
 template("parse_test", {}, "parse_test.go")
 generateStruct("Permissions",        "custom_perms",    "perms.go");
 generateStruct("Pipeline",           "struct",          "pipeline.go");
 generateStruct("Platform",           "struct",          "platform.go");
 generateStruct("Report",             "struct",          "report.go");
+generateStruct("ReportList",         "struct_or_slice", "report_list.go", {type: "Report"});
 generateStruct("Repository",         "struct",          "repository.go");
 generateStruct("Runtime",            "struct",          "runtime.go");
 generateStruct("RuntimeCloud",       "struct",          "runtime_cloud.go");

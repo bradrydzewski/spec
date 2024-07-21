@@ -1318,8 +1318,20 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "x-go-file": "report.go"
+      "type": "object"
+    },
+    "ReportList": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Report"
+        },
+        {
+          "items": {
+            "$ref": "#/definitions/Report"
+          },
+          "type": "array"
+        }
+      ]
     },
     "Repository": {
       "description": "Repository defines a remote git repository.",
@@ -1445,7 +1457,8 @@
           "description": "Infrastructure defines the service infrastructure."
         },
         "inputset": {
-          "description": "Inputset defines re-usable inputs."
+          "description": "Inputset defines re-usable inputs.",
+          "type": "object"
         },
         "jobs": {
           "additionalProperties": {
@@ -1778,17 +1791,7 @@
           "type": "object"
         },
         "report": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Report"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Report"
-              },
-              "type": "array"
-            }
-          ],
+          "$ref": "#/definitions/ReportList",
           "description": "Report uploads reports at the the provided path(s)"
         },
         "uses": {
@@ -2017,17 +2020,7 @@
           "type": "object"
         },
         "report": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Report"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Report"
-              },
-              "type": "array"
-            }
-          ],
+          "$ref": "#/definitions/ReportList",
           "description": "Report uploads reports at the the provided path(s)"
         },
         "script": {
@@ -2112,17 +2105,7 @@
           "description": "Match provides unit test matching logic in glob format."
         },
         "report": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Report"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Report"
-              },
-              "type": "array"
-            }
-          ],
+          "$ref": "#/definitions/ReportList",
           "description": "Report uploads reports at the the provided path(s)"
         },
         "script": {
@@ -2209,8 +2192,7 @@
           "type": "boolean"
         }
       },
-      "type": "object",
-      "x-go-file": "test_intelligence.go"
+      "type": "object"
     },
     "TestSplitting": {
       "properties": {
@@ -2221,8 +2203,7 @@
           "type": "boolean"
         }
       },
-      "type": "object",
-      "x-go-file": "test_splitting.go"
+      "type": "object"
     },
     "Volume": {
       "properties": {
