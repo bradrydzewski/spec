@@ -139,7 +139,7 @@ generateStruct("Platform",           "struct",          "platform.go");
 generateStruct("Report",             "struct",          "report.go");
 generateStruct("ReportList",         "struct_or_slice", "report_list.go", {type: "Report"});
 generateStruct("Repository",         "struct",          "repository.go");
-generateStruct("Runtime",            "struct",          "runtime.go");
+generateStruct("Runtime",            "custom_runtime",          "runtime.go");
 generateStruct("RuntimeCloud",       "struct",          "runtime_cloud.go");
 generateStruct("RuntimeKubernetes",  "struct",          "runtime_kubernetes.go");
 generateStruct("RuntimeInstance",    "struct",          "runtime_vm.go");
