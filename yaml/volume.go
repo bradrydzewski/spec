@@ -55,7 +55,7 @@ func (v *Volume) UnmarshalJSON(data []byte) error {
 	case "temp":
 		v.With = new(VolumeTemp)
 	default:
-		return fmt.Errorf("unknown uses %s", v.With)
+		return fmt.Errorf("unknown uses: %s", v.Uses)
 	}
 
 	return json.Unmarshal(obj.With, v.With)
