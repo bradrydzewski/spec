@@ -53,7 +53,8 @@ export interface RuntimeInstanceLong {
  * @x-go-file runtime_kubernetes.go
  */
 export interface RuntimeKubernetes {
-  namespace?: string; 
+  namespace?: string;
+  connector?: string;
   // TODO(bradrydzewski) add missing kubernetes settings
 }
 

@@ -34,4 +34,5 @@ type Pipeline struct {
 	Service     *ServiceRef       `json:"service,omitempty"`
 	Stages      []*Stage          `json:"stages,omitempty"`
 	Status      *Status           `json:"status,omitempty"`
+	Timeout     StringorInt       `json:"timeout,omitempty"`
 }

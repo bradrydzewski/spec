@@ -1101,6 +1101,13 @@
         "status": {
           "$ref": "#/definitions/Status",
           "description": "Status overrides the default status behavior."
+        },
+        "timeout": {
+          "description": "Timeout defines the step timeout duration.",
+          "type": [
+            "string",
+            "number"
+          ]
         }
       },
       "type": "object",
@@ -1409,6 +1416,9 @@
     "RuntimeKubernetes": {
       "description": "RuntimeKubernetes configures the kubernetes runtime environment.",
       "properties": {
+        "connector": {
+          "type": "string"
+        },
         "namespace": {
           "type": "string"
         }

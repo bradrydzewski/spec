@@ -18,5 +18,6 @@ package yaml
 
 // RuntimeKubernetes configures the kubernetes runtime environment.
 type RuntimeKubernetes struct {
+	Connector string `json:"connector,omitempty"`
 	Namespace string `json:"namespace,omitempty"`
 }
