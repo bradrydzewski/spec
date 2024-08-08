@@ -45,9 +45,8 @@ func ExpandStage(v *yaml.Stage) {
 		return
 	}
 
-	// exit if there are no axis or includes
-	if len(v.Strategy.Matrix.Axis) == 0 ||
-		len(v.Strategy.Matrix.Include) == 0 {
+	// exit if there's no axis
+	if len(v.Strategy.Matrix.Axis) == 0 {
 		return
 	}
 
@@ -108,9 +107,8 @@ func ExpandStep(v *yaml.Step) {
 		return
 	}
 
-	// exit if there are no axis or includes
-	if len(v.Strategy.Matrix.Axis) == 0 ||
-		len(v.Strategy.Matrix.Include) == 0 {
+	// exit if there's no axis
+	if len(v.Strategy.Matrix.Axis) == 0 {
 		return
 	}
 
