@@ -37,7 +37,9 @@ template:
   step:
     group:
       steps:
-      - container: node:${{ inputs.version }}
-        script: npm install
-      - container: node:${{ inputs.version }}
-        script: npm test
+      - run:
+          container: node:${{ inputs.version }}
+          script: npm install
+      - run:
+          container: node:${{ inputs.version }}
+          script: npm test
