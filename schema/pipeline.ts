@@ -91,8 +91,9 @@ export interface Pipeline {
 
     /**
      * Timeout defines the step timeout duration.
+     * @format duration
      */
-    timeout?: string | number;
+    timeout?: string;
 
     //
     // GitHub-Specific

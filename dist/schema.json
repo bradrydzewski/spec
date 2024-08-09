@@ -1104,10 +1104,8 @@
         },
         "timeout": {
           "description": "Timeout defines the step timeout duration.",
-          "type": [
-            "string",
-            "number"
-          ]
+          "format": "duration",
+          "type": "string"
         }
       },
       "type": "object",
@@ -1984,10 +1982,8 @@
         },
         "timeout": {
           "description": "Timeout defines the step timeout duration.",
-          "type": [
-            "string",
-            "number"
-          ]
+          "format": "duration",
+          "type": "string"
         },
         "uses": {
           "description": "Uses defines the github action.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",

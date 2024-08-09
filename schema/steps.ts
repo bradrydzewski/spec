@@ -82,8 +82,9 @@ export interface StepLong {
 
     /**
      * Timeout defines the step timeout duration.
+     * @format duration
      */
-    timeout?: string | number;
+    timeout?: string;
 
     /**
      * Needs defines steps that must be completed before this

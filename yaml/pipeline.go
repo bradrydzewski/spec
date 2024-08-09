@@ -16,6 +16,8 @@
 
 package yaml
 
+import "time"
+
 type Pipeline struct {
 	Barriers    []string          `json:"barriers,omitempty"`
 	Clone       *Clone            `json:"clone,omitempty"`
@@ -34,5 +36,5 @@ type Pipeline struct {
 	Service     *ServiceRef       `json:"service,omitempty"`
 	Stages      []*Stage          `json:"stages,omitempty"`
 	Status      *Status           `json:"status,omitempty"`
-	Timeout     StringorInt       `json:"timeout,omitempty"`
+	Timeout     time.Duration     `json:"timeout,omitempty"`
 }
