@@ -31,6 +31,12 @@ export interface Pipeline {
     inputs?: Record<string, Input>;
 
     /**
+     * Delegage defines the default delegate that should
+     * handle stage execution. This is optional.
+     */
+    delegate?: string | string[];
+    
+    /**
      * Env provides global environment variables that
      * propagate to all pipeline steps.
      */
