@@ -83,7 +83,7 @@ export interface Stage {
      * Delegage defines the delegate that should
      * handle stage execution. This is optional.
      */
-    delegate?: string;
+    delegate?: string | string[];
 
     /**
      * Approval defines an approval stage.
