@@ -132,12 +132,6 @@ export interface Stage {
     env?: Record<string, string>;
 
     /**
-     * Needs defines stages that must be completed before this
-     * stage can run.
-     */
-    needs?: string | string[];
-
-    /**
      * Outputs configures the stage to export variables for
      * use by other stages.
      */
@@ -146,6 +140,14 @@ export interface Stage {
     //
     // GitHub Specific
     //
+
+    /**
+     * Needs defines stages that must be completed before this
+     * stage can run.
+     * 
+     * @github
+     */
+    needs?: string | string[];
 
     /**
      * RunsOn defines the type of machine to run the job.

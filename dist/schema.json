@@ -1861,6 +1861,83 @@
       "type": "object",
       "x-go-file": "step_barrier.go"
     },
+    "StepClone": {
+      "properties": {
+        "clean": {
+          "description": "Clean enables running git clean and git reset before fetching.",
+          "type": "boolean"
+        },
+        "connector": {
+          "description": "Connector provides the repository connector.",
+          "type": "string"
+        },
+        "depth": {
+          "description": "Depth defines the clone depth.",
+          "type": "number"
+        },
+        "disabled": {
+          "description": "Disabled disables the default clone step.",
+          "type": "boolean"
+        },
+        "filter": {
+          "description": "Filter configures partial cloning against the given filter. This overrides sparse checkout if set.",
+          "type": "string"
+        },
+        "insecure": {
+          "description": "Insecure enables cloning without ssl verification.",
+          "type": "boolean"
+        },
+        "lfs": {
+          "description": "Lfs enables cloning lfs files.",
+          "type": "boolean"
+        },
+        "path": {
+          "description": "Path provides the relative path in the workspace where the repository is cloned.",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/definitions/CloneRef",
+          "description": "Reference defines the clone ref."
+        },
+        "repo": {
+          "description": "Repo provides the repository name.",
+          "type": "string"
+        },
+        "set-safe-directory": {
+          "description": "SetSafeDirectory adds the repository path as safe.directory for the global git configuration.",
+          "type": "boolean"
+        },
+        "sparse-checkout": {
+          "description": "SparseCheckout enables sparse checkout on given patterns. Each pattern should be separated with new lines.",
+          "type": "string"
+        },
+        "sparse-checkout-cone-mode": {
+          "description": "SparseCheckoutCodeMode enables cone-mode when doing a sparse checkout.",
+          "type": "string"
+        },
+        "strategy": {
+          "description": "Strategy configures the clone strategy.",
+          "enum": [
+            "source-branch",
+            "merge"
+          ],
+          "type": "string"
+        },
+        "submodules": {
+          "description": "Submodules enables cloning all submodules;",
+          "type": "boolean"
+        },
+        "tags": {
+          "description": "Tags enables cloning all tags;",
+          "type": "boolean"
+        },
+        "trace": {
+          "description": "Trace enables trace logging.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
     "StepGroup": {
       "properties": {
         "parallel": {
@@ -1899,6 +1976,10 @@
         "barrier": {
           "$ref": "#/definitions/StepBarrier",
           "description": "Barrier defines a step barrier."
+        },
+        "clone": {
+          "$ref": "#/definitions/StepClone",
+          "description": "Clone clones a git repository."
         },
         "delegate": {
           "$ref": "#/definitions/Delegate",

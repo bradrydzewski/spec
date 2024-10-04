@@ -1,4 +1,5 @@
 import {Container} from "./container";
+import {CloneRef} from "./clone";
 import {FailureStrategy} from "./failure";
 import {ReportList} from "./report";
 import {Status} from "./status";
@@ -55,6 +56,11 @@ export interface StepLong {
      * Barrier defines a step barrier.
      */
     barrier?: StepBarrier;
+
+    /**
+     * Clone clones a git repository.
+     */
+    clone?: StepClone;
 
     /**
      * Group defines a step group.
@@ -201,6 +207,98 @@ export interface StepApproval {
  */
 export interface StepBarrier {
     name: string;
+}
+
+export interface StepClone {
+    /**
+     * Repo provides the repository name.
+     */
+    repo?: string;
+
+    /**
+     * Connector provides the repository connector.
+     */
+    connector?: string;
+
+    /**
+     * Clean enables running git clean and git reset before fetching.
+     */
+    clean?: boolean;
+
+    /**
+     * Depth defines the clone depth.
+     */
+    depth?: number;
+
+    /**
+     * Disabled disables the default clone step.
+     */
+    disabled?: boolean;
+
+    /**
+     * Filter configures partial cloning against the given filter.
+     * This overrides sparse checkout if set.
+     */
+    filter?: string;
+
+    /**
+     * Insecure enables cloning without ssl verification.
+     */
+    insecure?: boolean;
+
+    /**
+     * Lfs enables cloning lfs files.
+     */
+    lfs?: boolean;
+
+    /**
+     * Path provides the relative path in the workspace where the
+     * repository is cloned.
+     */
+    path?: string;
+
+    /**
+     * SetSafeDirectory adds the repository path as safe.directory for
+     * the global git configuration.
+     */
+    'set-safe-directory'?: boolean;
+
+    /**
+     * SparseCheckout enables sparse checkout on given patterns.
+     * Each pattern should be separated with new lines.
+     */
+    'sparse-checkout'?: string;
+
+    /**
+     * SparseCheckoutCodeMode enables cone-mode when doing a sparse
+     * checkout.
+     */
+    'sparse-checkout-cone-mode'?: string;
+
+    /**
+     * Strategy configures the clone strategy.
+     */
+    strategy?: "source-branch" | "merge";
+
+    /**
+     * Submodules enables cloning all submodules;
+     */
+    submodules?: boolean;
+
+    /**
+     * Tags enables cloning all tags;
+     */
+    tags?: boolean;
+
+    /**
+     * Trace enables trace logging.
+     */
+    trace?: boolean;
+
+    /**
+     * Reference defines the clone ref.
+     */
+    ref?: CloneRef;
 }
 
 /**

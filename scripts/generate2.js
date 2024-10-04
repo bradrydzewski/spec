@@ -155,6 +155,7 @@ generateStruct("Status",             "struct",          "status.go");
 generateStruct("StepAction",         "struct",          "step_action.go");
 generateStruct("StepApproval",       "struct",          "step_approval.go");
 generateStruct("StepBarrier",        "struct",          "step_barrier.go");
+generateStruct("StepClone",        "struct",          "step_clone.go");
 generateStruct("StepGroup",          "struct",          "step_group.go");
 generateStruct("StepQueue",          "struct",          "step_queue.go");
 generateStruct("StepRun",            "struct_or_string","step_run.go",   { property: "Script", type: "Stringorslice" });
