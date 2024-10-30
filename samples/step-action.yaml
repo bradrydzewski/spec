@@ -4,7 +4,7 @@ pipeline:
   stages:
   - steps:
     - action:
-        uses: docker/build-push-action
+        uses: docker-build-push-action
         with:
           push: true
           tags: latest

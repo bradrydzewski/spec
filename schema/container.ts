@@ -64,6 +64,9 @@ export interface ContainerLong {
     "shm-size"?: string | number
 }
 
+/**
+ * @x-go-file credentials.go
+ */
 export interface Credentials {
     /**
      * Username provides the registry username.
@@ -81,6 +84,9 @@ export interface Credentials {
     aws?: CredentialsAWS;
 }
 
+/**
+ * @x-go-file credentials_aws.go
+ */
 export interface CredentialsAWS {
     /**
      * AccessKey provides the aws access key id.

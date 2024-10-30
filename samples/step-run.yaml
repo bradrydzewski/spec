@@ -146,3 +146,25 @@ pipeline:
         script:
         - go build
         - go test
+
+---
+
+# outputs example
+
+pipeline:
+  stages:
+  - id: stage1
+    steps:
+    - id: step1
+      run:
+        script: |
+          echo "foo=bar" >> $HARNESS_OUTPUT
+    - run:
+        script: |
+          echo ${{ steps.step1.outputs.foo }}
+    outputs:
+      bar: ${{ steps.step1.outputs.foo }}
+  - steps:
+    - run:
+        script: |
+          echo ${{ stages.stage1.outputs.bar }}

@@ -1,4 +1,4 @@
-# stage template
+# template stage
 
 pipeline:
   stages:
@@ -11,7 +11,7 @@ pipeline:
         cgo-enabled: true
 
 ---
-# stage template, with template version
+# template stage with version
 
 pipeline:
   stages:
@@ -22,3 +22,26 @@ pipeline:
         goos: linux
         goarch: amd64
         cgo-enabled: true
+
+---
+# template definition (referenced by template stage)
+
+template:
+  inputs:
+    goos:
+      type: string
+      default: linux
+    goarch:
+      type: string
+      default: amd64
+    version:
+      type: string
+      default: '1.20'
+  stage:
+    steps:
+    - run:
+        container: golang:${ inputs.version }
+        script: go build
+    - run:
+        container: golang:${ inputs.version }
+        script: go build

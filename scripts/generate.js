@@ -16,13 +16,19 @@ let schema = JSON.parse(fs.readFileSync("dist/schema.json"));
 
 // for each definition
 Object.entries(schema.definitions).forEach(([k, v]) => {
+
     if (v["x-go-skip"] === true) {
         console.log("skip definition", v.title || v.name)
         return;
     }
 
+    if (!v["x-go-file"]) {
+        console.log("skip definition", v.title || v.name)
+        return;
+    }
+
     // name of the go file.
-    const filename = v["x-file"].replace(".yaml", ".go");
+    const filename = v["x-go-file"].replace(".yaml", ".go");
 
     // store the go struct details.
     let struct = {
@@ -47,36 +53,35 @@ Object.entries(schema.definitions).forEach(([k, v]) => {
         });
     });
 
-    Object.entries(v["x-properties"] || {}).forEach(([propkey, propval]) => {
-        const json = propkey;
-        const name = Case.pascal(propkey);
-
-        // append the field to the go struct
-        struct.props.push({
-            name: name,
-            json: json,
-            type: getType(propval, schema.definitions),
-        });
-    });
+    // Object.entries(v["x-properties"] || {}).forEach(([propkey, propval]) => {
+    //     const json = propkey;
+    //     const name = Case.pascal(propkey);
+    //     // append the field to the go struct
+    //     struct.props.push({
+    //         name: name,
+    //         json: json,
+    //         type: getType(propval, schema.definitions),
+    //     });
+    // });
 
     // for each enum value
     v.enum && v.enum.forEach(text => {
         struct.enum.push({name: struct.name + Case.pascal(text), text: text});
     });
 
-    // this block of code detects if we are using the type /
-    // spec pattern. If yes, we store the type enum values
-    // and their associated struct types.
-    if (v.properties && v.properties.type && v.properties.type.enum && v.oneOf) {
-        v.oneOf.forEach(({allOf}) => {
-            const name = allOf[0].properties.type.const;
-            const type = allOf[1].properties.spec.$ref.slice(14);
-            struct.types.push({
-                name: name,
-                type: type,
-            })
-        });
-    }
+    // // this block of code detects if we are using the type /
+    // // spec pattern. If yes, we store the type enum values
+    // // and their associated struct types.
+    // if (v.properties && v.properties.type && v.properties.type.enum && v.oneOf) {
+    //     v.oneOf.forEach(({allOf}) => {
+    //         const name = allOf[0].properties.type.const;
+    //         const type = allOf[1].properties.spec.$ref.slice(14);
+    //         struct.types.push({
+    //             name: name,
+    //             type: type,
+    //         })
+    //     });
+    // }
 
     // parse the handlebars templates
     const text = fs.readFileSync(`scripts/templates/${struct.enum && struct.enum.length ? "enum": "struct"}.handlebars`);

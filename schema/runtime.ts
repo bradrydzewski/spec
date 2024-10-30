@@ -1,14 +1,20 @@
 export type Runtime = RuntimeShort | RuntimeLong;
 
-export type RuntimeShort = "cloud" | "instance" | "kubernetes" | "shell";
+export type RuntimeShort = "cloud" | "vm" | "kubernetes" | "shell";
 
+/**
+ * RuntimeLong configures the runtime environment.
+ */
 export interface RuntimeLong {
     cloud?: RuntimeCloud;
-    instance?: string | RuntimeInstance;
+    vm?: RuntimeInstance; // "instance" vs "vm" as the name?
     kubernetes?: RuntimeKubernetes;
-    shell?: boolean;
+    shell?: boolean; // "shell" vs "custom" as the name? github uses "custom" but gitlab uses "shell"
 }
 
+/**
+ * MachineImage defines machine size values.
+ */
 export type MachineSize = 
     "flex"
   | "small"
@@ -17,21 +23,38 @@ export type MachineSize =
   | "xlarge"
   | "xxlarge"
 
+/**
+ * MachineImage defines possible machine image values.
+ */
 export type MachineImage = 
     "ubuntu-latest"
   | "macos-latest"
   | "wndows-latest"
 
+/**
+ * RuntimeClone configures the cloud runtime environment.
+ */
 export interface RuntimeCloud {
-    image?: MachineImage | string;
+    image?: MachineImage;
     size?: MachineSize;
 }
 
-export interface RuntimeInstance {
+export type RuntimeInstance = string | RuntimeInstanceLong;
+
+/**
+ * RuntimeInstanceLong configures the vm runtime environment.
+ */
+export interface RuntimeInstanceLong {
     image?: string;
 }
 
+/**
+ * RuntimeKubernetes configures the kubernetes runtime environment.
+ * @x-go-file runtime_kubernetes.go
+ */
 export interface RuntimeKubernetes {
-   namespace?: string; 
+  namespace?: string;
+  connector?: string;
+  // TODO(bradrydzewski) add missing kubernetes settings
 }
 

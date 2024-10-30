@@ -1,5 +1,6 @@
 /**
  * Repository defines a remote git repository.
+ * @x-go-file repository.go
  */
 export interface Repository {
 

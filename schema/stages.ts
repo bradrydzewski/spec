@@ -1,16 +1,22 @@
 import { Cache } from "./cache";
 import { Clone } from "./clone";
 import { Container } from "./container";
-import { Environment } from "./environment";
+import { Concurrency } from "./concurrency";
+import { EnvironmentRef } from "./environment";
 import { FailureStrategy } from "./failure";
+import { Permissions } from "./permissions";
 import { Platform } from "./platform";
 import { Runtime } from "./runtime";
-import { Service } from "./service";
-import { Step } from "./steps";
+import { ServiceRef } from "./service";
+import { Status } from "./status";
+import { Step, StepGroup } from "./steps";
 import { Strategy } from "./strategy";
 import { Volume } from "./volumes";
 import { Workspace } from "./workspace";
 
+/**
+ * @x-go-file stage.go
+ */
 export interface Stage {
     /**
      * Id defines the pipeline id.
@@ -23,9 +29,20 @@ export interface Stage {
     name?: string;
 
     /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     */
+    concurrency?: Concurrency;
+
+    /**
      * Clone overrides the default clone settings.
      */
     clone?: Clone;
+
+    /**
+     * Status overrides the default status settings.
+     */
+    status?: Status;
 
     /**
      * Strategy defines the matrix or looping strategy.
@@ -35,12 +52,12 @@ export interface Stage {
     /**
      * Service defines the deployment target.
      */
-    service?: Service;
+    service?: ServiceRef;
 
     /**
      * Environment defines the deployment environment (production, staging).
      */
-    environment?: Environment;
+    environment?: EnvironmentRef;
 
     /**
      * Runtime defines the execution runtime.
@@ -66,7 +83,7 @@ export interface Stage {
      * Delegage defines the delegate that should
      * handle stage execution. This is optional.
      */
-    delegate?: string;
+    delegate?: string | string[];
 
     /**
      * Approval defines an approval stage.
@@ -94,6 +111,11 @@ export interface Stage {
     steps?: Step[];
 
     /**
+     * Rollback defines the rollback steps.
+     */
+    rollback?: Step;
+
+    /**
      * If defines conditional execution logic.
      */
     if?: string;
@@ -103,14 +125,29 @@ export interface Stage {
     volumes?: Volume[];
 
     /**
-     * Needs defines stages that must be completed before this
-     * stage can run.
+     * Env defines the environment of the stage. These
+     * environment variables are shared by all steps in
+     * the stage.
      */
-    needs?: string | string[];
+    env?: Record<string, string>;
+
+    /**
+     * Outputs configures the stage to export variables for
+     * use by other stages.
+     */
+    outputs?: Record<string, any>;
 
     //
     // GitHub Specific
     //
+
+    /**
+     * Needs defines stages that must be completed before this
+     * stage can run.
+     * 
+     * @github
+     */
+    needs?: string | string[];
 
     /**
      * RunsOn defines the type of machine to run the job.
@@ -131,8 +168,19 @@ export interface Stage {
      * @github
      */
     services?: Record<string, Container>;
+
+    /**
+     * Permissions defines the permission granted to the token
+     * injected into the stage environment.
+     * 
+     * @github
+     */
+    permissions?: Permissions;
 }
 
+/**
+ * @x-go-file stage_group.go
+ */
 export interface StageGroup {
     /**
      * Parallel defines the maximum number of stages that
@@ -148,11 +196,17 @@ export interface StageGroup {
     stages?: Stage[];
 }
 
+/**
+ * @x-go-file stage_approval.go
+ */
 export interface StageApproval {
     uses?: string;
     with?: Record<string, any>;
 }
 
+/**
+ * @x-go-file stage_template.go
+ */
 export interface StageTemplate {
     uses?: string;
     with?: Record<string, any>;

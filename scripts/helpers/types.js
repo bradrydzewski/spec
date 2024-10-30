@@ -261,7 +261,17 @@ const isStringOrSlice = (node) => { // SIMPLIFY
         {
             "type": "string"
         }
-    ]);
+    ]) || deepequal(node.anyOf, [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      ]);
 }
 
 // HACK

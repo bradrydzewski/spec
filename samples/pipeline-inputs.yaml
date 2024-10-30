@@ -76,3 +76,19 @@ pipeline:
     - run:
         script: go build
         container: golang:${{ inputs.version }}
+
+---
+
+# inputs with pattern matching
+
+pipeline:
+  inputs:
+    version:
+      type: string
+      pattern: "^[0-9]+.[0-9]+.[0-9]+$"
+
+  stages:
+  - steps:
+    - run:
+        script: go build
+        container: golang:${{ inputs.version }}

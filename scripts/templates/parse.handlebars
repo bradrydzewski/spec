@@ -20,15 +20,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"os"
 
 	"github.com/ghodss/yaml"
 )
 
 // Parse parses the configuration from io.Reader r.
-func Parse(r io.Reader) (*Pipeline, error) {
-	b, err := ioutil.ReadAll(r)
+func Parse(r io.Reader) (*Schema, error) {
+	b, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}
@@ -36,31 +35,37 @@ func Parse(r io.Reader) (*Pipeline, error) {
 	if err != nil {
 		return nil, err
 	}
-	out := new(Pipeline)
+	out := new(Schema)
 	err = json.Unmarshal(b, out)
 	return out, err
 }
 
 // ParseBytes parses the configuration from bytes b.
-func ParseBytes(b []byte) (*Pipeline, error) {
+func ParseBytes(b []byte) (*Schema, error) {
 	return Parse(
 		bytes.NewBuffer(b),
 	)
 }
 
 // ParseString parses the configuration from string s.
-func ParseString(s string) (*Pipeline, error) {
+func ParseString(s string) (*Schema, error) {
 	return ParseBytes(
 		[]byte(s),
 	)
 }
 
 // ParseFile parses the configuration from path p.
-func ParseFile(p string) (*Pipeline, error) {
+func ParseFile(p string) (*Schema, error) {
 	f, err := os.Open(p)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
 	return Parse(f)
+}
+
+// IsExpression returns true if the string s is an expression.
+func IsExpression(s string) bool {
+	return strings.Contains(s, {{{{raw-helper}}}}"<+"{{{{/raw-helper}}}}) ||
+			strings.Contains(s, {{{{raw-helper}}}}"${{"{{{{/raw-helper}}}})
 }

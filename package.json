@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "generate-schema": "ts-json-schema-generator --path 'schema/Schema.ts' --type 'Schema' --out dist/schema.json",
-    "bundle": "node scripts/bundle.js",
-    "generate": "node scripts/generate.js",
-    "document": "node scripts/document.js"
+    "golang": "node scripts/generate.js",
+    "golang2": "node scripts/generate2.js",
+    "schema":  "ts-json-schema-generator --additional-properties true --validation-keywords 'x-go-file' --path 'schema/Schema.ts' --type 'Schema' --out dist/schema.json",
+    "schema2": "ts-json-schema-generator --additional-properties true --validation-keywords 'x-go-file' --path 'schema/Schema.ts' --type 'Schema' --out dist/schema.json"
   },
   "author": "",
   "license": "ISC",

@@ -25,6 +25,21 @@ pipeline:
           repo: harness/hello-world
 
 ---
+# template definition (referenced by template step)
+
+template:
+  inputs:
+    version:
+      type: string
+      default: latest
+  step:
+    run:
+      container: node:${{ inputs.version }}
+      script:
+      - npm install
+      - npm test
+
+---
 
 # sample github yaml, extended to support
 # harness templates.

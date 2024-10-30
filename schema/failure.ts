@@ -29,6 +29,7 @@ export type ActionType = "abort"
     | "stage-rollback"
     | "success";
 
+
 export interface ActionLong {
     "abort"?: boolean;
     "fail"?: boolean;
@@ -41,12 +42,18 @@ export interface ActionLong {
     "success"?: boolean;
 }
 
+/**
+ * @x-go-file action_retry.go
+ */
 export interface ActionRetry {
     "attempts"?: number;
     "interval"?: string | string[];
     "failure-action"?: Action;
 }
 
+/**
+ * @x-go-file action_manual.go
+ */
 export interface ActionManual {
     "timeout"?: string;
     "timeout-action"?: Action;

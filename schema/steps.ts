@@ -1,6 +1,8 @@
 import {Container} from "./container";
-import {Output} from "./output";
+import {CloneRef} from "./clone";
 import {FailureStrategy} from "./failure";
+import {ReportList} from "./report";
+import {Status} from "./status";
 import {Strategy} from "./strategy";
 
 export type Step = string | StepLong;
@@ -62,6 +64,11 @@ export interface StepLong {
     barrier?: StepBarrier;
 
     /**
+     * Clone clones a git repository.
+     */
+    clone?: StepClone;
+
+    /**
      * Group defines a step group.
      */
     group?: StepGroup;
@@ -81,10 +88,15 @@ export interface StepLong {
      */
     template?: StepTemplate;
 
+    //
+    // Step Types : End
+    //
+
     /**
      * Timeout defines the step timeout duration.
+     * @format duration
      */
-    timeout?: string | number;
+    timeout?: string;
 
     /**
      * Needs defines steps that must be completed before this
@@ -92,22 +104,29 @@ export interface StepLong {
      */
     needs?: string | string[];
 
-    //
-    // Step Types : End
-    //
-
     /**
      * Strategy defines the matrix or looping strategy.
      */
     strategy?: Strategy;
 
     /**
+     * Status overrides the default status settings.
+     */
+    status?: Status;
+
+    /**
      * FailureStrategy defines error handling.
      */
     "on-failure"?: FailureStrategy;
 
+    /**
+     * This property is available solely for the purpose of
+     * backward compatibility with Harness Currrent Gen.
+     */
+    delegate?: Delegate;
+
     //
-    // GitHub-Specific
+    // GitHub-Specific : Start
     //
 
     /**
@@ -131,7 +150,7 @@ export interface StepLong {
     uses?: string;
 
     /**
-     * Uses defines the github action configuration parameters.
+     * With defines the github action configuration parameters.
      * 
      * This property is available solely for the purpose of
      * backward compatibility with GitHub Actions.
@@ -139,31 +158,158 @@ export interface StepLong {
      * @github
      */
     with?: Record<string, any>;
+
+    //
+    // GitHub-Specific : End
+    //
 }
 
 //
 // Step Types
 //
 
+/**
+ * @x-go-file step_action.go
+ */
 export interface StepAction {
+    /**
+     * Uses defines the action.
+     */
     uses?: string;
+
+    /**
+     * With defines the action configuration parameters.
+     */
     with?: Record<string, any>;
+
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
 
-    output?: Output | Output[];
-    report?: Report | Report[];
+    /**
+     * Report uploads reports at the the provided path(s)
+     */
+    report?: ReportList;
+
+    // /**
+    //  * Output defines the output variables.
+    //  * @deprecated
+    //  */
+    // output?: Output | Output[];
 }
 
+/**
+ * @x-go-file step_approval.go
+ */
 export interface StepApproval {
     uses?: string;
     with?: Record<string, any>;
     env?: Record<string, string>;
 }
 
+/**
+ * @x-go-file step_barrier.go
+ */
 export interface StepBarrier {
     name: string;
 }
 
+export interface StepClone {
+    /**
+     * Repo provides the repository name.
+     */
+    repo?: string;
+
+    /**
+     * Connector provides the repository connector.
+     */
+    connector?: string;
+
+    /**
+     * Clean enables running git clean and git reset before fetching.
+     */
+    clean?: boolean;
+
+    /**
+     * Depth defines the clone depth.
+     */
+    depth?: number;
+
+    /**
+     * Disabled disables the default clone step.
+     */
+    disabled?: boolean;
+
+    /**
+     * Filter configures partial cloning against the given filter.
+     * This overrides sparse checkout if set.
+     */
+    filter?: string;
+
+    /**
+     * Insecure enables cloning without ssl verification.
+     */
+    insecure?: boolean;
+
+    /**
+     * Lfs enables cloning lfs files.
+     */
+    lfs?: boolean;
+
+    /**
+     * Path provides the relative path in the workspace where the
+     * repository is cloned.
+     */
+    path?: string;
+
+    /**
+     * SetSafeDirectory adds the repository path as safe.directory for
+     * the global git configuration.
+     */
+    'set-safe-directory'?: boolean;
+
+    /**
+     * SparseCheckout enables sparse checkout on given patterns.
+     * Each pattern should be separated with new lines.
+     */
+    'sparse-checkout'?: string;
+
+    /**
+     * SparseCheckoutCodeMode enables cone-mode when doing a sparse
+     * checkout.
+     */
+    'sparse-checkout-cone-mode'?: string;
+
+    /**
+     * Strategy configures the clone strategy.
+     */
+    strategy?: "source-branch" | "merge";
+
+    /**
+     * Submodules enables cloning all submodules;
+     */
+    submodules?: boolean;
+
+    /**
+     * Tags enables cloning all tags;
+     */
+    tags?: boolean;
+
+    /**
+     * Trace enables trace logging.
+     */
+    trace?: boolean;
+
+    /**
+     * Reference defines the clone ref.
+     */
+    ref?: CloneRef;
+}
+
+/**
+ * @x-go-file step_group.go
+ */
 export interface StepGroup {
     /**
      * Parallel defines the maximum number of steps that
@@ -179,48 +325,137 @@ export interface StepGroup {
     steps?: Step[];  
 }
 
+/**
+ * @x-go-file step_run.go
+ */
 export interface StepRun {
+    /**
+     * Shell defines the shell of the step.
+     */
     shell?: "sh" | "bash" | "powershell" | "pwsh" | "python";
+
+    /**
+     * Script runs command line scripts using the operating
+     * system's shell. Each script represents a new process and
+     * shell in the runner environment. Note that when you provide
+     * multi-line commands, each line runs in the same shell.
+     */
     script?: string | string[];
+
+    /**
+     * Container runs the step inside a container. If you do
+     * not set a container, the step will run directly on the
+     * host unless the target runtime in kubernetes, in which
+     * case the container is required.
+     */
     container?: Container;
-    output?: Output | Output[];
-    report?: Report | Report[];
 
-    //
-    // GitHub-Specific
-    //
-
-    uses?: string;
-    with?: Record<string, any>;
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
 
-    //
-    // CD-CG Backward Compatibility
-    //
+    // /**
+    //  * Output defines the step output variables.
+    //  * @deprecated
+    //  */
+    // output?: Output | Output[];
 
-    delegate?: "inherit-from-infrastrcuture" | string | string[];
+    /**
+     * Report uploads reports at the the provided path(s)
+     */
+    report?: ReportList;
 }
 
+/**
+ * @x-go-file step_queue.go
+ */
 export interface StepQueue {
     key: string;
     scope?: "pipeline" | "stage";
 }
 
+/**
+ * @x-go-file step_template.go
+ */
 export interface StepTemplate {
+    /**
+     * Uses defines the template.
+     */
     uses?: string;
+
+    /**
+     * With defines the template configuration parameters.
+     */
     with?: Record<string, any>;
+
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
 }
 
+/**
+ * @x-go-file step_tester.go
+ */
 export interface StepTest {
-    script?: string;
+    /**
+     * Shell defines the shell of the step.
+     */
+    shell?: "sh" | "bash" | "powershell" | "pwsh" | "python";
+
+    /**
+     * Script runs command line scripts using the operating
+     * system's shell. Each script represents a new process and
+     * shell in the runner environment. Note that when you provide
+     * multi-line commands, each line runs in the same shell.
+     */
+    script?: string | string[];
+
+    /**
+     * Match provides unit test matching logic in glob format.
+     */
+    match?: string | string[];
+
+    /**
+     * Container runs the step inside a container. If you do
+     * not set a container, the step will run directly on the
+     * host unless the target runtime in kubernetes, in which
+     * case the container is required.
+     */
     container?: Container;
+
+    /**
+     * Env defines the environment of the step.
+     */
     env?: Record<string, string>;
+    
+    /**
+     * Splitting configures the test splitting behavior.
+     */
     splitting?: TestSplitting;
+
+    /**
+     * Intelligence configures the test intelligence
+     * behavior.
+     */
     intelligence?: TestIntelligence;
-    output?: Output | Output[];
-    report?: Report | Report[];
+
+    /**
+     * Report uploads reports at the the provided path(s)
+     */
+    report?: ReportList;
+
+    // /**
+    //  * Output defines the output variables.
+    //  * @deprecated
+    //  */
+    // output?: Output | Output[];
 }
+
+//
+// Testing
+//
 
 export interface TestSplitting {
     disabled?: boolean;
@@ -232,10 +467,7 @@ export interface TestIntelligence {
 } 
 
 //
-// Reports
+// Delegate
 //
 
-export interface Report {
-    type?: "junit" | "xunit" | "numit";
-    path?: string;
-}
+export type Delegate = "inherit-from-infrastrcuture" | string | string[];
