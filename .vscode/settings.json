@@ -1,5 +1,8 @@
 {
     "yaml.schemas": {
-       "dist/schema.json": "samples/**.yaml",
+        "dist/schema.json": "samples/**.yaml",
+    },
+    "files.associations": {
+        "*.yaml.golden": "yaml"
     }
 }

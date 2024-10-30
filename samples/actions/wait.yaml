@@ -4,16 +4,16 @@ pipeline:
   stages:
   - steps:
     - action:
-        uses: wait
+        uses: wait # invokes "wait" action template
         with:
           duration: 10m
 
 ---
 
-# example of "wait" action definition
+# example of "wait" action template
 # TODO should "wait" be a primitive type?
 
-action:
+template:
   inputs:
     duration:
       type: duration

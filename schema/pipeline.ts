@@ -1,11 +1,17 @@
 import { Clone } from "./clone";
-import { Environment } from "./environment";
+import { Concurrency } from "./concurrency";
+import { EnvironmentRef } from "./environment";
 import { Input } from "./input";
 import { On } from "./on";
+import { Permissions } from "./permissions";
 import { Repository } from "./repository";
-import { Service } from "./service";
+import { ServiceRef } from "./service";
 import { Stage } from "./stages";
+import { Status } from "./status";
 
+/**
+ * @x-go-file pipeline.go
+ */
 export interface Pipeline {
     /**
      * Id provides a unique pipeline identifer.
@@ -25,15 +31,27 @@ export interface Pipeline {
     inputs?: Record<string, Input>;
 
     /**
+     * Delegage defines the default delegate that should
+     * handle stage execution. This is optional.
+     */
+    delegate?: string | string[];
+    
+    /**
      * Env provides global environment variables that
      * propagate to all pipeline steps.
      */
     env?: Record<string, string>;
 
-
-    environment?: Environment;
+    /**
+     * Environment defines the target deployment
+     * environment (e.g. development, prod).
+     */
+    environment?: EnvironmentRef;
     
-    service?: Service;
+    /**
+     * Service defines the service being deployed.
+     */
+    service?: ServiceRef;
 
     /**
      * Stages provides a list of stages. Each pipeline
@@ -51,6 +69,11 @@ export interface Pipeline {
      * Clone overrides the default clone behavior.
      */
     clone?: Clone;
+
+    /**
+     * Status overrides the default status behavior.
+     */
+    status?: Status;
 
     /**
      * Barriers provides optional pipeline barriers.
@@ -72,9 +95,23 @@ export interface Pipeline {
      */
     on?: On;
 
+    /**
+     * Timeout defines the step timeout duration.
+     * @format duration
+     */
+    timeout?: string;
+
     //
     // GitHub-Specific
     //
+
+    /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     * 
+     * @github
+     */
+    concurrency?: Concurrency;
 
     /**
      * Jobs defines jobs (stages) in the pipeline.
@@ -94,10 +131,5 @@ export interface Pipeline {
     /**
      * @github
      */
-    concurrency?: any;
-
-    /**
-     * @github
-     */
-    permissions?: any;
+    permissions?: Permissions;
 }

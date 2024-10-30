@@ -1,8 +1,15 @@
+import { Concurrency } from "./concurrency";
+import { Environment } from "./environment";
+import { Permissions } from "./permissions";
 import { On } from "./on";
 import { Pipeline } from "./pipeline";
 import { Stage } from "./stages";
+import { Service } from "./service";
 import { Template } from "./template";
 
+/**
+ * @x-go-file schema.go
+ */
 export interface Schema {
     /**
      * Version defines the schema version.
@@ -15,6 +22,24 @@ export interface Schema {
     pipeline?: Pipeline;
 
     /**
+     * Environment defines a deployment environment.
+     */
+    environment?: Environment
+
+    /**
+     * Service defines a service.
+     * @todo
+     */
+    service?: Service
+
+    /**
+     * Infrastructure defines the service infrastructure.
+     * 
+     * @todo
+     */
+    infrastructure?: InfraSchema;
+
+    /**
      * Template defines re-usable pipeline steps and
      * stages.
      */
@@ -22,15 +47,15 @@ export interface Schema {
 
     /**
      * Action defines re-usable pipeline steps and stages.
+     * @deprecated use "template" instead
      */
     action?: Template;
 
     /**
      * Inputset defines re-usable inputs.
-     * 
      * @todo
      */
-    inputset?: any;
+    inputset?: Record<string, any>;
 
     /**
      * Name defines the pipeline name.
@@ -84,7 +109,44 @@ export interface Schema {
      */
     env?: Record<string, string>
 
+    /**
+     * Concurrency groups provide a way to limit concurrency
+     * execution of pipelines that share the same concurrency key.
+     * 
+     * @github
+     */
+    concurrency?: Concurrency;
 
-    // TODO permissions - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
-    // TODO concurrency - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
+    /**
+     * Permissions defines the permission granted to the token
+     * injected into the pipeline environment.
+     * 
+     * @github
+     */
+    permissions?: Permissions;
+}
+
+
+
+
+
+
+
+/**
+ * @x-go-file schema_infra.go
+ */
+export interface InfraSchema {
+    id?: string;
+    name?: string;
+    tags?: Record<string, string>;
+
+    /**
+     * @deprecated
+     */
+    org?: string;
+
+    /**
+     * @deprecated
+     */
+    project?: string;
 }

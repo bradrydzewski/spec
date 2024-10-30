@@ -1,3 +1,6 @@
+/**
+ * @x-go-file input.go
+ */
 export interface Input {
 
     /**
@@ -37,6 +40,11 @@ export interface Input {
      * Enum defines a list of accepted input values.
      */
     enum?: any[]
+
+    /**
+     * Pattern defines a regular expression input constraint.
+     */
+    pattern?: string;
 
     /**
      * Options defines a list of accepted input values.

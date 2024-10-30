@@ -13,7 +13,6 @@
       ]
     },
     "ActionLong": {
-      "additionalProperties": false,
       "properties": {
         "abort": {
           "type": "boolean"
@@ -46,7 +45,6 @@
       "type": "object"
     },
     "ActionManual": {
-      "additionalProperties": false,
       "properties": {
         "timeout": {
           "type": "string"
@@ -55,10 +53,10 @@
           "$ref": "#/definitions/Action"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "action_manual.go"
     },
     "ActionRetry": {
-      "additionalProperties": false,
       "properties": {
         "attempts": {
           "type": "number"
@@ -80,7 +78,8 @@
           ]
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "action_retry.go"
     },
     "ActionType": {
       "enum": [
@@ -97,7 +96,6 @@
       "type": "string"
     },
     "Cache": {
-      "additionalProperties": false,
       "description": "Cache defines pipeline caching behavior.",
       "properties": {
         "disabled": {
@@ -145,7 +143,6 @@
       ]
     },
     "CloneLong": {
-      "additionalProperties": false,
       "properties": {
         "depth": {
           "description": "Depth defines the clone depth.",
@@ -201,7 +198,6 @@
       ]
     },
     "CloneRefLong": {
-      "additionalProperties": false,
       "properties": {
         "name": {
           "description": "Name provides the ref name. This can be the branch or tag name. Or this can be the full reference, e.g. refs/heads/main.",
@@ -223,6 +219,30 @@
       },
       "type": "object"
     },
+    "Concurrency": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/ConcurrencyLong"
+        }
+      ],
+      "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
+    },
+    "ConcurrencyLong": {
+      "properties": {
+        "cancel-in-progress": {
+          "description": "Cancel any in-progress pipelines or stages that are in-progress when a new pipeline or stage is received.",
+          "type": "boolean"
+        },
+        "group": {
+          "description": "Group provides the key used to group pipelines or stages together into a concurrency group.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "Container": {
       "anyOf": [
         {
@@ -234,7 +254,6 @@
       ]
     },
     "ContainerLong": {
-      "additionalProperties": false,
       "description": "ContainerLong defines the container configuration syntax in long form.",
       "properties": {
         "args": {
@@ -374,7 +393,6 @@
       "type": "object"
     },
     "Credentials": {
-      "additionalProperties": false,
       "properties": {
         "aws": {
           "$ref": "#/definitions/CredentialsAWS",
@@ -389,10 +407,10 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "credentials.go"
     },
     "CredentialsAWS": {
-      "additionalProperties": false,
       "properties": {
         "access-key": {
           "description": "AccessKey provides the aws access key id.",
@@ -403,20 +421,55 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "credentials_aws.go"
     },
-    "Environment": {
+    "Delegate": {
       "anyOf": [
+        {
+          "const": "inherit-from-infrastrcuture",
+          "type": "string"
+        },
         {
           "type": "string"
         },
         {
-          "$ref": "#/definitions/EnvironmentLong"
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         }
       ]
     },
+    "Environment": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "project": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "type": {
+          "$ref": "#/definitions/EnvironmentType"
+        }
+      },
+      "type": "object"
+    },
     "EnvironmentItem": {
-      "additionalProperties": false,
       "properties": {
         "deploy-to": {
           "anyOf": [
@@ -443,8 +496,17 @@
       },
       "type": "object"
     },
-    "EnvironmentLong": {
-      "additionalProperties": false,
+    "EnvironmentRef": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/EnvironmentRefLong"
+        }
+      ]
+    },
+    "EnvironmentRefLong": {
       "properties": {
         "items": {
           "items": {
@@ -458,6 +520,13 @@
       },
       "type": "object"
     },
+    "EnvironmentType": {
+      "enum": [
+        "production",
+        "non-production"
+      ],
+      "type": "string"
+    },
     "Event": {
       "anyOf": [
         {
@@ -469,7 +538,6 @@
       ]
     },
     "EventFilter": {
-      "additionalProperties": false,
       "properties": {
         "types": {
           "anyOf": [
@@ -488,7 +556,6 @@
       "type": "object"
     },
     "EventLong": {
-      "additionalProperties": false,
       "properties": {
         "branch_protection_rule": {
           "$ref": "#/definitions/EventFilter"
@@ -615,7 +682,6 @@
       "type": "string"
     },
     "FailureStrategy": {
-      "additionalProperties": false,
       "properties": {
         "action": {
           "$ref": "#/definitions/Action"
@@ -655,7 +721,6 @@
       "type": "string"
     },
     "For": {
-      "additionalProperties": false,
       "description": "For defines a for loop execution strategy.",
       "properties": {
         "iterations": {
@@ -663,10 +728,36 @@
           "type": "number"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "strategy_for.go"
+    },
+    "InfraSchema": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "project": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object",
+      "x-go-file": "schema_infra.go"
     },
     "Input": {
-      "additionalProperties": false,
       "properties": {
         "default": {},
         "description": {
@@ -693,6 +784,10 @@
           "items": {},
           "type": "array"
         },
+        "pattern": {
+          "description": "Pattern defines a regular expression input constraint.",
+          "type": "string"
+        },
         "required": {
           "description": "Required indicates the input is required.",
           "type": "boolean"
@@ -715,9 +810,11 @@
       "required": [
         "type"
       ],
-      "type": "object"
+      "type": "object",
+      "x-go-file": "input.go"
     },
     "MachineImage": {
+      "description": "MachineImage defines possible machine image values.",
       "enum": [
         "ubuntu-latest",
         "macos-latest",
@@ -726,6 +823,7 @@
       "type": "string"
     },
     "MachineSize": {
+      "description": "MachineImage defines machine size values.",
       "enum": [
         "flex",
         "small",
@@ -752,7 +850,8 @@
           "type": "array"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "strategy_matrix.go"
     },
     "Mount": {
       "anyOf": [
@@ -765,7 +864,6 @@
       ]
     },
     "MountLong": {
-      "additionalProperties": false,
       "properties": {
         "source": {
           "type": "string"
@@ -796,32 +894,125 @@
         }
       ]
     },
-    "Output": {
+    "Permissions": {
       "anyOf": [
         {
+          "const": "write-all",
           "type": "string"
         },
         {
-          "$ref": "#/definitions/OutputLong"
+          "const": "read-all",
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/PermissionsLong"
         }
-      ]
+      ],
+      "description": "Permissions defines the permission granted to the token injected into the pipeline environment."
     },
-    "OutputLong": {
-      "additionalProperties": false,
+    "PermissionsLong": {
       "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "mask": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "scope": {
+        "actions": {
           "enum": [
-            "pipeline",
-            "stage"
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "checks": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "contents": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "deployments": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "discussions": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "id-token": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "issues": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "packages": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "pages": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "pull-requests": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "repository-projects": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "security-events": {
+          "enum": [
+            "read",
+            "write",
+            "none"
+          ],
+          "type": "string"
+        },
+        "statuses": {
+          "enum": [
+            "read",
+            "write",
+            "none"
           ],
           "type": "string"
         }
@@ -829,7 +1020,6 @@
       "type": "object"
     },
     "Pipeline": {
-      "additionalProperties": false,
       "properties": {
         "barriers": {
           "description": "Barriers provides optional pipeline barriers.",
@@ -842,7 +1032,10 @@
           "$ref": "#/definitions/Clone",
           "description": "Clone overrides the default clone behavior."
         },
-        "concurrency": {},
+        "concurrency": {
+          "$ref": "#/definitions/Concurrency",
+          "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
+        },
         "default": {},
         "env": {
           "additionalProperties": {
@@ -852,7 +1045,8 @@
           "type": "object"
         },
         "environment": {
-          "$ref": "#/definitions/Environment"
+          "$ref": "#/definitions/EnvironmentRef",
+          "description": "Environment defines the target deployment environment (e.g. development, prod)."
         },
         "id": {
           "deprecated": true,
@@ -886,13 +1080,16 @@
           "$ref": "#/definitions/On",
           "description": "On provides condition pipeline execution logic based on trigger event and action mapping. If the conditional logic resolves to folse, the pipeline is skipped."
         },
-        "permissions": {},
+        "permissions": {
+          "$ref": "#/definitions/Permissions"
+        },
         "repo": {
           "$ref": "#/definitions/Repository",
           "description": "Repo overrides the default repository."
         },
         "service": {
-          "$ref": "#/definitions/Service"
+          "$ref": "#/definitions/ServiceRef",
+          "description": "Service defines the service being deployed."
         },
         "stages": {
           "description": "Stages provides a list of stages. Each pipeline is made up of one or more stages that executes sequentially.",
@@ -900,12 +1097,21 @@
             "$ref": "#/definitions/Stage"
           },
           "type": "array"
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "Status overrides the default status behavior."
+        },
+        "timeout": {
+          "description": "Timeout defines the step timeout duration.",
+          "format": "duration",
+          "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "pipeline.go"
     },
     "Platform": {
-      "additionalProperties": false,
       "description": "Platform defines the target execution environment.",
       "properties": {
         "arch": {
@@ -932,10 +1138,10 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "platform.go"
     },
     "PullRequestFilter": {
-      "additionalProperties": false,
       "properties": {
         "branches": {
           "anyOf": [
@@ -1038,7 +1244,6 @@
       "type": "object"
     },
     "PushFilter": {
-      "additionalProperties": false,
       "properties": {
         "branches": {
           "anyOf": [
@@ -1122,7 +1327,6 @@
       "type": "object"
     },
     "Report": {
-      "additionalProperties": false,
       "properties": {
         "path": {
           "type": "string"
@@ -1131,15 +1335,27 @@
           "enum": [
             "junit",
             "xunit",
-            "numit"
+            "nunit"
           ],
           "type": "string"
         }
       },
       "type": "object"
     },
+    "ReportList": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Report"
+        },
+        {
+          "items": {
+            "$ref": "#/definitions/Report"
+          },
+          "type": "array"
+        }
+      ]
+    },
     "Repository": {
-      "additionalProperties": false,
       "description": "Repository defines a remote git repository.",
       "properties": {
         "connector": {
@@ -1151,7 +1367,8 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "repository.go"
     },
     "Runtime": {
       "anyOf": [
@@ -1164,17 +1381,10 @@
       ]
     },
     "RuntimeCloud": {
-      "additionalProperties": false,
+      "description": "RuntimeClone configures the cloud runtime environment.",
       "properties": {
         "image": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/MachineImage"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/MachineImage"
         },
         "size": {
           "$ref": "#/definitions/MachineSize"
@@ -1183,7 +1393,17 @@
       "type": "object"
     },
     "RuntimeInstance": {
-      "additionalProperties": false,
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/RuntimeInstanceLong"
+        }
+      ]
+    },
+    "RuntimeInstanceLong": {
+      "description": "RuntimeInstanceLong configures the vm runtime environment.",
       "properties": {
         "image": {
           "type": "string"
@@ -1192,35 +1412,32 @@
       "type": "object"
     },
     "RuntimeKubernetes": {
-      "additionalProperties": false,
+      "description": "RuntimeKubernetes configures the kubernetes runtime environment.",
       "properties": {
+        "connector": {
+          "type": "string"
+        },
         "namespace": {
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "runtime_kubernetes.go"
     },
     "RuntimeLong": {
-      "additionalProperties": false,
+      "description": "RuntimeLong configures the runtime environment.",
       "properties": {
         "cloud": {
           "$ref": "#/definitions/RuntimeCloud"
-        },
-        "instance": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "#/definitions/RuntimeInstance"
-            }
-          ]
         },
         "kubernetes": {
           "$ref": "#/definitions/RuntimeKubernetes"
         },
         "shell": {
           "type": "boolean"
+        },
+        "vm": {
+          "$ref": "#/definitions/RuntimeInstance"
         }
       },
       "type": "object"
@@ -1228,18 +1445,22 @@
     "RuntimeShort": {
       "enum": [
         "cloud",
-        "instance",
+        "vm",
         "kubernetes",
         "shell"
       ],
       "type": "string"
     },
     "Schema": {
-      "additionalProperties": false,
       "properties": {
         "action": {
           "$ref": "#/definitions/Template",
+          "deprecated": "use \"template\" instead",
           "description": "Action defines re-usable pipeline steps and stages."
+        },
+        "concurrency": {
+          "$ref": "#/definitions/Concurrency",
+          "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
         },
         "defaults": {
           "description": "Defaults provides default settings that apply to all jobs in the workflow.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
@@ -1252,8 +1473,17 @@
           "description": "Envs defines environment variables that are available to all steps in the workflow.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         },
+        "environment": {
+          "$ref": "#/definitions/Environment",
+          "description": "Environment defines a deployment environment."
+        },
+        "infrastructure": {
+          "$ref": "#/definitions/InfraSchema",
+          "description": "Infrastructure defines the service infrastructure."
+        },
         "inputset": {
-          "description": "Inputset defines re-usable inputs."
+          "description": "Inputset defines re-usable inputs.",
+          "type": "object"
         },
         "jobs": {
           "additionalProperties": {
@@ -1270,9 +1500,17 @@
           "$ref": "#/definitions/On",
           "description": "On defines the workflow triggers.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions."
         },
+        "permissions": {
+          "$ref": "#/definitions/Permissions",
+          "description": "Permissions defines the permission granted to the token injected into the pipeline environment."
+        },
         "pipeline": {
           "$ref": "#/definitions/Pipeline",
           "description": "Pipeline defines the pipeline configuration."
+        },
+        "service": {
+          "$ref": "#/definitions/Service",
+          "description": "Service defines a service."
         },
         "template": {
           "$ref": "#/definitions/Template",
@@ -1286,20 +1524,51 @@
           ]
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "schema.go"
     },
     "Service": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "org": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "project": {
+          "deprecated": true,
+          "type": "string"
+        },
+        "tags": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "ServiceRef": {
       "anyOf": [
         {
           "type": "string"
         },
         {
-          "$ref": "#/definitions/ServiceLong"
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "$ref": "#/definitions/ServiceRefLong"
         }
       ]
     },
-    "ServiceLong": {
-      "additionalProperties": false,
+    "ServiceRefLong": {
       "properties": {
         "items": {
           "items": {
@@ -1317,7 +1586,6 @@
       "type": "object"
     },
     "Stage": {
-      "additionalProperties": false,
       "properties": {
         "approval": {
           "$ref": "#/definitions/StageApproval",
@@ -1331,12 +1599,23 @@
           "$ref": "#/definitions/Clone",
           "description": "Clone overrides the default clone settings."
         },
+        "concurrency": {
+          "$ref": "#/definitions/Concurrency",
+          "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
+        },
         "delegate": {
           "description": "Delegage defines the delegate that should handle stage execution. This is optional.",
           "type": "string"
         },
+        "env": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Env defines the environment of the stage. These environment variables are shared by all steps in the stage.",
+          "type": "object"
+        },
         "environment": {
-          "$ref": "#/definitions/Environment",
+          "$ref": "#/definitions/EnvironmentRef",
           "description": "Environment defines the deployment environment (production, staging)."
         },
         "group": {
@@ -1372,13 +1651,25 @@
         "on-failure": {
           "$ref": "#/definitions/FailureStrategy"
         },
+        "outputs": {
+          "description": "Outputs configures the stage to export variables for use by other stages.",
+          "type": "object"
+        },
         "parallel": {
           "$ref": "#/definitions/StageGroup",
           "description": "Parallel defines a set of parallel stages."
         },
+        "permissions": {
+          "$ref": "#/definitions/Permissions",
+          "description": "Permissions defines the permission granted to the token injected into the stage environment."
+        },
         "platform": {
           "$ref": "#/definitions/Platform",
           "description": "Platform defines the target platform."
+        },
+        "rollback": {
+          "$ref": "#/definitions/Step",
+          "description": "Rollback defines the rollback steps."
         },
         "runs-on": {
           "description": "RunsOn defines the type of machine to run the job.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
@@ -1389,7 +1680,7 @@
           "description": "Runtime defines the execution runtime."
         },
         "service": {
-          "$ref": "#/definitions/Service",
+          "$ref": "#/definitions/ServiceRef",
           "description": "Service defines the deployment target."
         },
         "services": {
@@ -1398,6 +1689,10 @@
           },
           "description": "Services defines background service containers.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
+        },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "Status overrides the default status settings."
         },
         "steps": {
           "description": "Steps defines a list of steps.",
@@ -1425,10 +1720,10 @@
           "description": "Workspace configures the local workspace directory."
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage.go"
     },
     "StageApproval": {
-      "additionalProperties": false,
       "properties": {
         "uses": {
           "type": "string"
@@ -1437,10 +1732,10 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage_approval.go"
     },
     "StageGroup": {
-      "additionalProperties": false,
       "properties": {
         "parallel": {
           "deprecated": true,
@@ -1455,10 +1750,10 @@
           "type": "array"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage_group.go"
     },
     "StageTemplate": {
-      "additionalProperties": false,
       "properties": {
         "uses": {
           "type": "string"
@@ -1467,7 +1762,39 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "stage_template.go"
+    },
+    "Status": {
+      "properties": {
+        "disabled": {
+          "description": "Disabled disables the status check.",
+          "type": "boolean"
+        },
+        "level": {
+          "description": "Level stes the status level.",
+          "enum": [
+            "pipeline",
+            "stage",
+            "step"
+          ],
+          "type": "string"
+        },
+        "matrix": {
+          "description": "Matrix defines how matrix statuses are handled.",
+          "enum": [
+            "itemize",
+            "aggregate"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "description": "Name sets the default status name.",
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "x-go-file": "status.go"
     },
     "Step": {
       "anyOf": [
@@ -1480,51 +1807,31 @@
       ]
     },
     "StepAction": {
-      "additionalProperties": false,
       "properties": {
         "env": {
           "additionalProperties": {
             "type": "string"
           },
+          "description": "Env defines the environment of the step.",
           "type": "object"
-        },
-        "output": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Output"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Output"
-              },
-              "type": "array"
-            }
-          ]
         },
         "report": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Report"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Report"
-              },
-              "type": "array"
-            }
-          ]
+          "$ref": "#/definitions/ReportList",
+          "description": "Report uploads reports at the the provided path(s)"
         },
         "uses": {
+          "description": "Uses defines the action.",
           "type": "string"
         },
         "with": {
+          "description": "With defines the action configuration parameters.",
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_action.go"
     },
     "StepApproval": {
-      "additionalProperties": false,
       "properties": {
         "env": {
           "additionalProperties": {
@@ -1539,10 +1846,10 @@
           "type": "object"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_approval.go"
     },
     "StepBarrier": {
-      "additionalProperties": false,
       "properties": {
         "name": {
           "type": "string"
@@ -1551,10 +1858,87 @@
       "required": [
         "name"
       ],
+      "type": "object",
+      "x-go-file": "step_barrier.go"
+    },
+    "StepClone": {
+      "properties": {
+        "clean": {
+          "description": "Clean enables running git clean and git reset before fetching.",
+          "type": "boolean"
+        },
+        "connector": {
+          "description": "Connector provides the repository connector.",
+          "type": "string"
+        },
+        "depth": {
+          "description": "Depth defines the clone depth.",
+          "type": "number"
+        },
+        "disabled": {
+          "description": "Disabled disables the default clone step.",
+          "type": "boolean"
+        },
+        "filter": {
+          "description": "Filter configures partial cloning against the given filter. This overrides sparse checkout if set.",
+          "type": "string"
+        },
+        "insecure": {
+          "description": "Insecure enables cloning without ssl verification.",
+          "type": "boolean"
+        },
+        "lfs": {
+          "description": "Lfs enables cloning lfs files.",
+          "type": "boolean"
+        },
+        "path": {
+          "description": "Path provides the relative path in the workspace where the repository is cloned.",
+          "type": "string"
+        },
+        "ref": {
+          "$ref": "#/definitions/CloneRef",
+          "description": "Reference defines the clone ref."
+        },
+        "repo": {
+          "description": "Repo provides the repository name.",
+          "type": "string"
+        },
+        "set-safe-directory": {
+          "description": "SetSafeDirectory adds the repository path as safe.directory for the global git configuration.",
+          "type": "boolean"
+        },
+        "sparse-checkout": {
+          "description": "SparseCheckout enables sparse checkout on given patterns. Each pattern should be separated with new lines.",
+          "type": "string"
+        },
+        "sparse-checkout-cone-mode": {
+          "description": "SparseCheckoutCodeMode enables cone-mode when doing a sparse checkout.",
+          "type": "string"
+        },
+        "strategy": {
+          "description": "Strategy configures the clone strategy.",
+          "enum": [
+            "source-branch",
+            "merge"
+          ],
+          "type": "string"
+        },
+        "submodules": {
+          "description": "Submodules enables cloning all submodules;",
+          "type": "boolean"
+        },
+        "tags": {
+          "description": "Tags enables cloning all tags;",
+          "type": "boolean"
+        },
+        "trace": {
+          "description": "Trace enables trace logging.",
+          "type": "boolean"
+        }
+      },
       "type": "object"
     },
     "StepGroup": {
-      "additionalProperties": false,
       "properties": {
         "parallel": {
           "deprecated": true,
@@ -1572,10 +1956,10 @@
           "type": "array"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_group.go"
     },
     "StepLong": {
-      "additionalProperties": false,
       "properties": {
         "action": {
           "$ref": "#/definitions/StepAction",
@@ -1592,6 +1976,14 @@
         "barrier": {
           "$ref": "#/definitions/StepBarrier",
           "description": "Barrier defines a step barrier."
+        },
+        "clone": {
+          "$ref": "#/definitions/StepClone",
+          "description": "Clone clones a git repository."
+        },
+        "delegate": {
+          "$ref": "#/definitions/Delegate",
+          "description": "This property is available solely for the purpose of backward compatibility with Harness Currrent Gen."
         },
         "env": {
           "additionalProperties": {
@@ -1657,6 +2049,10 @@
           "$ref": "#/definitions/StepTest",
           "description": "Test defines a run test step"
         },
+        "status": {
+          "$ref": "#/definitions/Status",
+          "description": "Status overrides the default status settings."
+        },
         "strategy": {
           "$ref": "#/definitions/Strategy",
           "description": "Strategy defines the matrix or looping strategy."
@@ -1667,24 +2063,21 @@
         },
         "timeout": {
           "description": "Timeout defines the step timeout duration.",
-          "type": [
-            "string",
-            "number"
-          ]
+          "format": "duration",
+          "type": "string"
         },
         "uses": {
           "description": "Uses defines the github action.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "string"
         },
         "with": {
-          "description": "Uses defines the github action configuration parameters.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
+          "description": "With defines the github action configuration parameters.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
           "type": "object"
         }
       },
       "type": "object"
     },
     "StepQueue": {
-      "additionalProperties": false,
       "properties": {
         "key": {
           "type": "string"
@@ -1700,62 +2093,25 @@
       "required": [
         "key"
       ],
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_queue.go"
     },
     "StepRun": {
-      "additionalProperties": false,
       "properties": {
         "container": {
-          "$ref": "#/definitions/Container"
-        },
-        "delegate": {
-          "anyOf": [
-            {
-              "const": "inherit-from-infrastrcuture",
-              "type": "string"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          ]
+          "$ref": "#/definitions/Container",
+          "description": "Container runs the step inside a container. If you do not set a container, the step will run directly on the host unless the target runtime in kubernetes, in which case the container is required."
         },
         "env": {
           "additionalProperties": {
             "type": "string"
           },
+          "description": "Env defines the environment of the step.",
           "type": "object"
         },
-        "output": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Output"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Output"
-              },
-              "type": "array"
-            }
-          ]
-        },
         "report": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Report"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Report"
-              },
-              "type": "array"
-            }
-          ]
+          "$ref": "#/definitions/ReportList",
+          "description": "Report uploads reports at the the provided path(s)"
         },
         "script": {
           "anyOf": [
@@ -1768,9 +2124,96 @@
               },
               "type": "array"
             }
-          ]
+          ],
+          "description": "Script runs command line scripts using the operating system's shell. Each script represents a new process and shell in the runner environment. Note that when you provide multi-line commands, each line runs in the same shell."
         },
         "shell": {
+          "description": "Shell defines the shell of the step.",
+          "enum": [
+            "sh",
+            "bash",
+            "powershell",
+            "pwsh",
+            "python"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "x-go-file": "step_run.go"
+    },
+    "StepTemplate": {
+      "properties": {
+        "env": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Env defines the environment of the step.",
+          "type": "object"
+        },
+        "uses": {
+          "description": "Uses defines the template.",
+          "type": "string"
+        },
+        "with": {
+          "description": "With defines the template configuration parameters.",
+          "type": "object"
+        }
+      },
+      "type": "object",
+      "x-go-file": "step_template.go"
+    },
+    "StepTest": {
+      "properties": {
+        "container": {
+          "$ref": "#/definitions/Container",
+          "description": "Container runs the step inside a container. If you do not set a container, the step will run directly on the host unless the target runtime in kubernetes, in which case the container is required."
+        },
+        "env": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Env defines the environment of the step.",
+          "type": "object"
+        },
+        "intelligence": {
+          "$ref": "#/definitions/TestIntelligence",
+          "description": "Intelligence configures the test intelligence behavior."
+        },
+        "match": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Match provides unit test matching logic in glob format."
+        },
+        "report": {
+          "$ref": "#/definitions/ReportList",
+          "description": "Report uploads reports at the the provided path(s)"
+        },
+        "script": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Script runs command line scripts using the operating system's shell. Each script represents a new process and shell in the runner environment. Note that when you provide multi-line commands, each line runs in the same shell."
+        },
+        "shell": {
+          "description": "Shell defines the shell of the step.",
           "enum": [
             "sh",
             "bash",
@@ -1780,85 +2223,15 @@
           ],
           "type": "string"
         },
-        "uses": {
-          "type": "string"
-        },
-        "with": {
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "StepTemplate": {
-      "additionalProperties": false,
-      "properties": {
-        "env": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "uses": {
-          "type": "string"
-        },
-        "with": {
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "StepTest": {
-      "additionalProperties": false,
-      "properties": {
-        "container": {
-          "$ref": "#/definitions/Container"
-        },
-        "env": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "intelligence": {
-          "$ref": "#/definitions/TestIntelligence"
-        },
-        "output": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Output"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Output"
-              },
-              "type": "array"
-            }
-          ]
-        },
-        "report": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Report"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/Report"
-              },
-              "type": "array"
-            }
-          ]
-        },
-        "script": {
-          "type": "string"
-        },
         "splitting": {
-          "$ref": "#/definitions/TestSplitting"
+          "$ref": "#/definitions/TestSplitting",
+          "description": "Splitting configures the test splitting behavior."
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "step_tester.go"
     },
     "Strategy": {
-      "additionalProperties": false,
       "properties": {
         "fail-fast": {
           "description": "FailFast defines the how to handle stage or step failure. If true, all in-progress or pending stages or steps are cancelled if any stage or step in the matrix fails.\n\nThis property is available solely for the purpose of backward compatibility with GitHub Actions.",
@@ -1881,10 +2254,11 @@
           "description": "While defines a while loop execution strategy."
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "strategy.go"
     },
     "Template": {
-      "additionalProperties": false,
+      "description": "Template defines a Pipeline, Stage or Step template.",
       "properties": {
         "inputs": {
           "additionalProperties": {
@@ -1899,10 +2273,10 @@
           "$ref": "#/definitions/Step"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "template.go"
     },
     "TestIntelligence": {
-      "additionalProperties": false,
       "properties": {
         "disabled": {
           "type": "boolean"
@@ -1911,7 +2285,6 @@
       "type": "object"
     },
     "TestSplitting": {
-      "additionalProperties": false,
       "properties": {
         "concurrency": {
           "type": "number"
@@ -1923,7 +2296,6 @@
       "type": "object"
     },
     "Volume": {
-      "additionalProperties": false,
       "properties": {
         "name": {
           "type": "string"
@@ -1961,25 +2333,24 @@
       "type": "object"
     },
     "VolumeBind": {
-      "additionalProperties": false,
       "properties": {
         "path": {
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "volume_bind.go"
     },
     "VolumeClaim": {
-      "additionalProperties": false,
       "properties": {
         "name": {
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "volume_claim.go"
     },
     "VolumeConfigMap": {
-      "additionalProperties": false,
       "properties": {
         "mode": {
           "type": "string"
@@ -1991,10 +2362,10 @@
           "type": "boolean"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "volume_config_map.go"
     },
     "VolumeTemp": {
-      "additionalProperties": false,
       "properties": {
         "limit": {
           "type": [
@@ -2007,10 +2378,10 @@
           "type": "string"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "volume_temp.go"
     },
     "While": {
-      "additionalProperties": false,
       "description": "While defines a while loop execution strategy.",
       "properties": {
         "condition": {
@@ -2022,7 +2393,8 @@
           "type": "number"
         }
       },
-      "type": "object"
+      "type": "object",
+      "x-go-file": "strategy_while.go"
     },
     "Workspace": {
       "anyOf": [
@@ -2035,7 +2407,6 @@
       ]
     },
     "WorkspaceLong": {
-      "additionalProperties": false,
       "properties": {
         "disabled": {
           "type": "boolean"
