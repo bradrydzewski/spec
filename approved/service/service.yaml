@@ -19,6 +19,8 @@ service:
           project: qa-target
           version: 1 
 
+--- 
+
 # Service V1 with K8s Manifest
 
 service:
