@@ -120,6 +120,11 @@ export interface Stage {
      */
     if?: string;
 
+    /**
+     * Disabled disables the stage.
+     */
+    disabled?: boolean;
+    
     "on-failure"?: FailureStrategy;
 
     volumes?: Volume[];
