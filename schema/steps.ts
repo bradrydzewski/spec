@@ -23,6 +23,11 @@ export interface StepLong {
      */
     if?: string;
 
+    /**
+     * Disabled disables the step.
+     */
+    disabled?: boolean;
+    
     //
     // Step Types
     //
