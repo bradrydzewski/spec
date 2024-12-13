@@ -1,0 +1,82 @@
+# Basic Environment YAML Definition for V1
+
+environment:
+  name: envin
+  id: envin ## optional
+  tags: {} ## optional
+  type: production | non-production
+  org: default  #optional
+  project: TcSvcOverrideTest # optional
+
+
+## Environment Group in V1 YAML Definition
+
+environmentGroup:
+  name: dev
+  identifier: dev
+  description: ""
+  tags: {}
+  org: default
+  project: PM_Signoff
+  environments:
+    - SAM
+    - asg
+    - ecs
+    - k8sdev
+    - k8sprod
+    - qa
+    - serverless
+
+
+
+## Example Usage Below
+
+# simple stage, with multi-service, multi-environment
+
+pipeline:
+  stages:
+  - steps:
+    - run:
+        script: go build
+    service:
+      items:
+      - petstore-frontend
+      - petstore-backend
+    environment:
+      parallel: true
+      items:
+      - name: prod
+        deploy-to: all
+      - name: stage
+        deploy-to:
+        - infra1
+        - infra2
+      - name: dev
+        deploy-to: infra3
+
+---
+
+# service and environment at the pipeline level,
+# allows us to remove propagation configuration.
+
+
+pipeline:
+  service:
+    items:
+    - petstore-frontend
+    - petstore-backend
+  environment:
+    parallel: true
+    items:
+    - name: prod
+      deploy-to: all
+  stages:
+  # override the service and environment
+  # at the stage level.
+  - service: petstore 
+    environment: prod
+    steps:
+    - run:
+        script: go build
+        
+        
