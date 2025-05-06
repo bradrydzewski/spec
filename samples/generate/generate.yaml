@@ -1,0 +1,4 @@
+pipeline:
+  generate:
+    steps:
+    - run: ./generate.sh

@@ -102,6 +102,18 @@ export interface Pipeline {
     timeout?: string;
 
     //
+    // Experimental
+    //
+
+    /**
+     * Generate defines custom logic to dynamically generate
+     * a pipeline.
+     * 
+     * @experimental
+     */
+    generate?: Stage
+
+    //
     // GitHub-Specific
     //
 
