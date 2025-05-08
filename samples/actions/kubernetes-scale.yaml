@@ -1,0 +1,9 @@
+- action:
+  uses: kubernetes-scale
+  with:
+    workload: default/Deployment/harness-example
+    replica: 2
+    percentage: 100 # optional (either replica or percentage)
+    steady-state-check: false # optional - default is false 
+
+

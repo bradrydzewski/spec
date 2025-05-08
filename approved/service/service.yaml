@@ -1,0 +1,66 @@
+# Service V1 definition of a Kubernetes Service with a primary artifact from Google Artifact Registry
+
+service:
+  id: artifact_service_gar
+  name: artifact_service_gar
+  uses: kubernetes
+  with:
+    artifacts:
+      primary: nginx_stable
+      sources:
+      - id: nginx_stable
+        uses: google-artifact-registry
+        with:
+          connector: account.gcp
+          type: docker
+          region: us-east1
+          repo: docker-test
+          package: nginx
+          project: qa-target
+          version: 1 
+
+--- 
+
+# Service V1 with K8s Manifest
+
+service:
+  id: s2
+  name: s2
+  uses: kubernetes
+  with:
+    artifacts:
+      primary: nginx_stable
+      sources:
+      - id: nginx_stable
+        uses: google-artifact-registry
+        with:
+          connector: account.gcp
+          type: docker
+          region: us-east1
+          repo: docker-test
+          package: nginx
+          project: qa-target
+          version: 1
+      - id: nginx_stable_sidecar_1
+        uses: google-artifact-registry
+        with:
+          connector: account.gcp
+          type: docker
+          region: us-east1
+          repo: docker-test
+          package: nginx
+          project: qa-target
+          version: 2
+    manifests:
+      sources:
+      - id: manifest_1
+        uses: k8s
+        with:
+          store:
+            uses: github
+            with:
+              connector: account.yaml
+              type: branch
+              path: k8s/examples/simple/templates
+              branch: main
+
