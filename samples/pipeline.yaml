@@ -53,7 +53,7 @@ pipeline:
 
 pipeline:
   # repository should be optional. If undefined,
-  # the repository and conector are the same as
+  # the repository and connector are the same as
   # where the yaml was stored.
   repo:
     name: drone/drone
@@ -75,7 +75,7 @@ jobs:
 ---
 
 # sample github pipeline, with the extended
-# harness sytnax. This pipeline includes a
+# harness syntax. This pipeline includes a
 # Harness template step, even though GitHub
 # has zero concept of templates.
 
