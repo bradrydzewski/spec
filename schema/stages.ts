@@ -4,6 +4,7 @@ import { Container } from "./container";
 import { Concurrency } from "./concurrency";
 import { EnvironmentRef } from "./environment";
 import { FailureStrategy } from "./failure";
+import { Input } from "./input";
 import { Permissions } from "./permissions";
 import { Platform } from "./platform";
 import { Runtime } from "./runtime";
@@ -27,6 +28,11 @@ export interface Stage {
      * Name defines the pipeline name.
      */
     name?: string;
+
+    /**
+     * Inputs provides stage input variables.
+     */
+    inputs?: Input;
 
     /**
      * Concurrency groups provide a way to limit concurrency

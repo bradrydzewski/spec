@@ -759,6 +759,14 @@
     },
     "Input": {
       "properties": {
+        "autofocus": {
+          "description": "Autofocus configures the form element autofocus attribute.",
+          "type": "boolean"
+        },
+        "component": {
+          "description": "Component defines the form element that should be used to render the input.",
+          "type": "string"
+        },
         "default": {},
         "description": {
           "description": "Description defines the input description.",
@@ -788,9 +796,17 @@
           "description": "Pattern defines a regular expression input constraint.",
           "type": "string"
         },
+        "placeholder": {
+          "description": "Placeholder configures the form element placeholder attribute.",
+          "type": "string"
+        },
         "required": {
           "description": "Required indicates the input is required.",
           "type": "boolean"
+        },
+        "tooltip": {
+          "description": "Tooltip configures the form element alt attribute.",
+          "type": "string"
         },
         "type": {
           "description": "Type defines the input type.",
@@ -1037,6 +1053,20 @@
           "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
         },
         "default": {},
+        "delegate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Delegage defines the default delegate that should handle stage execution. This is optional."
+        },
         "env": {
           "additionalProperties": {
             "type": "string"
@@ -1047,6 +1077,10 @@
         "environment": {
           "$ref": "#/definitions/EnvironmentRef",
           "description": "Environment defines the target deployment environment (e.g. development, prod)."
+        },
+        "generate": {
+          "$ref": "#/definitions/Stage",
+          "description": "Generate defines custom logic to dynamically generate a pipeline."
         },
         "id": {
           "deprecated": true,
@@ -1604,8 +1638,22 @@
           "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
         },
         "delegate": {
-          "description": "Delegage defines the delegate that should handle stage execution. This is optional.",
-          "type": "string"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "description": "Delegage defines the delegate that should handle stage execution. This is optional."
+        },
+        "disabled": {
+          "description": "Disabled disables the stage.",
+          "type": "boolean"
         },
         "env": {
           "additionalProperties": {
@@ -1629,6 +1677,10 @@
         "if": {
           "description": "If defines conditional execution logic.",
           "type": "string"
+        },
+        "inputs": {
+          "$ref": "#/definitions/Input",
+          "description": "Inputs provides stage input variables."
         },
         "name": {
           "description": "Name defines the pipeline name.",
@@ -1984,6 +2036,10 @@
         "delegate": {
           "$ref": "#/definitions/Delegate",
           "description": "This property is available solely for the purpose of backward compatibility with Harness Currrent Gen."
+        },
+        "disabled": {
+          "description": "Disabled disables the step.",
+          "type": "boolean"
         },
         "env": {
           "additionalProperties": {
