@@ -48,6 +48,12 @@ export interface StepLong {
     action?: StepAction;
 
     /**
+     * Codebase Clone step
+     */
+
+    clone?: StepClone;
+
+    /**
      * Approval defines an approval step.
      */
     approval?: StepApproval;
