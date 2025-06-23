@@ -15,6 +15,7 @@ export interface Input {
       | "choice"      // GitHub compatibility
       | "environment" // GitHub compatibility
       | "secret"
+      | "step"
 
     /**
      * Description defines the input description.
