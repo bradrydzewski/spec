@@ -10,7 +10,8 @@
       headers: 
         x-api-key: <+secret.getValue("api_key")>
         content-type: "application/json"
-      assertion: "expression"
+      assertion:
+        code: 200 
       body: |
         identifier: "test"
         name: "test"
