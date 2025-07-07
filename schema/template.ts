@@ -31,6 +31,15 @@ export interface Template {
      * Absolute URL to a hosted image
      */
     iconUrl?: string
+
+    id?: string
+    name?: string
+    description?: string
+    version?: string
+    author?: "harness" | string
+    alias?: "build" | "deploy"
+    module?: Array<"cd" | "ci">
+    tags?: Record<string, string>
 }
 
 type Layout = Array<InputName | InputGroup>
