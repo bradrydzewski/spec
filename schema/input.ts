@@ -1,3 +1,5 @@
+import { UiConfig } from "./ui";
+
 /**
  * @x-go-file input.go
  */
@@ -25,6 +27,7 @@ export interface Input {
 
     /**
      * @go-type: interface{}
+     * Default value populated for this input
      */
     default?: any
 
@@ -49,27 +52,6 @@ export interface Input {
     pattern?: string;
 
     /**
-     * Component defines the form element that should be used to
-     * render the input.
-     */
-    component?: "dropdown" | "text" | "number" | "date" | "datetime" | string;
-
-    /**
-     * Autofocus configures the form element autofocus attribute.
-     */
-    autofocus?: boolean;
-
-    /**
-     * Placeholder configures the form element placeholder attribute.
-     */
-    placeholder?: string;
-
-    /**
-     * Tooltip configures the form element alt attribute.
-     */
-    tooltip?: string;
-
-    /**
      * Options defines a list of accepted input values.
      * This is an alias for enum.
      * @github
@@ -81,4 +63,14 @@ export interface Input {
      * @deprecated
      */
     mask?: boolean
+
+    /**
+     * Label to be displayed in the UI for this input
+     */
+    label?: string
+
+    /**
+     * Config to override default UI rendering behaviour
+     */
+    ui?: UiConfig
 }
