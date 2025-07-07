@@ -10,10 +10,27 @@ export interface Template {
     inputs?: Record<string, Input>
     stage?: Stage;
     step?: Step;
+    
     /**
      * Provide a Layout to control ordering and grouping of inputs in the UI
      */
     layout?: Layout
+
+    /**
+     * Base64 encoded image to be shown in the list of templates
+     */
+    icon?: string
+
+    /**
+     * enum of supported logo names from Harness Design System
+     * https://harness-design.netlify.app/components/logo/#available-logos
+     */
+    iconName?: string
+
+    /**
+     * Absolute URL to a hosted image
+     */
+    iconUrl?: string
 }
 
 type Layout = Array<InputName | InputGroup>
