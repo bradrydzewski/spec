@@ -22,7 +22,7 @@ pipeline:
     - petstore-frontend
     - petstore-backend
   environment:
-    parallel: true
+    sequential: true
     items:
     - name: prod
       deploy-to: all
