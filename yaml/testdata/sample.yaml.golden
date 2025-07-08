@@ -66,6 +66,6 @@ pipeline:
           - petstore-backend
       - service:
           sequential: true
-          items:@a
+          items:
           - petstore-frontend
           - petstore-backend
