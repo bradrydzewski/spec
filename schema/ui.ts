@@ -34,9 +34,4 @@ export interface UiConfig {
      * Expression: Value will be derived by evaluating this CEL / JEXL expression
      */
     allowedValueTypes?: Array<'fixed' | 'runtime' | 'expression'>
-
-    /**
-     * Options to populate the dropdown if the `component` is "select"
-     */
-    options?: string[]
 }
