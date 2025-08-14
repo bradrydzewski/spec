@@ -1,6 +1,7 @@
 export interface FailureStrategy {
     errors?: FailureType | FailureType[];
     action?: Action;
+    exitcode?: string | string[]; // TODO
 }
 
 export type FailureType = "all"
