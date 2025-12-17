@@ -110,6 +110,11 @@ export interface Stage {
      * Template defines a stage template.
      */
     template?: StageTemplate
+    
+    /**
+     * Chain defines a chained pipeline.
+     */
+    chain?: StageChain
 
     /**
      * Steps defines a list of steps.
@@ -219,6 +224,14 @@ export interface StageApproval {
  * @x-go-file stage_template.go
  */
 export interface StageTemplate {
+    uses?: string;
+    with?: Record<string, any>;
+}
+
+/**
+ * @x-go-file stage_template.go
+ */
+export interface StageChain {
     uses?: string;
     with?: Record<string, any>;
 }
