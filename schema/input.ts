@@ -49,25 +49,9 @@ export interface Input {
     pattern?: string;
 
     /**
-     * Component defines the form element that should be used to
-     * render the input.
+     * Ui configures the ui component in run form.
      */
-    component?: "dropdown" | "text" | "number" | "date" | "datetime" | string;
-
-    /**
-     * Autofocus configures the form element autofocus attribute.
-     */
-    autofocus?: boolean;
-
-    /**
-     * Placeholder configures the form element placeholder attribute.
-     */
-    placeholder?: string;
-
-    /**
-     * Tooltip configures the form element alt attribute.
-     */
-    tooltip?: string;
+    ui?: Ui;
 
     /**
      * Options defines a list of accepted input values.
