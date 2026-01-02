@@ -1,3 +1,5 @@
+import { Ui } from "./ui";
+
 /**
  * @x-go-file input.go
  */
