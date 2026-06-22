@@ -17,6 +17,6 @@
 package yaml
 
 type ActionManual struct {
-	Timeout       string  `json:"timeout,omitempty"`
-	TimeoutAction *Action `json:"timeout-action,omitempty"`
+	Timeout       Duration `json:"timeout,omitempty"`
+	TimeoutAction *Action  `json:"timeout-action,omitempty"`
 }

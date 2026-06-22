@@ -18,7 +18,6 @@ package yaml
 
 import (
 	"encoding/json"
-	"time"
 )
 
 type Step struct {
@@ -43,7 +42,7 @@ type Step struct {
 	Status     *Status                `json:"status,omitempty"`
 	Strategy   *Strategy              `json:"strategy,omitempty"`
 	Template   *StepTemplate          `json:"template,omitempty"`
-	Timeout    time.Duration          `json:"timeout,omitempty"`
+	Timeout    Duration               `json:"timeout,omitempty"`
 	Uses       string                 `json:"uses,omitempty"`
 	With       map[string]interface{} `json:"with,omitempty"`
 
@@ -83,7 +82,7 @@ func (v *Step) UnmarshalJSON(data []byte) error {
 		Status     *Status                `json:"status,omitempty"`
 		Strategy   *Strategy              `json:"strategy,omitempty"`
 		Template   *StepTemplate          `json:"template,omitempty"`
-		Timeout    time.Duration          `json:"timeout,omitempty"`
+		Timeout    Duration               `json:"timeout,omitempty"`
 		Uses       string                 `json:"uses,omitempty"`
 		With       map[string]interface{} `json:"with,omitempty"`
 		Context    *Context               `json:"context,omitempty"`

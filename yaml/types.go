@@ -176,3 +176,27 @@ func toDurations(s []interface{}) ([]time.Duration, error) {
 	}
 	return r, nil
 }
+
+// Duration represents a duration as a string (e.g. "30s") or an integer (nanoseconds).
+  type Duration time.Duration
+
+  // UnmarshalJSON implements the unmarshal interface.
+  func (s *Duration) UnmarshalJSON(data []byte) error {
+      var intType int64
+      if err := json.Unmarshal(data, &intType); err == nil {
+          *s = Duration(intType)
+          return nil
+      }
+
+      var stringType string
+      if err := json.Unmarshal(data, &stringType); err == nil {
+          dur, err := time.ParseDuration(stringType)
+          if err != nil {
+              return err
+          }
+          *s = Duration(dur)
+          return nil
+      }
+
+      return errors.New("failed to unmarshal duration string or integer")
+  }
