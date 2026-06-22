@@ -3,9 +3,9 @@
 pipeline:
   clone: false
   stages:
-  - steps:
-    - run:
-        script: go build
+    - steps:
+      - run:
+          script: go build
 
 ---
 
@@ -15,9 +15,9 @@ pipeline:
   clone:
     disabled: true
   stages:
-  - steps:
-    - run:
-        script: go build
+    - steps:
+      - run:
+          script: go build
 
 ---
 
@@ -30,9 +30,9 @@ pipeline:
     connector: account.github
     name: harness/hello-world
   stages:
-  - steps:
-    - run:
-        script: go build
+    - steps:
+      - run:
+          script: go build
 
 ---
 
@@ -46,9 +46,9 @@ pipeline:
     connector: account.github
     name: harness/hello-world
   stages:
-  - steps:
-    - run:
-        script: go build
+    - steps:
+      - run:
+          script: go build
 
 ---
 
@@ -62,9 +62,9 @@ pipeline:
     connector: account.github
     name: harness/hello-world
   stages:
-  - steps:
-    - run:
-        script: go build
+    - steps:
+      - run:
+          script: go build
 
 ---
 
@@ -80,9 +80,9 @@ pipeline:
     connector: account.github
     name: harness/hello-world
   stages:
-  - steps:
-    - run:
-        script: go build
+    - steps:
+      - run:
+          script: go build
 
 ---
 
@@ -90,10 +90,10 @@ pipeline:
 
 pipeline:
   stages:
-  - clone: false
-    steps:
-    - run:
-        script: go build
+    - clone: false
+      steps:
+        - run:
+           script: go build
 
 ---
 
@@ -101,9 +101,9 @@ pipeline:
 
 pipeline:
   stages:
-  - clone:
-      insecure: true
-      trace: true
-    steps:
-    - run:
-        script: go build
+    - clone:
+       insecure: true
+       trace: true
+      steps:
+        - run:
+          script: go build
