@@ -32,7 +32,7 @@ export interface Stage {
     /**
      * Inputs provides stage input variables.
      */
-    inputs?: Input;
+    inputs?: Record<string, Input>;
 
     /**
      * Concurrency groups provide a way to limit concurrency

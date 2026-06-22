@@ -29,7 +29,7 @@ type Stage struct {
 	Group       *StageGroup            `json:"group,omitempty"`
 	Id          string                 `json:"id,omitempty"`
 	If          string                 `json:"if,omitempty"`
-	Inputs      *Input                 `json:"inputs,omitempty"`
+	Inputs      map[string]*Input      `json:"inputs,omitempty"`
 	Name        string                 `json:"name,omitempty"`
 	Needs       Stringorslice          `json:"needs,omitempty"`
 	OnFailure   *FailureStrategy       `json:"on-failure,omitempty"`

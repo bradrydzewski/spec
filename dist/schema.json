@@ -1698,8 +1698,11 @@
           "type": "string"
         },
         "inputs": {
-          "$ref": "#/definitions/Input",
-          "description": "Inputs provides stage input variables."
+          "additionalProperties": {
+            "$ref": "#/definitions/Input"
+          },
+          "description": "Inputs provides stage input variables.",
+          "type": "object"
         },
         "name": {
           "description": "Name defines the pipeline name.",
