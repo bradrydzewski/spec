@@ -26,7 +26,9 @@ type Step struct {
 	Approval   *StepApproval          `json:"approval,omitempty"`
 	Background *StepRun               `json:"background,omitempty"`
 	Barrier    *StepBarrier           `json:"barrier,omitempty"`
+	Clone      *StepClone             `json:"clone,omitempty"`
 	Delegate   *Delegate              `json:"delegate,omitempty"`
+	Disabled   bool                   `json:"disabled,omitempty"`
 	Env        map[string]string      `json:"env,omitempty"`
 	Group      *StepGroup             `json:"group,omitempty"`
 	Id         string                 `json:"id,omitempty"`
@@ -64,7 +66,9 @@ func (v *Step) UnmarshalJSON(data []byte) error {
 		Approval   *StepApproval          `json:"approval,omitempty"`
 		Background *StepRun               `json:"background,omitempty"`
 		Barrier    *StepBarrier           `json:"barrier,omitempty"`
+		Clone      *StepClone             `json:"clone,omitempty"`
 		Delegate   *Delegate              `json:"delegate,omitempty"`
+		Disabled   bool                   `json:"disabled,omitempty"`
 		Env        map[string]string      `json:"env,omitempty"`
 		Group      *StepGroup             `json:"group,omitempty"`
 		Id         string                 `json:"id,omitempty"`

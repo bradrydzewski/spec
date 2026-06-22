@@ -23,8 +23,10 @@ type Pipeline struct {
 	Clone       *Clone            `json:"clone,omitempty"`
 	Concurrency *Concurrency      `json:"concurrency,omitempty"`
 	Default     interface{}       `json:"default,omitempty"`
+	Delegate    Stringorslice     `json:"delegate,omitempty"`
 	Env         map[string]string `json:"env,omitempty"`
 	Environment *EnvironmentRef   `json:"environment,omitempty"`
+	Generate    *Stage            `json:"generate,omitempty"`
 	Id          string            `json:"id,omitempty"`
 	If          string            `json:"if,omitempty"`
 	Inputs      map[string]*Input `json:"inputs,omitempty"`

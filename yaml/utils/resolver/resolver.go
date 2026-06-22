@@ -91,7 +91,7 @@ func ResolveStage(stage *yaml.Stage, fn LookupFunc) error {
 	if stage.Concurrency == nil {
 		stage.Concurrency = template.Stage.Concurrency
 	}
-	if stage.Delegate == "" {
+	if len(stage.Delegate) == 0 {
 		stage.Delegate = template.Stage.Delegate
 	}
 	if len(stage.Env) == 0 { // TODO append

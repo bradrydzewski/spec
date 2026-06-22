@@ -17,6 +17,8 @@
 package yaml
 
 type Input struct {
+	Autofocus   bool        `json:"autofocus,omitempty"`
+	Component   string      `json:"component,omitempty"`
 	Default     interface{} `json:"default,omitempty"`
 	Description string      `json:"description,omitempty"`
 	Enum        interface{} `json:"enum,omitempty"`
@@ -24,6 +26,8 @@ type Input struct {
 	Mask        bool        `json:"mask,omitempty"`
 	Options     interface{} `json:"options,omitempty"`
 	Pattern     string      `json:"pattern,omitempty"`
+	Placeholder string      `json:"placeholder,omitempty"`
 	Required    bool        `json:"required,omitempty"`
+	Tooltip     string      `json:"tooltip,omitempty"`
 	Type        string      `json:"type,omitempty"`
 }

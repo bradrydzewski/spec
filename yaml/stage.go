@@ -21,12 +21,14 @@ type Stage struct {
 	Cache       *Cache                 `json:"cache,omitempty"`
 	Clone       *Clone                 `json:"clone,omitempty"`
 	Concurrency *Concurrency           `json:"concurrency,omitempty"`
-	Delegate    string                 `json:"delegate,omitempty"`
+	Delegate    Stringorslice          `json:"delegate,omitempty"`
+	Disabled    bool                   `json:"disabled,omitempty"`
 	Env         map[string]string      `json:"env,omitempty"`
 	Environment *EnvironmentRef        `json:"environment,omitempty"`
 	Group       *StageGroup            `json:"group,omitempty"`
 	Id          string                 `json:"id,omitempty"`
 	If          string                 `json:"if,omitempty"`
+	Inputs      *Input                 `json:"inputs,omitempty"`
 	Name        string                 `json:"name,omitempty"`
 	Needs       Stringorslice          `json:"needs,omitempty"`
 	OnFailure   *FailureStrategy       `json:"on-failure,omitempty"`
