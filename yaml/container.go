@@ -29,13 +29,13 @@ type Container struct {
 	ExtraHosts  Stringorslice     `json:"extra-hosts,omitempty"`
 	Group       StringorInt       `json:"group,omitempty"`
 	Image       string            `json:"image,omitempty"`
-	Memory      StringorInt       `json:"memory,omitempty"`
+	Memory      MemStringorInt    `json:"memory,omitempty"`
 	Network     string            `json:"network,omitempty"`
 	NetworkMode string            `json:"network-mode,omitempty"`
 	Ports       []string          `json:"ports,omitempty"`
 	Privileged  bool              `json:"privileged,omitempty"`
 	Pull        string            `json:"pull,omitempty"`
-	ShmSize     StringorInt       `json:"shm-size,omitempty"`
+	ShmSize     MemStringorInt    `json:"shm-size,omitempty"`
 	User        StringorInt       `json:"user,omitempty"`
 	Volumes     []*Mount          `json:"volumes,omitempty"`
 	Workdir     string            `json:"workdir,omitempty"`
@@ -55,13 +55,13 @@ func (v *Container) UnmarshalJSON(data []byte) error {
 		ExtraHosts  Stringorslice     `json:"extra-hosts,omitempty"`
 		Group       StringorInt       `json:"group,omitempty"`
 		Image       string            `json:"image,omitempty"`
-		Memory      StringorInt       `json:"memory,omitempty"`
+		Memory      MemStringorInt    `json:"memory,omitempty"`
 		Network     string            `json:"network,omitempty"`
 		NetworkMode string            `json:"network-mode,omitempty"`
 		Ports       []string          `json:"ports,omitempty"`
 		Privileged  bool              `json:"privileged,omitempty"`
 		Pull        string            `json:"pull,omitempty"`
-		ShmSize     StringorInt       `json:"shm-size,omitempty"`
+		ShmSize     MemStringorInt    `json:"shm-size,omitempty"`
 		User        StringorInt       `json:"user,omitempty"`
 		Volumes     []*Mount          `json:"volumes,omitempty"`
 		Workdir     string            `json:"workdir,omitempty"`
