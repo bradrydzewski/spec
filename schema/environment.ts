@@ -20,7 +20,7 @@ export interface Environment {
 export type EnvironmentRef = string | EnvironmentRefLong;
 
 export interface EnvironmentRefLong {
-    parallel?: boolean;
+    sequential?: boolean;
     items?: EnvironmentItem[];
 }
 

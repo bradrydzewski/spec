@@ -87,6 +87,11 @@ export interface StepLong {
      */
     template?: StepTemplate;
 
+    /**
+     * Agent is syntactic sugar for a template of type agent.
+     */
+    agent?: StepTemplate;
+
     //
     // Step Types : End
     //

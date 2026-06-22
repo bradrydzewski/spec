@@ -18,6 +18,6 @@ export interface Service {
 export type ServiceRef = string | string[] | ServiceRefLong;
 
 export interface ServiceRefLong {
-    parallel?: boolean;
+    sequential?: boolean;
     items: string[];
 }
