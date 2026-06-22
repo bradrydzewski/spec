@@ -149,6 +149,7 @@ generateStruct("Service",            "struct",          "service.go");
 generateStruct("ServiceRef",         "struct_or_string","service_ref.go",   { property: "Items", type: "Stringorslice" });
 generateStruct("Stage",              "struct",          "stage.go");
 generateStruct("StageApproval",      "struct",          "stage_approval.go");
+generateStruct("StageChain",      "struct",          "stage_chain.go");
 generateStruct("StageGroup",         "struct",          "stage_group.go");
 generateStruct("StageTemplate",      "struct",          "stage_template.go");
 generateStruct("Status",             "struct",          "status.go");

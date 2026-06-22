@@ -19,6 +19,7 @@ package yaml
 type Stage struct {
 	Approval    *StageApproval         `json:"approval,omitempty"`
 	Cache       *Cache                 `json:"cache,omitempty"`
+	Chain       *StageChain            `json:"chain,omitempty"`
 	Clone       *Clone                 `json:"clone,omitempty"`
 	Concurrency *Concurrency           `json:"concurrency,omitempty"`
 	Delegate    Stringorslice          `json:"delegate,omitempty"`

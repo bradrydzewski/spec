@@ -16,30 +16,7 @@
 
 package yaml
 
-import "encoding/json"
-
-type ServiceRef struct {
-	Items      []string `json:"items,omitempty"`
-	Sequential bool     `json:"sequential,omitempty"`
-}
-
-// UnmarshalJSON implement the json.Unmarshaler interface.
-func (v *ServiceRef) UnmarshalJSON(data []byte) error {
-	var out1 Stringorslice
-	var out2 = struct {
-		Items      []string `json:"items,omitempty"`
-		Sequential bool     `json:"sequential,omitempty"`
-	}{}
-
-	if err := json.Unmarshal(data, &out1); err == nil {
-		v.Items = out1
-		return nil
-	}
-
-	if err := json.Unmarshal(data, &out2); err == nil {
-		*v = out2
-		return nil
-	} else {
-		return err
-	}
+type StageChain struct {
+	Uses string                 `json:"uses,omitempty"`
+	With map[string]interface{} `json:"with,omitempty"`
 }

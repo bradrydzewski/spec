@@ -17,6 +17,7 @@
 package yaml
 
 type FailureStrategy struct {
-	Action *Action     `json:"action,omitempty"`
-	Errors interface{} `json:"errors,omitempty"`
+	Action   *Action       `json:"action,omitempty"`
+	Errors   interface{}   `json:"errors,omitempty"`
+	Exitcode Stringorslice `json:"exitcode,omitempty"`
 }

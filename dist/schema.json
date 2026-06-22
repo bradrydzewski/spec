@@ -514,7 +514,7 @@
           },
           "type": "array"
         },
-        "parallel": {
+        "sequential": {
           "type": "boolean"
         }
       },
@@ -698,6 +698,19 @@
               "type": "array"
             }
           ]
+        },
+        "exitcode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ]
         }
       },
       "type": "object"
@@ -818,7 +831,9 @@
             "duration",
             "choice",
             "environment",
-            "secret"
+            "secret",
+            "step",
+            "object"
           ],
           "type": "string"
         }
@@ -1610,7 +1625,7 @@
           },
           "type": "array"
         },
-        "parallel": {
+        "sequential": {
           "type": "boolean"
         }
       },
@@ -1628,6 +1643,10 @@
         "cache": {
           "$ref": "#/definitions/Cache",
           "description": "Cache defines the cache configuration."
+        },
+        "chain": {
+          "$ref": "#/definitions/StageChain",
+          "description": "Chain defines a chained pipeline."
         },
         "clone": {
           "$ref": "#/definitions/Clone",
@@ -1786,6 +1805,18 @@
       },
       "type": "object",
       "x-go-file": "stage_approval.go"
+    },
+    "StageChain": {
+      "properties": {
+        "uses": {
+          "type": "string"
+        },
+        "with": {
+          "type": "object"
+        }
+      },
+      "type": "object",
+      "x-go-file": "stage_template.go"
     },
     "StageGroup": {
       "properties": {
@@ -2016,6 +2047,10 @@
         "action": {
           "$ref": "#/definitions/StepAction",
           "description": "Action defines an action step."
+        },
+        "agent": {
+          "$ref": "#/definitions/StepTemplate",
+          "description": "Agent is syntactic sugar for a template of type agent."
         },
         "approval": {
           "$ref": "#/definitions/StepApproval",
