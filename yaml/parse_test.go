@@ -46,7 +46,6 @@ func TestParseWorkflowAliases(t *testing.T) {
 			name: "workflow",
 			input: `
 workflow:
-  scope: account
   steps:
     - run: echo hello
 `,
@@ -56,7 +55,6 @@ workflow:
 			name: "pipeline",
 			input: `
 pipeline:
-  scope: org
   steps:
     - run: echo hello
 `,
@@ -66,7 +64,6 @@ pipeline:
 			name: "agent",
 			input: `
 agent:
-  scope: system
   steps:
     - run: echo hello
 `,
@@ -90,9 +87,6 @@ agent:
 			}
 			if workflow == nil {
 				t.Fatal("expected canonical workflow")
-			}
-			if workflow.Scope == "" {
-				t.Fatal("expected workflow scope")
 			}
 		})
 	}

@@ -43,19 +43,6 @@ agent:
 
 A document should define only one of these root keys.
 
-## Workflow scope
-
-Workflows can declare the scope where they are stored and resolved:
-
-```yaml
-workflow:
-  scope: account
-  steps:
-    - run: echo account workflow
-```
-
-Valid scope values are `system`, `account`, `org`, and `project`.
-
 ## Root steps
 
 Stages are optional. If `steps` is defined directly under the workflow, those

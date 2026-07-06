@@ -25,24 +25,6 @@ export interface Pipeline {
     name?: string;
 
     /**
-     * Scope defines where the workflow is stored and
-     * which resources it can reference.
-     */
-    scope?: "system" | "account" | "org" | "project";
-
-    /**
-     * Org defines the organization identifier for org and
-     * project scoped workflows.
-     */
-    org?: string;
-
-    /**
-     * Project defines the project identifier for project
-     * scoped workflows.
-     */
-    project?: string;
-
-    /**
      * Inputs provides pipeline input variables.
      */
     inputs?: Record<string, Input>;

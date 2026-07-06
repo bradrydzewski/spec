@@ -1127,30 +1127,12 @@
           "$ref": "#/definitions/On",
           "description": "On provides condition pipeline execution logic based on trigger event and action mapping. If the conditional logic resolves to folse, the pipeline is skipped."
         },
-        "org": {
-          "description": "Org defines the organization identifier for org and project scoped workflows.",
-          "type": "string"
-        },
         "permissions": {
           "$ref": "#/definitions/Permissions"
-        },
-        "project": {
-          "description": "Project defines the project identifier for project scoped workflows.",
-          "type": "string"
         },
         "repo": {
           "$ref": "#/definitions/Repository",
           "description": "Repo overrides the default repository."
-        },
-        "scope": {
-          "description": "Scope defines where the workflow is stored and which resources it can reference.",
-          "enum": [
-            "system",
-            "account",
-            "org",
-            "project"
-          ],
-          "type": "string"
         },
         "service": {
           "$ref": "#/definitions/ServiceRef",
