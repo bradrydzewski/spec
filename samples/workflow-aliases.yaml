@@ -1,0 +1,17 @@
+# workflow, pipeline, and agent are aliases for the same schema.
+
+workflow:
+  steps:
+    - run: echo workflow
+
+---
+
+pipeline:
+  steps:
+    - run: echo pipeline
+
+---
+
+agent:
+  steps:
+    - run: echo agent

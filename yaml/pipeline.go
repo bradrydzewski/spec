@@ -31,10 +31,14 @@ type Pipeline struct {
 	Jobs        map[string]*Stage `json:"jobs,omitempty"`
 	Name        string            `json:"name,omitempty"`
 	On          *On               `json:"on,omitempty"`
+	Org         string            `json:"org,omitempty"`
 	Permissions *Permissions      `json:"permissions,omitempty"`
+	Project     string            `json:"project,omitempty"`
 	Repo        *Repository       `json:"repo,omitempty"`
+	Scope       string            `json:"scope,omitempty"`
 	Service     *ServiceRef       `json:"service,omitempty"`
 	Stages      []*Stage          `json:"stages,omitempty"`
 	Status      *Status           `json:"status,omitempty"`
+	Steps       []*Step           `json:"steps,omitempty"`
 	Timeout     Duration          `json:"timeout,omitempty"`
 }

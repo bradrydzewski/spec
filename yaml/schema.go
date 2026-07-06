@@ -18,6 +18,7 @@ package yaml
 
 type Schema struct {
 	Action         *Template              `json:"action,omitempty"`
+	Agent          *Pipeline              `json:"agent,omitempty"`
 	Concurrency    *Concurrency           `json:"concurrency,omitempty"`
 	Defaults       map[string]interface{} `json:"defaults,omitempty"`
 	Env            map[string]string      `json:"env,omitempty"`
@@ -32,4 +33,5 @@ type Schema struct {
 	Service        *Service               `json:"service,omitempty"`
 	Template       *Template              `json:"template,omitempty"`
 	Version        StringorInt            `json:"version,omitempty"`
+	Workflow       *Pipeline              `json:"workflow,omitempty"`
 }

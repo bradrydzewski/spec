@@ -1098,8 +1098,7 @@
           "description": "Generate defines custom logic to dynamically generate a pipeline."
         },
         "id": {
-          "deprecated": true,
-          "description": "Id provides a unique pipeline identifer.",
+          "description": "Id provides a unique workflow identifier.",
           "type": "string"
         },
         "if": {
@@ -1121,20 +1120,37 @@
           "type": "object"
         },
         "name": {
-          "deprecated": true,
-          "description": "Name provides a pipeline name.",
+          "description": "Name provides a workflow display name.",
           "type": "string"
         },
         "on": {
           "$ref": "#/definitions/On",
           "description": "On provides condition pipeline execution logic based on trigger event and action mapping. If the conditional logic resolves to folse, the pipeline is skipped."
         },
+        "org": {
+          "description": "Org defines the organization identifier for org and project scoped workflows.",
+          "type": "string"
+        },
         "permissions": {
           "$ref": "#/definitions/Permissions"
+        },
+        "project": {
+          "description": "Project defines the project identifier for project scoped workflows.",
+          "type": "string"
         },
         "repo": {
           "$ref": "#/definitions/Repository",
           "description": "Repo overrides the default repository."
+        },
+        "scope": {
+          "description": "Scope defines where the workflow is stored and which resources it can reference.",
+          "enum": [
+            "system",
+            "account",
+            "org",
+            "project"
+          ],
+          "type": "string"
         },
         "service": {
           "$ref": "#/definitions/ServiceRef",
@@ -1150,6 +1166,13 @@
         "status": {
           "$ref": "#/definitions/Status",
           "description": "Status overrides the default status behavior."
+        },
+        "steps": {
+          "description": "Steps provides a list of steps that execute in an implicit default stage before explicitly defined stages.",
+          "items": {
+            "$ref": "#/definitions/Step"
+          },
+          "type": "array"
         },
         "timeout": {
           "description": "Timeout defines the step timeout duration.",
@@ -1507,6 +1530,10 @@
           "deprecated": "use \"template\" instead",
           "description": "Action defines re-usable pipeline steps and stages."
         },
+        "agent": {
+          "$ref": "#/definitions/Pipeline",
+          "description": "Agent defines the workflow configuration.\n\nThis is an alias for workflow and is used for AI-driven workflows."
+        },
         "concurrency": {
           "$ref": "#/definitions/Concurrency",
           "description": "Concurrency groups provide a way to limit concurrency execution of pipelines that share the same concurrency key."
@@ -1555,7 +1582,7 @@
         },
         "pipeline": {
           "$ref": "#/definitions/Pipeline",
-          "description": "Pipeline defines the pipeline configuration."
+          "description": "Pipeline defines the workflow configuration.\n\nThis is an alias for workflow and is preserved for backward compatibility."
         },
         "service": {
           "$ref": "#/definitions/Service",
@@ -1571,6 +1598,10 @@
             "string",
             "number"
           ]
+        },
+        "workflow": {
+          "$ref": "#/definitions/Pipeline",
+          "description": "Workflow defines the workflow configuration."
         }
       },
       "type": "object",

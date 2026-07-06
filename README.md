@@ -15,3 +15,49 @@ Generate the parser code at `dist/go`
 ```
 npm run golang
 ```
+
+## Workflow aliases
+
+The `workflow`, `pipeline`, and `agent` root keys are interchangeable aliases
+for the same underlying schema and execution concept. `workflow` is the
+canonical name for new examples, while `pipeline` is preserved for backward
+compatibility and `agent` is available for AI-driven workflows.
+
+```yaml
+workflow:
+  steps:
+    - run: echo hello world
+```
+
+```yaml
+pipeline:
+  steps:
+    - run: echo hello world
+```
+
+```yaml
+agent:
+  steps:
+    - run: echo hello world
+```
+
+A document should define only one of these root keys.
+
+## Workflow scope
+
+Workflows can declare the scope where they are stored and resolved:
+
+```yaml
+workflow:
+  scope: account
+  steps:
+    - run: echo account workflow
+```
+
+Valid scope values are `system`, `account`, `org`, and `project`.
+
+## Root steps
+
+Stages are optional. If `steps` is defined directly under the workflow, those
+steps run in an implicit default stage. If both root `steps` and explicit
+`stages` are defined, the root steps run first.

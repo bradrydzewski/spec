@@ -1,0 +1,15 @@
+# root steps execute in an implicit default stage
+workflow:
+  steps:
+    - run: echo preflight
+
+---
+
+# root steps execute before explicit stages
+workflow:
+  steps:
+    - run: echo preflight
+  stages:
+    - name: build
+      steps:
+        - run: echo build

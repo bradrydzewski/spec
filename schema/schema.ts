@@ -17,9 +17,25 @@ export interface Schema {
     version?: string | number;
 
     /**
-     * Pipeline defines the pipeline configuration.
+     * Workflow defines the workflow configuration.
+     */
+    workflow?: Pipeline;
+
+    /**
+     * Pipeline defines the workflow configuration.
+     *
+     * This is an alias for workflow and is preserved for
+     * backward compatibility.
      */
     pipeline?: Pipeline;
+
+    /**
+     * Agent defines the workflow configuration.
+     *
+     * This is an alias for workflow and is used for
+     * AI-driven workflows.
+     */
+    agent?: Pipeline;
 
     /**
      * Environment defines a deployment environment.
