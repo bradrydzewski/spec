@@ -13,8 +13,9 @@ export interface Input {
       | "array" 
       | "duration"
       | "choice"      // GitHub compatibility
-      | "environment" // GitHub compatibility
+      | "environment"
       | "secret"
+      | "service"
       | "step"
       | "object"
 
