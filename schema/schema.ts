@@ -46,6 +46,12 @@ export interface Schema {
     template?: Template;
 
     /**
+     * Agent is an alias for Template;
+     * Agent defines re-usable pipeline steps and stages.
+     */
+    agent?: Template;
+    
+    /**
      * Action defines re-usable pipeline steps and stages.
      * @deprecated use "template" instead
      */
