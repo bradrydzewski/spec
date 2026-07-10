@@ -36,6 +36,114 @@ func TestParse(t *testing.T) {
 	}
 }
 
+func TestParseWorkflowAliases(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+		alias string
+	}{
+		{
+			name: "workflow",
+			input: `
+workflow:
+  steps:
+    - run: echo hello
+`,
+			alias: AliasWorkflow,
+		},
+		{
+			name: "pipeline",
+			input: `
+pipeline:
+  steps:
+    - run: echo hello
+`,
+			alias: AliasPipeline,
+		},
+		{
+			name: "agent",
+			input: `
+agent:
+  steps:
+    - run: echo hello
+`,
+			alias: AliasAgent,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			out, err := ParseString(test.input)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			workflow, alias, err := out.CanonicalWorkflow()
+			if err != nil {
+				t.Fatal(err)
+			}
+			if alias != test.alias {
+				t.Fatalf("got alias %q, want %q", alias, test.alias)
+			}
+			if workflow == nil {
+				t.Fatal("expected canonical workflow")
+			}
+		})
+	}
+}
+
+func TestParseWorkflowAliasConflict(t *testing.T) {
+	_, err := ParseString(`
+workflow:
+  steps:
+    - run: echo workflow
+pipeline:
+  steps:
+    - run: echo pipeline
+`)
+	if err == nil {
+		t.Fatal("expected alias conflict")
+	}
+	if !strings.Contains(err.Error(), "mutually exclusive") {
+		t.Fatalf("unexpected error: %v", err)
+	}
+}
+
+func TestNormalizedWorkflowRootSteps(t *testing.T) {
+	out, err := ParseString(`
+workflow:
+  steps:
+    - run: echo preflight
+  stages:
+    - name: build
+      steps:
+        - run: echo build
+`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	workflow, alias, err := out.NormalizedWorkflow()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if alias != AliasWorkflow {
+		t.Fatalf("got alias %q, want %q", alias, AliasWorkflow)
+	}
+	if got, want := len(workflow.Stages), 2; got != want {
+		t.Fatalf("got %d stages, want %d", got, want)
+	}
+	if got, want := workflow.Stages[0].Name, "default"; got != want {
+		t.Fatalf("got stage name %q, want %q", got, want)
+	}
+	if got, want := len(workflow.Stages[0].Steps), 1; got != want {
+		t.Fatalf("got %d default stage steps, want %d", got, want)
+	}
+	if got, want := workflow.Stages[1].Name, "build"; got != want {
+		t.Fatalf("got second stage name %q, want %q", got, want)
+	}
+}
+
 func diff(file string) (string, error) {
 	// parse the yaml file and marshal to json
 	parsed, err := ParseFile(file)

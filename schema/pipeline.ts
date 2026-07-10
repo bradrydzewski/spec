@@ -7,6 +7,7 @@ import { Permissions } from "./permissions";
 import { Repository } from "./repository";
 import { ServiceRef } from "./service";
 import { Stage } from "./stages";
+import { Step } from "./steps";
 import { Status } from "./status";
 
 /**
@@ -14,14 +15,12 @@ import { Status } from "./status";
  */
 export interface Pipeline {
     /**
-     * Id provides a unique pipeline identifer.
-     * @deprecated
+     * Id provides a unique workflow identifier.
      */
     id?: string;
 
     /**
-     * Name provides a pipeline name.
-     * @deprecated
+     * Name provides a workflow display name.
      */
     name?: string;
 
@@ -59,6 +58,12 @@ export interface Pipeline {
      * sequentially.
      */
     stages?: Stage[];
+
+    /**
+     * Steps provides a list of steps that execute in an
+     * implicit default stage before explicitly defined stages.
+     */
+    steps?: Step[];
 
     /**
      * Repo overrides the default repository.
