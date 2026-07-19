@@ -1,3 +1,4 @@
+import {McpServer} from "./agent";
 import {Container} from "./container";
 import {CloneRef} from "./clone";
 import {FailureStrategy} from "./failure";
@@ -36,6 +37,11 @@ export interface StepLong {
      * Run defines a run step.
      */
     run?: string | StepRun;
+
+    /**
+     * Agent defines an agent step.
+     */
+    agent?: string | StepAgent;
 
     /**
      * Test defines a run test step
@@ -475,3 +481,58 @@ export interface TestIntelligence {
 //
 
 export type Delegate = "inherit-from-infrastrcuture" | string | string[];
+
+//
+// StepAgent (Step-Level Agent)
+//
+
+/**
+ * StepAgent defines an AI agent step configuration. Agent-specific fields (mcp, rules, skills) at step level are merged with pipeline-level Agent configuration using merge strategy.
+ * @x-go-file step_agent.go
+ */
+export interface StepAgent {
+    /**
+     * Container runs the agent inside a container.
+     */
+    container?: Container;
+
+    /**
+     * Env defines the environment variables for the agent.
+     */
+    env?: Record<string, string>;
+
+    /**
+     * With defines configuration parameters passed to the agent.
+     */
+    with?: Record<string, any>;
+
+    /**
+     * Mcp defines MCP servers for this agent step.
+     * Merged with pipeline-level mcp configuration.
+     */
+    mcp?: Record<string, McpServer>;
+
+    /**
+     * Rules defines behavioral constraints for this agent step.
+     * Supports file paths, inline text, and entity references
+     * (e.g., "account.golang", "project.*").
+     * Merged with pipeline-level rules.
+     */
+    rules?: string[];
+
+    /**
+     * Skills defines skill files for this agent step.
+     * Merged with pipeline-level skills.
+     */
+    skills?: string[];
+
+    /**
+     * MaxTurns defines the maximum number of agentic turns before forced stop.
+     */
+    max_turns?: number;
+
+    /**
+     * Task defines the task prompt or path to a task file.
+     */
+    task?: string;
+}
